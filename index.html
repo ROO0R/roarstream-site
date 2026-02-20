@@ -54,11 +54,11 @@
     }
     .side::before{
       content:"";
-      position:absolute; inset:0;
-      background-size: cover;
-      background-position: center;
-      background-repeat:no-repeat;
-      transform: scale(1.02);
+      position:absolute; 
+      inset:0;
+      background-size: auto;        /* do NOT scale */
+      background-repeat: repeat;    /* tile in both X and Y */
+      background-position: top left;
     }
     .side::after{
       /* subtle dark tint so the art doesn’t scream too hard */
