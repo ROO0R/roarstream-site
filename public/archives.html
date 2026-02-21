@@ -679,6 +679,55 @@
       border-bottom-color: transparent;
     }
 
+    /* Pagination (NEW) */
+    .pagination{
+      margin: 18px auto 6px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 14px;
+      font-size: 15px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pagination button{
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(145,70,255,.18);
+      color: #fff;
+      cursor:pointer;
+      font-family: inherit;
+      transition: transform .12s ease, filter .12s ease, box-shadow .12s ease;
+    }
+
+    .pagination button:hover{
+      transform: translateY(-1px);
+      filter: saturate(1.05);
+      box-shadow: 0 14px 46px rgba(0,0,0,.35);
+    }
+
+    .pagination button:disabled{
+      opacity:.45;
+      cursor:not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .pagination span{
+      color: var(--muted);
+      min-width: 140px;
+      text-align:center;
+      letter-spacing: .02em;
+      opacity:.95;
+    }
+
+    .pagination button:focus-visible{
+      outline: 3px solid rgba(184,132,255,.85);
+      outline-offset: 3px;
+    }
+
     /* Footer */
     footer{
       margin-top: 18px;
@@ -797,6 +846,13 @@
 
       <section class="gallery" id="gallery" aria-label="Playlist gallery"></section>
 
+      <!-- Pagination (NEW) -->
+      <nav class="pagination" aria-label="Pagination">
+        <button id="prevPage" type="button" disabled>← Prev</button>
+        <span id="pageInfo" aria-live="polite"></span>
+        <button id="nextPage" type="button">Next →</button>
+      </nav>
+
       <footer aria-label="Footer">
         <div>© Roarstream • VODs &amp; playlists</div>
         <div class="footlinks">
@@ -825,7 +881,6 @@
 
   function escapeHTML(s){
     const str = (s ?? "").toString();
-    // replaceAll is fine in modern browsers, but this is safer everywhere
     return str
       .replace(/&/g,"&amp;")
       .replace(/</g,"&lt;")
@@ -876,13 +931,21 @@
   const cardsData = Array.isArray(cfg?.playlists) ? cfg.playlists : [];
   gallery.innerHTML = cardsData.map(cardHTML).join("");
 
-  // Hook up filter + search
+  // Hook up filter + search + pagination
   const chips = Array.from(document.querySelectorAll(".chip"));
   const search = document.getElementById("search");
   const count = document.getElementById("count");
 
   let cards = Array.from(document.querySelectorAll(".card"));
   let activeFilter = "all";
+
+  // Pagination state (NEW)
+  const PAGE_SIZE = 10;
+  let currentPage = 1;
+
+  const prevBtn = document.getElementById("prevPage");
+  const nextBtn = document.getElementById("nextPage");
+  const pageInfo = document.getElementById("pageInfo");
 
   function normalize(s){ return (s || "").toLowerCase().trim(); }
 
@@ -910,13 +973,25 @@
   }
 
   function apply(){
-    let visible = 0;
-    for (const card of cards){
-      const ok = matchesFilter(card) && matchesSearch(card);
-      card.style.display = ok ? "" : "none";
-      if (ok) visible++;
-    }
-    count.textContent = `${visible} playlist${visible === 1 ? "" : "s"}`;
+    const filtered = cards.filter(card => matchesFilter(card) && matchesSearch(card));
+
+    const total = filtered.length;
+    const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const end   = start + PAGE_SIZE;
+
+    // Hide all, then show only the current page slice
+    cards.forEach(card => card.style.display = "none");
+    filtered.slice(start, end).forEach(card => card.style.display = "");
+
+    count.textContent = `${total} playlist${total === 1 ? "" : "s"}`;
+
+    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
   }
 
   chips.forEach(btn => {
@@ -924,12 +999,29 @@
       chips.forEach(b => b.setAttribute("aria-pressed", "false"));
       btn.setAttribute("aria-pressed", "true");
       activeFilter = normalize(btn.getAttribute("data-filter") || "all");
+      currentPage = 1; // reset page on filter change
       apply();
     });
   });
 
-  search.addEventListener("input", apply);
+  search.addEventListener("input", () => {
+    currentPage = 1; // reset page on search
+    apply();
+  });
+
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1){
+      currentPage--;
+      apply();
+    }
+  });
+
+  nextBtn.addEventListener("click", () => {
+    currentPage++;
+    apply();
+  });
+
   apply();
-</script>
+  </script>
 </body>
 </html>
