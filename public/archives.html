@@ -458,20 +458,40 @@
     }
     
     /* Search row becomes a clean, wide pill */
+    /* --- COUNT ON TOP, SEARCH BELOW, SAME WIDTH --- */
+
     .searchWrap{
       width: 100%;
-      max-width: 920px;
-      margin: 0 auto;
-      justify-content: center;
+      max-width: 400px;     /* <— this is the “same amount of space” */
+      margin: 0 auto;       /* center the whole stack */
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
       gap: 10px;
     }
     
-    /* --- Make search + count match the chip/button style --- */
-
-    /* Search input: dark/glassy like the panel + purple border */
+    /* Put count first */
+    .count{
+      order: 1;
+      width: 100%;
+      text-align: center;
+    
+      border: 1px solid rgba(145,70,255,.28);
+      background: rgba(145,70,255,.10);
+      color: var(--muted);
+    
+      padding: 10px 12px;
+      border-radius: 999px;
+      box-shadow: 0 0 0 3px rgba(145,70,255,.10) inset;
+    }
+    
+    /* Search below */
     .search{
+      order: 2;
+      width: 100%;
       height: 44px;
-      border-radius: 999px; /* match your buttons better than full pill */
+    
+      border-radius: 999px;
       padding: 10px 14px;
     
       border: 1px solid rgba(145,70,255,.28);
@@ -479,6 +499,17 @@
       color: var(--text);
     
       box-shadow: 0 0 0 3px rgba(145,70,255,.10) inset;
+    }
+    
+    .search::placeholder{
+      color: rgba(184,185,214,.80);
+    }
+    
+    .search:focus{
+      border-color: rgba(184,132,255,.65);
+      box-shadow:
+        0 0 0 4px rgba(145,70,255,.16),
+        0 0 0 3px rgba(145,70,255,.10) inset;
     }
     
     /* Placeholder matches your muted text */
@@ -499,16 +530,6 @@
       opacity: .75;
     }
     
-    /* Count pill: same “chip” treatment */
-    .count{
-      border: 1px solid rgba(145,70,255,.28);
-      background: rgba(145,70,255,.10);
-      color: var(--muted);
-    
-      padding: 10px 12px;
-      border-radius: 999px;
-      box-shadow: 0 0 0 3px rgba(145,70,255,.10) inset;
-    }
     
     /* Optional: on hover, make the count feel like part of the controls */
     .count:hover{
