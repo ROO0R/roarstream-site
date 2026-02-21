@@ -645,14 +645,8 @@
     }
 
     .card{
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: linear-gradient(180deg, var(--card), var(--card2));
-      box-shadow: 0 14px 46px rgba(0,0,0,.40);
-      overflow:hidden;
-      position:relative;
-      transform: translateZ(0);
-      transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease;
+      display: flex;
+      flex-direction: column;
     }
 
     .card::before{
@@ -719,9 +713,9 @@
     }
 
     .content{
-      padding: 12px 12px 14px;
-      position:relative;
-      z-index:1;
+      display: flex;
+      flex-direction: column;
+      flex: 1; /* fills remaining card height */
     }
 
     .titleRow{
@@ -760,11 +754,10 @@
     }
 
     .cardActions{
-      display:flex;
-      gap: 10px;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
+      margin-top: auto;              /* pushes it to the bottom */
+      display: flex;
+      justify-content: center;       /* center horizontally */
+      padding-top: 12px;
     }
 
     a.watch{
