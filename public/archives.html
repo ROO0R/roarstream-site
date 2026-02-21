@@ -5,6 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Roarstream | Gameplay Archives</title>
 
+  <script>
+  // ==============================
+  // CUSTOMIZE ME (edit only this)
+  // ==============================
+  window.ROAR = {
+    pageTitle: "Roarstream | Gameplay Archives",
+    headline: "Gameplay Archives",
+    subtitle:
+      "Past Roarstream VODs Going Back More Than a DECADE OMG",
+
+    links: {
+      youtube: "https://www.youtube.com/@RoarWuzTaken",
+      twitch: "https://www.twitch.tv/RoarWuzTaken",
+      discord: "https://discord.gg/Um7k2r7xHg",
+      stoat: "https://stt.gg/MXWfzX1w"
+    },
+
+    ctas: [
+      { label: "Visit YouTube Channel", href: "https://www.youtube.com/@RoarWuzTaken" },
+      { label: "Latest Uploads", href: "https://www.youtube.com/@RoarWuzTaken/videos" },
+      { label: "Subscribe to Youtube", href: "https://www.youtube.com/@RoarWuzTaken?sub_confirmation=1" }
+    ],
+
+    filters: ["All", "RPG", "Horror", "Retro", "Sim", "Co-op", "Challenge"],
+
+    // ✨ Edit your cards here instead of inside HTML
+    playlists: [
+      {
+        tags: ["retro","challenge"],
+        title: "Pingu Speedrun Disaster",
+        meta: "12 videos • 3h 10m • 2025",
+        desc: "Every reset is worse. Every attempt is louder. “Noot noot” becomes a threat.",
+        url: "https://www.youtube.com/playlist?list=PL_ROAR_RETRO_01",
+        thumb: "https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg",
+        pills: ["Retro", { text:"Challenge", good:true }]
+      }
+      // Add more playlists here...
+    ]
+  };
+</script>
+
   <style>
     @font-face {
       font-family: 'Chronotype';
@@ -579,11 +620,8 @@
         </a>
       </div>
 
-      <h1 class="glowtext">Gameplay Archives</h1>
-      <p class="subtitle">
-        Past playthroughs, complete chaos runs, retro marathons, and “how did we survive this” series —
-        all organized into one-click playlists.
-      </p>
+      <h1 id="headline" class="glowtext"></h1>
+      <p id="subtitle" class="subtitle"></p>
 
       <div class="ctaRow" aria-label="Primary actions">
         <a class="cta" href="https://www.youtube.com/@RoarWuzTaken" target="_blank" rel="noopener noreferrer">
@@ -625,194 +663,12 @@
 
           <div class="searchWrap">
             <input id="search" class="search" type="search" placeholder="Search playlists (title, game, tags)..." aria-label="Search playlists" />
-            <div id="count" class="count" aria-live="polite">9 playlists</div>
+            <div id="count" class="count" aria-live="polite"></div>
           </div>
         </div>
       </section>
 
-      <!-- Gallery -->
-      <section class="gallery" id="gallery" aria-label="Playlist gallery">
-
-        <!-- Card 1 -->
-        <article class="card" data-tags="retro challenge">
-          <a class="thumb" href="https://www.youtube.com/playlist?list=PL_ROAR_RETRO_01" target="_blank" rel="noopener noreferrer" aria-label="Open playlist: Pingu Speedrun Disaster (Retro Challenge)">
-            <img src="https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg" alt="Thumbnail for Pingu Speedrun Disaster playlist" loading="lazy">
-            <div class="pillbar" aria-hidden="true">
-              <span class="pill">Retro</span>
-              <span class="pill good">Challenge</span>
-            </div>
-          </a>
-          <div class="content">
-            <div class="titleRow">
-              <h3>Pingu Speedrun Disaster</h3>
-            </div>
-            <div class="meta">12 videos • 3h 10m • 2025</div>
-            <p class="desc">Every reset is worse. Every attempt is louder. “Noot noot” becomes a threat.</p>
-            <div class="cardActions">
-              <a class="watch" href="https://www.youtube.com/playlist?list=PL_ROAR_RETRO_01" target="_blank" rel="noopener noreferrer">
-                Watch Playlist
-              </a>
-              <a class="smallLink" href="https://www.youtube.com/playlist?list=PL_ROAR_RETRO_01" target="_blank" rel="noopener noreferrer">Playlist link</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 2 -->
-        <article class="card" data-tags="rpg">
-          <a class="thumb" href="https://www.youtube.com/playlist?list=PL_ROAR_RPG_02" target="_blank" rel="noopener noreferrer" aria-label="Open playlist: Morrowind Book Goblin Run (RPG)">
-            <img src="https://i.ytimg.com/vi/9bZkp7q19f0/hqdefault.jpg" alt="Thumbnail for Morrowind Book Goblin Run playlist" loading="lazy">
-            <div class="pillbar" aria-hidden="true">
-              <span class="pill">RPG</span>
-            </div>
-          </a>
-          <div class="content">
-            <h3>Morrowind: Book Goblin Run</h3>
-            <div class="meta">28 videos • 14h 20m • 2024</div>
-            <p class="desc">We collect every book, read none of them, and somehow become a public menace.</p>
-            <div class="cardActions">
-              <a class="watch" href="https://www.youtube.com/playlist?list=PL_ROAR_RPG_02" target="_blank" rel="noopener noreferrer">Watch Playlist</a>
-              <a class="smallLink" href="https://www.youtube.com/playlist?list=PL_ROAR_RPG_02" target="_blank" rel="noopener noreferrer">Playlist link</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 3 -->
-        <article class="card" data-tags="horror challenge">
-          <a class="thumb" href="https://www.youtube.com/playlist?list=PL_ROAR_HORROR_03" target="_blank" rel="noopener noreferrer" aria-label="Open playlist: Silent Hill, Loud Decisions (Horror Challenge)">
-            <img src="https://i.ytimg.com/vi/3JZ_D3ELwOQ/hqdefault.jpg" alt="Thumbnail for Silent Hill, Loud Decisions playlist" loading="lazy">
-            <div class="pillbar" aria-hidden="true">
-              <span class="pill">Horror</span>
-              <span class="pill good">Challenge</span>
-            </div>
-          </a>
-          <div class="content">
-            <h3>Silent Hill, Loud Decisions</h3>
-            <div class="meta">16 videos • 7h 05m • 2025</div>
-            <p class="desc">No map. Bad flashlight. Worse instincts. A masterclass in panicking gracefully.</p>
-            <div class="cardActions">
-              <a class="watch" href="https://www.youtube.com/playlist?list=PL_ROAR_HORROR_03" target="_blank" rel="noopener noreferrer">Watch Playlist</a>
-              <a class="smallLink" href="https://www.youtube.com/playlist?list=PL_ROAR_HORROR_03" target="_blank" rel="noopener noreferrer">Playlist link</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 4 -->
-        <article class="card" data-tags="co-op">
-          <a class="thumb" href="https://www.youtube.com/playlist?list=PL_ROAR_COOP_04" target="_blank" rel="noopener noreferrer" aria-label="Open playlist: Co-op Chaos: Two Brains, No Plan (Co-op)">
-            <img src="https://i.ytimg.com/vi/tVj0ZTS4WF4/hqdefault.jpg" alt="Thumbnail for Co-op Chaos playlist" loading="lazy">
-            <div class="pillbar" aria-hidden="true">
-              <span class="pill">Co-op</span>
-            </div>
-          </a>
-          <div class="content">
-            <h3>Co-op Chaos: Two Brains, No Plan</h3>
-            <div class="meta">20 videos • 9h 40m • 2024</div>
-            <p class="desc">Friendship tested by puzzles, platforming, and the ancient curse of “you go first.”</p>
-            <div class="cardActions">
-              <a class="watch" href="https://www.youtube.com/playlist?list=PL_ROAR_COOP_04" target="_blank" rel="noopener noreferrer">Watch Playlist</a>
-              <a class="smallLink" href="https://www.youtube.com/playlist?list=PL_ROAR_COOP_04" target="_blank" rel="noopener noreferrer">Playlist link</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 5 -->
-        <article class="card" data-tags="sim">
-          <a class="thumb" href="https://www.youtube.com/playlist?list=PL_ROAR_SIM_05" target="_blank" rel="noopener noreferrer" aria-label="Open playlist: City Builder: 0% Infrastructure, 100% Vibes (Sim)">
-            <img src="https://i.ytimg.com/vi/OPf0YbXqDm0/hqdefault.jpg" alt="Thumbnail for City Builder playlist" loading="lazy">
-            <div class="pillbar" aria-hidden="true">
-              <span class="pill">Sim</span>
-            </div>
-          </a>
-          <div class="content">
-            <h3>City Builder: 0% Infrastructure, 100% Vibes</h3>
-            <div class="meta">10 videos • 5h 15m • 2023</div>
-            <p class="desc">A utopia made of roundabouts and regret. The traffic AI learns fear.</p>
-            <div class="cardActions">
-              <a class="watch" href="https://www.youtube.com/playlist?list=PL_ROAR_SIM_05" target="_blank" rel="noopener noreferrer">Watch Playlist</a>
-              <a class="smallLink" href="https://www.youtube.com/playlist?list=PL_ROAR_SIM_05" target="_blank" rel="noopener noreferrer">Playlist link</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 6 -->
-        <article class="card" data-tags="rpg challenge">
-          <a class="thumb" href="https://www.youtube.com/playlist?list=PL_ROAR_RPG_06" target="_blank" rel="noopener noreferrer" aria-label="Open playlist: Elden Ring: Bonk-Only Diplomacy (RPG Challenge)">
-            <img src="https://i.ytimg.com/vi/kJQP7kiw5Fk/hqdefault.jpg" alt="Thumbnail for Elden Ring Bonk-Only playlist" loading="lazy">
-            <div class="pillbar" aria-hidden="true">
-              <span class="pill">RPG</span>
-              <span class="pill good">Challenge</span>
-            </div>
-          </a>
-          <div class="content">
-            <h3>Elden Ring: Bonk-Only Diplomacy</h3>
-            <div class="meta">24 videos • 11h 55m • 2024</div>
-            <p class="desc">No sorcery. No finesse. Only bonk. Every boss gets the same negotiation tactic.</p>
-            <div class="cardActions">
-              <a class="watch" href="https://www.youtube.com/playlist?list=PL_ROAR_RPG_06" target="_blank" rel="noopener noreferrer">Watch Playlist</a>
-              <a class="smallLink" href="https://www.youtube.com/playlist?list=PL_ROAR_RPG_06" target="_blank" rel="noopener noreferrer">Playlist link</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 7 -->
-        <article class="card" data-tags="retro">
-          <a class="thumb" href="https://www.youtube.com/playlist?list=PL_ROAR_RETRO_07" target="_blank" rel="noopener noreferrer" aria-label="Open playlist: King&#39;s Quest: Magnificent Misclicks (Retro)">
-            <img src="https://i.ytimg.com/vi/fJ9rUzIMcZQ/hqdefault.jpg" alt="Thumbnail for King's Quest playlist" loading="lazy">
-            <div class="pillbar" aria-hidden="true">
-              <span class="pill">Retro</span>
-            </div>
-          </a>
-          <div class="content">
-            <h3>King&#39;s Quest: Magnificent Misclicks</h3>
-            <div class="meta">18 videos • 8h 30m • 2023</div>
-            <p class="desc">Point-and-click in its purest form: clicking everything except the correct thing.</p>
-            <div class="cardActions">
-              <a class="watch" href="https://www.youtube.com/playlist?list=PL_ROAR_RETRO_07" target="_blank" rel="noopener noreferrer">Watch Playlist</a>
-              <a class="smallLink" href="https://www.youtube.com/playlist?list=PL_ROAR_RETRO_07" target="_blank" rel="noopener noreferrer">Playlist link</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 8 -->
-        <article class="card" data-tags="horror">
-          <a class="thumb" href="https://www.youtube.com/playlist?list=PL_ROAR_HORROR_08" target="_blank" rel="noopener noreferrer" aria-label="Open playlist: Indie Horror Sampler Platter (Horror)">
-            <img src="https://i.ytimg.com/vi/L_jWHffIx5E/hqdefault.jpg" alt="Thumbnail for Indie Horror Sampler playlist" loading="lazy">
-            <div class="pillbar" aria-hidden="true">
-              <span class="pill">Horror</span>
-            </div>
-          </a>
-          <div class="content">
-            <h3>Indie Horror Sampler Platter</h3>
-            <div class="meta">30 videos • 10h 10m • 2025</div>
-            <p class="desc">Short games, long screams. We rate each monster on “vibes” and “rudeness.”</p>
-            <div class="cardActions">
-              <a class="watch" href="https://www.youtube.com/playlist?list=PL_ROAR_HORROR_08" target="_blank" rel="noopener noreferrer">Watch Playlist</a>
-              <a class="smallLink" href="https://www.youtube.com/playlist?list=PL_ROAR_HORROR_08" target="_blank" rel="noopener noreferrer">Playlist link</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 9 -->
-        <article class="card" data-tags="co-op sim">
-          <a class="thumb" href="https://www.youtube.com/playlist?list=PL_ROAR_COOP_09" target="_blank" rel="noopener noreferrer" aria-label="Open playlist: Farm Together: Maximum Chicken Strategy (Co-op Sim)">
-            <img src="https://i.ytimg.com/vi/2Vv-BfVoq4g/hqdefault.jpg" alt="Thumbnail for Farm Together playlist" loading="lazy">
-            <div class="pillbar" aria-hidden="true">
-              <span class="pill">Co-op</span>
-              <span class="pill">Sim</span>
-            </div>
-          </a>
-          <div class="content">
-            <h3>Farm Together: Maximum Chicken Strategy</h3>
-            <div class="meta">14 videos • 6h 00m • 2024</div>
-            <p class="desc">It starts wholesome. It ends with a chicken-based economy and a tribunal.</p>
-            <div class="cardActions">
-              <a class="watch" href="https://www.youtube.com/playlist?list=PL_ROAR_COOP_09" target="_blank" rel="noopener noreferrer">Watch Playlist</a>
-              <a class="smallLink" href="https://www.youtube.com/playlist?list=PL_ROAR_COOP_09" target="_blank" rel="noopener noreferrer">Playlist link</a>
-            </div>
-          </div>
-        </article>
-
-      </section>
+      <section class="gallery" id="gallery" aria-label="Playlist gallery"></section>
 
       <footer aria-label="Footer">
         <div>© Roarstream • VODs &amp; playlists</div>
@@ -828,58 +684,117 @@
   </div>
 
   <script>
-    // Tiny, readable filter + search. Degrades gracefully (everything shows if JS disabled).
+  const cfg = window.ROAR;
 
-    const chips = Array.from(document.querySelectorAll(".chip"));
-    const search = document.getElementById("search");
-    const cards = Array.from(document.querySelectorAll(".card"));
-    const count = document.getElementById("count");
+  // Page title (browser tab)
+  if (cfg?.pageTitle) document.title = cfg.pageTitle;
 
-    let activeFilter = "all";
+  // Headline/subtitle
+  document.getElementById("headline").textContent = cfg.headline || "";
+  document.getElementById("subtitle").textContent = cfg.subtitle || "";
 
-    function normalize(s){ return (s || "").toLowerCase().trim(); }
+  // Build playlist cards
+  const gallery = document.getElementById("gallery");
 
-    function cardText(card){
-      const title = card.querySelector("h3")?.textContent || "";
-      const meta  = card.querySelector(".meta")?.textContent || "";
-      const desc  = card.querySelector(".desc")?.textContent || "";
-      const tags  = card.getAttribute("data-tags") || "";
-      return normalize([title, meta, desc, tags].join(" "));
+  function pillHTML(p){
+    if (typeof p === "string") return `<span class="pill">${escapeHTML(p)}</span>`;
+    const cls = p.good ? "pill good" : "pill";
+    return `<span class="${cls}">${escapeHTML(p.text || "")}</span>`;
+  }
+
+  function escapeHTML(s){
+    return (s ?? "").toString()
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#39;");
+  }
+
+  function cardHTML(item){
+    const tags = (item.tags || []).join(" ");
+    const pills = (item.pills || []).map(pillHTML).join("");
+    const title = escapeHTML(item.title || "");
+    const meta  = escapeHTML(item.meta || "");
+    const desc  = escapeHTML(item.desc || "");
+    const url   = escapeHTML(item.url || "#");
+    const thumb = escapeHTML(item.thumb || "");
+
+    return `
+      <article class="card" data-tags="${escapeHTML(tags)}">
+        <a class="thumb" href="${url}" target="_blank" rel="noopener noreferrer"
+           aria-label="Open playlist: ${title}">
+          <img src="${thumb}" alt="Thumbnail for ${title} playlist" loading="lazy">
+          <div class="pillbar" aria-hidden="true">${pills}</div>
+        </a>
+        <div class="content">
+          <div class="titleRow"><h3>${title}</h3></div>
+          <div class="meta">${meta}</div>
+          <p class="desc">${desc}</p>
+          <div class="cardActions">
+            <a class="watch" href="${url}" target="_blank" rel="noopener noreferrer">Watch Playlist</a>
+            <a class="smallLink" href="${url}" target="_blank" rel="noopener noreferrer">Playlist link</a>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  // Render all cards
+  const cardsData = Array.isArray(cfg?.playlists) ? cfg.playlists : [];
+  gallery.innerHTML = cardsData.map(cardHTML).join("");
+  cards = Array.from(document.querySelectorAll(".card"));
+
+  // Hook up filter + search (your original logic)
+  const chips = Array.from(document.querySelectorAll(".chip"));
+  const search = document.getElementById("search");
+  let cards = [];
+  const count = document.getElementById("count");
+
+  let activeFilter = "all";
+  function normalize(s){ return (s || "").toLowerCase().trim(); }
+
+  function cardText(card){
+    const title = card.querySelector("h3")?.textContent || "";
+    const meta  = card.querySelector(".meta")?.textContent || "";
+    const desc  = card.querySelector(".desc")?.textContent || "";
+    const tags  = card.getAttribute("data-tags") || "";
+    return normalize([title, meta, desc, tags].join(" "));
+  }
+
+  function matchesFilter(card){
+    if (activeFilter === "all") return true;
+    const tags = (card.getAttribute("data-tags") || "").split(/\s+/).filter(Boolean);
+    return tags.includes(activeFilter);
+  }
+
+  function matchesSearch(card){
+    const q = normalize(search.value);
+    if (!q) return true;
+    return cardText(card).includes(q);
+  }
+
+  function apply(){
+    let visible = 0;
+    for (const card of cards){
+      const ok = matchesFilter(card) && matchesSearch(card);
+      card.style.display = ok ? "" : "none";
+      if (ok) visible++;
     }
+    count.textContent = `${visible} playlist${visible === 1 ? "" : "s"}`;
+  }
 
-    function matchesFilter(card){
-      if (activeFilter === "all") return true;
-      const tags = (card.getAttribute("data-tags") || "").split(/\s+/);
-      return tags.includes(activeFilter);
-    }
-
-    function matchesSearch(card){
-      const q = normalize(search.value);
-      if (!q) return true;
-      return cardText(card).includes(q);
-    }
-
-    function apply(){
-      let visible = 0;
-      for (const card of cards){
-        const ok = matchesFilter(card) && matchesSearch(card);
-        card.style.display = ok ? "" : "none";
-        if (ok) visible++;
-      }
-      count.textContent = `${visible} playlist${visible === 1 ? "" : "s"}`;
-    }
-
-    chips.forEach(btn => {
-      btn.addEventListener("click", () => {
-        chips.forEach(b => b.setAttribute("aria-pressed", "false"));
-        btn.setAttribute("aria-pressed", "true");
-        activeFilter = btn.getAttribute("data-filter") || "all";
-        apply();
-      });
+  chips.forEach(btn => {
+    btn.addEventListener("click", () => {
+      chips.forEach(b => b.setAttribute("aria-pressed", "false"));
+      btn.setAttribute("aria-pressed", "true");
+      activeFilter = btn.getAttribute("data-filter") || "all";
+      apply();
     });
+  });
 
-    search.addEventListener("input", apply);
-    apply();
-  </script>
+  search.addEventListener("input", apply);
+  apply();
+</script>
 </body>
 </html>
