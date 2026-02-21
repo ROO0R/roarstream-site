@@ -1012,8 +1012,14 @@
     `;
   }
 
-  // Render all cards
+  // Render all cards (ALPHABETICAL SORT)
   const cardsData = Array.isArray(cfg?.playlists) ? cfg.playlists : [];
+  
+  // Sort A → Z by title
+  cardsData.sort((a, b) =>
+    (a.title || "").localeCompare(b.title || "", undefined, { sensitivity: "base" })
+  );
+  
   gallery.innerHTML = cardsData.map(cardHTML).join("");
 
   // Hook up filter + search + pagination
