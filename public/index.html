@@ -221,6 +221,78 @@
       background: rgba(0,0,0,.25);
     }
 
+    /* Group wrapper */
+    .ctaGroup{
+      display: inline-flex;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 18px 55px rgba(0,0,0,.45);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    
+    /* Remove individual rounded edges */
+    .ctaGroup .cta{
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+    }
+    
+    /* Left button */
+    .ctaGroup .cta:first-child{
+      border-top-left-radius: 14px;
+      border-bottom-left-radius: 14px;
+    }
+    
+    /* Right button */
+    .ctaGroup .cta:last-child{
+      border-top-right-radius: 14px;
+      border-bottom-right-radius: 14px;
+    }
+    
+    /* Divider line between them */
+    .ctaGroup .cta + .cta{
+      border-left: 1px solid rgba(255,255,255,.18);
+    }
+    
+    /* Primary Twitch button */
+    .cta.primary{
+      background: linear-gradient(180deg, rgba(145,70,255,.95), rgba(116,45,235,.95));
+    }
+    
+    /* Secondary Archives button */
+    .cta.secondary{
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+    }
+    
+    /* Hover */
+    .ctaGroup .cta:hover{
+      transform: translateY(-2px);
+      filter: saturate(1.05);
+    }
+    
+    /* Mobile stacking */
+    @media (max-width: 520px){
+      .ctaGroup{
+        flex-direction: column;
+        width: 100%;
+      }
+    
+      .ctaGroup .cta{
+        width: 100%;
+        border-left: none !important;
+        border-top: 1px solid rgba(255,255,255,.18);
+      }
+    
+      .ctaGroup .cta:first-child{
+        border-top: none;
+        border-radius: 14px 14px 0 0;
+      }
+    
+      .ctaGroup .cta:last-child{
+        border-radius: 0 0 14px 14px;
+      }
+    }
+
     /* Clickable schedule image polish */
     .frame a { display: block; }
     .frame a:hover img{
@@ -282,20 +354,24 @@
       </div>
 
       <h1 class="glowtext">Hi! It's Roarstream!</h1>
-  
+    
   <div class="ctaRow">
-    <a class="cta" href="https://www.twitch.tv/RoarWuzTaken" target="_blank" rel="noopener noreferrer">
-      <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M4 3h18v11l-5 5h-4l-3 3H8v-3H4V3z" stroke="white" stroke-opacity=".9" stroke-width="1.6" />
-        <path d="M10 8v5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
-        <path d="M15 8v5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
-      </svg>
-      Watch on Twitch
-    </a>
+    <div class="ctaGroup">
   
-    <a class="cta" href="archives.html" target="_blank" rel="noopener noreferrer">
-      YouTube Archives
-    </a>
+      <a class="cta primary" href="https://www.twitch.tv/RoarWuzTaken" target="_blank" rel="noopener noreferrer">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 3h18v11l-5 5h-4l-3 3H8v-3H4V3z" stroke="white" stroke-opacity=".9" stroke-width="1.6" />
+          <path d="M10 8v5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M15 8v5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        Watch on Twitch
+      </a>
+  
+      <a class="cta secondary" href="archives.html">
+        YouTube Archives
+      </a>
+  
+    </div>
   </div>
 
       <section class="frame" aria-label="Stream schedule image">
