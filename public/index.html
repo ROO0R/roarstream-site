@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Roarstream.com</title>
   <style>
+    @font-face {
+      font-family: 'Chronotype';
+      src: url('Chronotype.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
     :root{
       --twitch: #9146FF;
       --twitch2:#b884ff;
@@ -22,9 +28,10 @@
     *{ box-sizing:border-box; }
     html, body { height:100%; }
     body{
+      
       margin:0;
       color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font-family: 'Chronotype', sans-serif;
       background:
         radial-gradient(1200px 700px at 50% 20%, rgba(145,70,255,.25), transparent 55%),
         radial-gradient(900px 600px at 15% 80%, rgba(70,255,214,.10), transparent 60%),
@@ -142,6 +149,7 @@
       position:relative;
       z-index:1;
       text-shadow: 0 10px 34px rgba(0,0,0,.55);
+      text-align: center;  /* ADD THIS */
     }
 
     /* A readable “jazz” effect: gradient text with a soft glow */
@@ -269,6 +277,7 @@
       .panel{
         max-width: 920px;
         margin: 0 auto;
+        text-align: center;   /* optional, centers all text inside */
       }
     }
 
