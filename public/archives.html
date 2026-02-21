@@ -48,7 +48,7 @@
         desc: "I came for the big lady (heh) and stayed for the Goop",
         url: "https://www.youtube.com/playlist?list=PL89Q3fzM_kU5V-xJzOjU2K4tP3B_gQy0f",
         thumb: "https://i.ytimg.com/vi/D_4Gg0EWWoE/hqdefault.jpg?sqp=-oaymwE2CPYBEIoBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgB_gmAAtAFigIMCAAQARhyIFQoPjAP&rs=AOn4CLDdlDcfpChXpdeVMnh-XZxD1gPLrQ",
-        pills: ["FPS"], ["Spoopy"], ["BIG Lady"],
+        pills: ["FPS", "Spoopy", "BIG Lady"],
       },
       {
         tags: ["retro","challenge"],
@@ -669,13 +669,8 @@
       <section class="controls" aria-label="Playlist filters">
         <div class="controlRow">
           <div class="chips" aria-label="Category filters">
-            <button class="chip" type="button" data-filter="all" aria-pressed="true">All</button>
-            <button class="chip" type="button" data-filter="rpg" aria-pressed="false">RPG</button>
-            <button class="chip" type="button" data-filter="horror" aria-pressed="false">Horror</button>
-            <button class="chip" type="button" data-filter="retro" aria-pressed="false">Retro</button>
-            <button class="chip" type="button" data-filter="sim" aria-pressed="false">Sim</button>
-            <button class="chip" type="button" data-filter="co-op" aria-pressed="false">Co-op</button>
-            <button class="chip" type="button" data-filter="challenge" aria-pressed="false">Point-and-Click</button>
+            <button class="chip" type="button" data-filter="point-and-click" aria-pressed="false">Point-and-Click</button>
+            <button class="chip" type="button" data-filter="spoopy" aria-pressed="false">Spoopy</button>
           </div>
 
           <div class="searchWrap">
@@ -713,23 +708,29 @@
   // Build playlist cards
   const gallery = document.getElementById("gallery");
 
-  function pillHTML(p){
-    if (typeof p === "string") return `<span class="pill">${escapeHTML(p)}</span>`;
-    const cls = p.good ? "pill good" : "pill";
-    return `<span class="${cls}">${escapeHTML(p.text || "")}</span>`;
+  function escapeHTML(s){
+    const str = (s ?? "").toString();
+    // replaceAll is fine in modern browsers, but this is safer everywhere
+    return str
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#39;");
   }
 
-  function escapeHTML(s){
-    return (s ?? "").toString()
-      .replaceAll("&","&amp;")
-      .replaceAll("<","&lt;")
-      .replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;")
-      .replaceAll("'","&#39;");
+  function pillHTML(p){
+    if (typeof p === "string") return `<span class="pill">${escapeHTML(p)}</span>`;
+    const cls = p && p.good ? "pill good" : "pill";
+    return `<span class="${cls}">${escapeHTML(p?.text || "")}</span>`;
   }
 
   function cardHTML(item){
-    const tags = (item.tags || []).join(" ");
+    // Normalize tags for filtering: store them lowercased in data-tags
+    const tagsArr = Array.isArray(item.tags) ? item.tags : [];
+    const tagsNorm = tagsArr.map(t => (t || "").toString().toLowerCase().trim()).filter(Boolean);
+    const tagsAttr = tagsNorm.join(" ");
+
     const pills = (item.pills || []).map(pillHTML).join("");
     const title = escapeHTML(item.title || "");
     const meta  = escapeHTML(item.meta || "");
@@ -738,7 +739,7 @@
     const thumb = escapeHTML(item.thumb || "");
 
     return `
-      <article class="card" data-tags="${escapeHTML(tags)}">
+      <article class="card" data-tags="${escapeHTML(tagsAttr)}">
         <a class="thumb" href="${url}" target="_blank" rel="noopener noreferrer"
            aria-label="Open playlist: ${title}">
           <img src="${thumb}" alt="Thumbnail for ${title} playlist" loading="lazy">
@@ -760,15 +761,15 @@
   // Render all cards
   const cardsData = Array.isArray(cfg?.playlists) ? cfg.playlists : [];
   gallery.innerHTML = cardsData.map(cardHTML).join("");
-  cards = Array.from(document.querySelectorAll(".card"));
 
-  // Hook up filter + search (your original logic)
+  // Hook up filter + search
   const chips = Array.from(document.querySelectorAll(".chip"));
   const search = document.getElementById("search");
-  let cards = [];
   const count = document.getElementById("count");
 
+  let cards = Array.from(document.querySelectorAll(".card"));
   let activeFilter = "all";
+
   function normalize(s){ return (s || "").toLowerCase().trim(); }
 
   function cardText(card){
@@ -781,7 +782,10 @@
 
   function matchesFilter(card){
     if (activeFilter === "all") return true;
-    const tags = (card.getAttribute("data-tags") || "").split(/\s+/).filter(Boolean);
+    const tags = (card.getAttribute("data-tags") || "")
+      .split(/\s+/)
+      .map(normalize)
+      .filter(Boolean);
     return tags.includes(activeFilter);
   }
 
@@ -805,7 +809,7 @@
     btn.addEventListener("click", () => {
       chips.forEach(b => b.setAttribute("aria-pressed", "false"));
       btn.setAttribute("aria-pressed", "true");
-      activeFilter = btn.getAttribute("data-filter") || "all";
+      activeFilter = normalize(btn.getAttribute("data-filter") || "all");
       apply();
     });
   });
