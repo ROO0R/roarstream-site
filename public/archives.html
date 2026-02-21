@@ -424,78 +424,64 @@
       z-index:1;
     }
 
+    /* --- TIDIER CONTROLS LAYOUT (override) --- */
+
     .controlRow{
+      /* was: flex row with space-between */
       display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
     }
-
+    
+    /* Chips become a centered, wrapped "multi-row" bar */
     .chips{
-      display:flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items:center;
+      display: grid;
+      grid-template-columns: repeat(5, max-content); /* 5 per row => 2 rows for ~10 chips */
+      justify-content: center;
+      gap: 10px;
+      max-width: 920px;
+      margin: 0 auto;
     }
-
+    
+    @media (max-width: 860px){
+      .chips{ grid-template-columns: repeat(3, max-content); } /* 3 per row */
+    }
+    @media (max-width: 520px){
+      .chips{ grid-template-columns: repeat(2, max-content); } /* 2 per row */
+    }
+    
+    /* Make chips a bit tighter vertically */
     .chip{
-      appearance:none;
-      border: 1px solid rgba(145,70,255,.28);
-      background: rgba(145,70,255,.10);
-      color: var(--muted);
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-family: inherit;
-      letter-spacing: .05em;
-      text-transform: uppercase;
-      font-size: 12px;
-      cursor:pointer;
-      transition: transform .12s ease, border-color .12s ease, background .12s ease, filter .12s ease;
+      padding: 7px 10px;
+      font-size: 11px;
     }
-    .chip:hover{ transform: translateY(-1px); filter: saturate(1.05); }
-    .chip[aria-pressed="true"]{
-      color: #fff;
-      border-color: rgba(184,132,255,.65);
-      background: rgba(184,132,255,.18);
-      box-shadow: 0 0 0 3px rgba(145,70,255,.12) inset;
-    }
-    .chip:focus-visible{
-      outline: 3px solid rgba(184,132,255,.85);
-      outline-offset: 3px;
-    }
-
+    
+    /* Search row becomes a clean, wide pill */
     .searchWrap{
-      display:flex;
-      gap: 8px;
-      align-items:center;
-      flex: 1 1 260px;
-      justify-content:flex-end;
+      width: 100%;
+      max-width: 920px;
+      margin: 0 auto;
+      justify-content: center;
+      gap: 10px;
     }
-
+    
+    /* Make input feel nicer */
     .search{
-      width: min(420px, 100%);
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.25);
-      color: var(--text);
-      font-family: inherit;
-      font-size: 16px;
-      outline: none;
+      flex: 1 1 520px;       /* grows nicely */
+      height: 44px;
+      border-radius: 999px;  /* pill */
+      padding: 0 16px;
     }
-    .search::placeholder{ color: rgba(184,185,214,.75); }
-    .search:focus{
-      border-color: rgba(184,132,255,.55);
-      box-shadow: 0 0 0 4px rgba(145,70,255,.14);
-    }
-
+    
+    /* Count becomes a small pill badge */
     .count{
-      color: var(--muted);
-      font-size: 14px;
-      letter-spacing: .02em;
-      opacity:.95;
-      white-space: nowrap;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      min-width: 110px;
+      text-align: center;
     }
 
     /* Gallery */
