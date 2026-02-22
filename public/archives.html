@@ -587,7 +587,7 @@
       min-height:100vh;
       display:grid;
       grid-template-columns: minmax(140px, 1fr) minmax(320px, 980px) minmax(140px, 1fr);
-      align-items:center;
+      align-items: stretch;
       gap: 24px;
       padding: 28px 18px;
       position:relative;
@@ -595,10 +595,12 @@
 
     /* Side PNG art panels */
     .side{
-      height: clamp(520px, 90vh, 980px);
+      height: auto;
       border-radius: 26px;
+      min-height: 100vh;              /* fill viewport */
       position:relative;
       overflow:hidden;
+      align-self: stretch;            /* ensure it stretches in the grid */
       filter: drop-shadow(0 12px 40px rgba(0,0,0,.55));
       opacity:.95;
     }
@@ -606,6 +608,8 @@
       content:"";
       position:absolute;
       inset:0;
+      position: sticky;
+      top: 0;
       background-size: auto;        /* do NOT scale */
       background-repeat: repeat;    /* tile in both X and Y */
       background-position: top left;
