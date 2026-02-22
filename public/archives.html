@@ -1225,6 +1225,10 @@
 <body>
   <div class="stage">
     <div class="side left" aria-hidden="true"></div>
+
+    <main class="panel" role="main">
+      <!-- (Top buttons removed ✅) -->
+
       <h1 id="headline" class="glowtext"></h1>
       <p id="subtitle" class="subtitle"></p>
 
@@ -1236,6 +1240,7 @@
           </svg>
           Latest Uploads
         </a>
+
         <a class="cta secondary" href="https://www.youtube.com/@RoarWuzTaken?sub_confirmation=1" target="_blank" rel="noopener noreferrer">
           <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M12 3v18" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
@@ -1243,10 +1248,48 @@
           </svg>
           Follow on Youtube
         </a>
-        <a class="cta secondary" href="http://www.roarstream.com">
-          ← Back
-        </a>
+
+        <a class="cta secondary" href="http://www.roarstream.com">← Back</a>
       </div>
+
+      <!-- Filters + Search -->
+      <section class="controls" aria-label="Playlist filters">
+        <div class="controlRow">
+          <div class="chips" aria-label="Category filters" id="chips"></div>
+
+          <div class="searchWrap">
+            <input id="search" class="search" type="search"
+              placeholder="Search playlists (title, game, tags)..."
+              aria-label="Search playlists" />
+            <div id="count" class="count" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="gallery" id="gallery" aria-label="Playlist gallery"></section>
+
+      <!-- Pagination -->
+      <nav class="pagination" aria-label="Pagination">
+        <button id="prevPage" type="button" disabled>← Prev</button>
+        <span id="pageInfo" aria-live="polite"></span>
+        <button id="nextPage" type="button">Next →</button>
+      </nav>
+
+      <footer aria-label="Footer">
+        <div>© Roarstream • VODs &amp; playlists</div>
+        <div class="footlinks">
+          <a class="smallLink" href="https://www.youtube.com/@RoarWuzTaken" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a class="smallLink" href="https://www.twitch.tv/RoarWuzTaken" target="_blank" rel="noopener noreferrer">Twitch</a>
+          <a class="smallLink" href="https://discord.gg/Um7k2r7xHg" target="_blank" rel="noopener noreferrer">Discord</a>
+        </div>
+      </footer>
+    </main>
+
+    <div class="side right" aria-hidden="true"></div>
+  </div>
+
+  <!-- keep your existing <script> below exactly as-is -->
+</body>
 
       <!-- Filters + Search -->
       <section class="controls" aria-label="Playlist filters">
