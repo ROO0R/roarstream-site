@@ -707,13 +707,17 @@
     }
 
     .pillbar{
-      position:absolute;
-      left: 10px;
-      bottom: 10px;       /* ensure bottom no longer applies */
-      display:flex;
+      position: absolute;
+      left: 50%;
+      bottom: 10px;
+      transform: translateX(-50%); /* true horizontal centering */
+      
+      display: flex;
       gap: 6px;
       flex-wrap: wrap;
-      z-index:2;
+      justify-content: center;
+    
+      z-index: 2;
     }
     .pill{
       font-size: 11px;
