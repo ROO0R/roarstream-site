@@ -220,7 +220,42 @@
       object-fit: contain;
       background: rgba(0,0,0,.25);
     }
-
+    /* Footer (same as archives) */
+    footer{
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color: rgba(184,185,214,.95);
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+      font-size: 14px;
+      letter-spacing: .01em;
+    }
+    .footlinks{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+    a.smallLink{
+      color: var(--muted);
+      text-decoration:none;
+      font-size: 14px;
+      border-bottom: 1px dashed rgba(184,185,214,.35);
+      padding-bottom: 1px;
+      opacity:.95;
+    }
+    a.smallLink:hover{ color:#fff; border-bottom-color: rgba(255,255,255,.35); }
+    a.smallLink:focus-visible{
+      outline: 3px solid rgba(184,132,255,.85);
+      outline-offset: 3px;
+      border-bottom-color: transparent;
+    }
     /* Group wrapper */
     .ctaGroup{
       display: inline-flex;
@@ -336,20 +371,6 @@
 
     <main class="panel" role="main">
       <div class="topline">
-        <a class="badge" href="https://www.youtube.com/@RoarWuzTaken" target="_blank" rel="noopener noreferrer">
-          <span class="dot"></span> YouTube
-        </a>
-
-        <a class="badge" href="https://discord.gg/Um7k2r7xHg" target="_blank" rel="noopener noreferrer">
-          <span class="dot"></span> Discord
-        </a>
-        
-        <a class="badge" href="https://stt.gg/MXWfzX1w" target="_blank" rel="noopener noreferrer">
-          <span class="dot"></span> Stoat
-        </a>
-
-        <a class="badge" href="https://www.twitch.tv/subs/RoarWuzTaken" target="_blank" rel="noopener noreferrer">
-          <span class="dot"></span> Sub to Roar
         </a>
       </div>
 
@@ -380,6 +401,16 @@
         </a>
       </section>
     </main>
+    
+  <footer aria-label="Footer">
+    <div>© Roarstream • Live &amp; archives</div>
+    <div class="footlinks">
+      <a class="smallLink" href="https://www.youtube.com/@RoarWuzTaken" target="_blank" rel="noopener noreferrer">YouTube</a>
+      <a class="smallLink" href="https://www.twitch.tv/RoarWuzTaken" target="_blank" rel="noopener noreferrer">Twitch</a>
+      <a class="smallLink" href="https://discord.gg/Um7k2r7xHg" target="_blank" rel="noopener noreferrer">Discord</a>
+      <a class="smallLink" href="https://stt.gg/MXWfzX1w" target="_blank" rel="noopener noreferrer">Stoat</a>
+    </div>
+  </footer>
     
     <div class="side right" aria-hidden="true"></div>
   </div>
