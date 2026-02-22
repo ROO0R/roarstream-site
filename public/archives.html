@@ -806,6 +806,15 @@
     }
 /* ===== Special filter chips ===== */
 
+    
+    .chip{
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      cursor: pointer;
+    }
+    
     /* ALL — friendly / neutral / highlight */
     .chip-all{
       border-color: rgba(70,255,214,.45);
@@ -1268,6 +1277,204 @@
 
     <div class="side right" aria-hidden="true"></div>
   </div>
+<script>
+  const cfg = window.ROAR || {};
 
+  // Page title + header text
+  if (cfg.pageTitle) document.title = cfg.pageTitle;
+  document.getElementById("headline").textContent = cfg.headline || "";
+  document.getElementById("subtitle").textContent = cfg.subtitle || "";
+
+  const chipsWrap = document.getElementById("chips");
+  const gallery   = document.getElementById("gallery");
+  const search    = document.getElementById("search");
+  const count     = document.getElementById("count");
+
+  // Pagination
+  const PAGE_SIZE = 6;
+  let currentPage = 1;
+  const prevBtn  = document.getElementById("prevPage");
+  const nextBtn  = document.getElementById("nextPage");
+  const pageInfo = document.getElementById("pageInfo");
+
+  // Helpers
+  function normalize(s){ return (s || "").toString().toLowerCase().trim(); }
+
+  function escapeHTML(s){
+    const str = (s ?? "").toString();
+    return str
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#39;");
+  }
+
+  function pillHTML(p){
+    if (typeof p === "string") return `<span class="pill">${escapeHTML(p)}</span>`;
+    const cls = p && p.good ? "pill good" : "pill";
+    return `<span class="${cls}">${escapeHTML(p?.text || "")}</span>`;
+  }
+
+  function cardHTML(item){
+    const tagsArr  = Array.isArray(item.tags) ? item.tags : [];
+    const tagsNorm = tagsArr.map(t => normalize(t)).filter(Boolean);
+    const tagsAttr = tagsNorm.join(" ");
+
+    const pills = (item.pills || []).map(pillHTML).join("");
+    const title = escapeHTML(item.title || "");
+    const meta  = escapeHTML(item.meta || "");
+    const desc  = escapeHTML(item.desc || "");
+    const url   = escapeHTML(item.url || "#");
+    const thumb = escapeHTML(item.thumb || "");
+
+    return `
+      <article class="card" data-tags="${escapeHTML(tagsAttr)}">
+        <a class="thumb" href="${url}" target="_blank" rel="noopener noreferrer"
+           aria-label="Open playlist: ${title}">
+          <img src="${thumb}" alt="Thumbnail for ${title} playlist" loading="lazy">
+          <div class="pillbar" aria-hidden="true">${pills}</div>
+        </a>
+        <div class="content">
+          <div class="titleRow"><h3>${title}</h3></div>
+          <div class="meta">${meta}</div>
+          <p class="desc">${desc}</p>
+          <div class="cardActions">
+            <a class="watch" href="${url}" target="_blank" rel="noopener noreferrer">Watch Playlist</a>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  // Build filters (All first, NSFW last, middle alphabetical)
+  const LABEL_MAP = {
+    "AdventureGame": "Adventure Game",
+    "Point-and-Click": "Point-and-Click",
+    "OpenWorld": "OpenWorld",
+    "Souls-Like": "Souls-Like"
+  };
+
+  function buildFilters(filters){
+    const cleaned = (filters || []).map(f => f.toString());
+    const hasAll  = cleaned.includes("All");
+    const hasNSFW = cleaned.includes("NSFW");
+
+    const middle = cleaned
+      .filter(f => f !== "All" && f !== "NSFW")
+      .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+
+    return [
+      ...(hasAll ? ["All"] : []),
+      ...middle,
+      ...(hasNSFW ? ["NSFW"] : [])
+    ];
+  }
+
+  const sortedFilters = buildFilters(cfg.filters || []);
+
+  chipsWrap.innerHTML = sortedFilters.map(filter => {
+    const isAll  = filter === "All";
+    const isNSFW = filter === "NSFW";
+
+    const classes = [
+      "chip",
+      isAll  && "chip-all",
+      isNSFW && "chip-nsfw"
+    ].filter(Boolean).join(" ");
+
+    const label = LABEL_MAP[filter] || filter;
+    const data  = isAll ? "all" : filter;
+
+    return `
+      <button class="${classes}" type="button" data-filter="${escapeHTML(data)}"
+              aria-pressed="${isAll ? "true" : "false"}">
+        ${escapeHTML(label)}
+      </button>
+    `;
+  }).join("");
+
+    // Render cards (A→Z)
+    const cardsData = Array.isArray(cfg.playlists) ? cfg.playlists.slice() : [];
+    cardsData.sort((a, b) =>
+      (a.title || "").localeCompare(b.title || "", undefined, { sensitivity: "base" })
+    );
+    gallery.innerHTML = cardsData.map(cardHTML).join("");
+  
+    // Now that cards exist:
+    const chips = Array.from(document.querySelectorAll(".chip"));
+    const cards = Array.from(document.querySelectorAll(".card"));
+  
+    let activeFilter = "all";
+  
+    function cardText(card){
+      const title = card.querySelector("h3")?.textContent || "";
+      const meta  = card.querySelector(".meta")?.textContent || "";
+      const desc  = card.querySelector(".desc")?.textContent || "";
+      const tags  = card.getAttribute("data-tags") || "";
+      return normalize([title, meta, desc, tags].join(" "));
+    }
+  
+    function matchesFilter(card){
+      if (activeFilter === "all") return true;
+      const tags = (card.getAttribute("data-tags") || "")
+        .split(/\s+/)
+        .map(normalize)
+        .filter(Boolean);
+      return tags.includes(normalize(activeFilter));
+    }
+  
+    function matchesSearch(card){
+      const q = normalize(search.value);
+      if (!q) return true;
+      return cardText(card).includes(q);
+    }
+  
+    function apply(){
+      const filtered = cards.filter(card => matchesFilter(card) && matchesSearch(card));
+  
+      const total = filtered.length;
+      const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+      if (currentPage > totalPages) currentPage = totalPages;
+  
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const end   = start + PAGE_SIZE;
+  
+      cards.forEach(card => card.style.display = "none");
+      filtered.slice(start, end).forEach(card => card.style.display = "");
+  
+      count.textContent = `${total} playlist${total === 1 ? "" : "s"}`;
+      pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+  
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = currentPage === totalPages;
+    }
+  
+    chips.forEach(btn => {
+      btn.addEventListener("click", () => {
+        chips.forEach(b => b.setAttribute("aria-pressed", "false"));
+        btn.setAttribute("aria-pressed", "true");
+        activeFilter = btn.getAttribute("data-filter") || "all";
+        currentPage = 1;
+        apply();
+      });
+    });
+  
+    search.addEventListener("input", () => {
+      currentPage = 1;
+      apply();
+    });
+  
+    prevBtn.addEventListener("click", () => {
+      if (currentPage > 1){ currentPage--; apply(); }
+    });
+  
+    nextBtn.addEventListener("click", () => {
+      currentPage++;
+      apply();
+    });
+  
+    apply();
+  </script>
 </body>
 </html>
