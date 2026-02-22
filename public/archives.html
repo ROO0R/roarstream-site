@@ -595,23 +595,23 @@
 
     /* Side PNG art panels */
     .side{
-      height: auto;
       border-radius: 26px;
-      min-height: 100vh;              /* fill viewport */
-      position:relative;
-      overflow:hidden;
-      align-self: stretch;            /* ensure it stretches in the grid */
+      min-height: 100vh;
+      position: sticky;   /* sticky goes HERE */
+      top: 0;
+      overflow: hidden;
       filter: drop-shadow(0 12px 40px rgba(0,0,0,.55));
-      opacity:.95;
+      opacity: .95;
+      align-self: stretch;
     }
+    
+    /* the tiled ducks layer */
     .side::before{
       content:"";
       position:absolute;
       inset:0;
-      position: sticky;
-      top: 0;
       background-size: auto;        /* do NOT scale */
-      background-repeat: repeat;    /* tile in both X and Y */
+      background-repeat: repeat;    /* tile */
       background-position: top left;
     }
     .side::after{
