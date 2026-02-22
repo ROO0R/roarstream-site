@@ -1628,7 +1628,7 @@
       cards.forEach(card => card.style.display = "none");
       filtered.slice(start, end).forEach(card => card.style.display = "");
   
-      count.textContent = `${total} playlist${total === 1 ? "" : "s"}`;
+      count.textContent = `${total} result${total === 1 ? "" : "s"}`;
       pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
   
       prevBtn.disabled = currentPage === 1;
