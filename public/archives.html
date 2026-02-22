@@ -1217,22 +1217,7 @@
       <!-- Filters + Search -->
       <section class="controls" aria-label="Playlist filters">
         <div class="controlRow">
-          <div class="chips" aria-label="Category filters">
-            <button class="chip chip-all" type="button" data-filter="all" aria-pressed="true">All</button>
-            <button class="chip" type="button" data-filter="AdventureGame" aria-pressed="false">Adventure Game</button>
-            <button class="chip" type="button" data-filter="FPS" aria-pressed="false">FPS</button>
-            <button class="chip" type="button" data-filter="point-and-click" aria-pressed="false">Point-and-Click</button>
-            <button class="chip" type="button" data-filter="spoopy" aria-pressed="false">Spoopy</button>
-            <button class="chip" type="button" data-filter="Retro" aria-pressed="false">Retro</button>
-            <button class="chip" type="button" data-filter="Sandbox" aria-pressed="false">Sandbox</button>
-            <button class="chip" type="button" data-filter="Weird" aria-pressed="false">Weird</button>
-            <button class="chip" type="button" data-filter="RPG" aria-pressed="false">RPG</button>
-            <button class="chip" type="button" data-filter="Platformer" aria-pressed="false">Platformer</button>
-            <button class="chip" type="button" data-filter="VN" aria-pressed="false">VN</button>
-            <button class="chip" type="button" data-filter="OpenWorld" aria-pressed="false">OpenWorld</button>
-            <button class="chip" type="button" data-filter="Souls-Like" aria-pressed="false">Souls-Like</button>
-            <button class="chip chip-nsfw" type="button" data-filter="NSFW" aria-pressed="false">NSFW</button>
-          </div>
+          <div class="chips" aria-label="Category filters" id="chips"></div>
 
           <div class="searchWrap">
             <input id="search" class="search" type="search" placeholder="Search playlists (title, game, tags)..." aria-label="Search playlists" />
@@ -1265,7 +1250,63 @@
 
   <script>
   const cfg = window.ROAR;
+  /* ===== Build filter chips dynamically ===== */
 
+  const chipsWrap = document.getElementById("chips");
+  
+  /* Pretty labels (fallback = raw value) */
+  const LABEL_MAP = {
+    "AdventureGame": "Adventure Game",
+    "point-and-click": "Point-and-Click",
+    "OpenWorld": "OpenWorld",
+    "Souls-Like": "Souls-Like"
+  };
+  
+  /* Normalize + sort filters */
+  function buildFilters(filters){
+    const cleaned = filters.map(f => f.toString());
+  
+    const hasAll  = cleaned.includes("All");
+    const hasNSFW = cleaned.includes("NSFW");
+  
+    const middle = cleaned
+      .filter(f => f !== "All" && f !== "NSFW")
+      .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+  
+    return [
+      ...(hasAll ? ["All"] : []),
+      ...middle,
+      ...(hasNSFW ? ["NSFW"] : [])
+    ];
+  }
+  
+  const sortedFilters = buildFilters(cfg.filters || []);
+  
+  chipsWrap.innerHTML = sortedFilters.map(filter => {
+    const isAll  = filter === "All";
+    const isNSFW = filter === "NSFW";
+  
+    const classes = [
+      "chip",
+      isAll  && "chip-all",
+      isNSFW && "chip-nsfw"
+    ].filter(Boolean).join(" ");
+  
+    const label = LABEL_MAP[filter] || filter;
+    const data  = filter === "All" ? "all" : filter;
+  
+    return `
+      <button
+        class="${classes}"
+        type="button"
+        data-filter="${data}"
+        aria-pressed="${isAll ? "true" : "false"}"
+      >
+        ${label}
+      </button>
+    `;
+  }).join("");
+    
   // Page title (browser tab)
   if (cfg?.pageTitle) document.title = cfg.pageTitle;
 
