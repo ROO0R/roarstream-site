@@ -750,7 +750,55 @@
       max-width: 920px;
       margin: 0 auto;
     }
+/* ===== Special filter chips ===== */
+
+    /* ALL — friendly / neutral / highlight */
+    .chip-all{
+      border-color: rgba(70,255,214,.45);
+      background: linear-gradient(
+        180deg,
+        rgba(70,255,214,.22),
+        rgba(70,255,214,.10)
+      );
+      color: #dffdf6;
+      box-shadow: 0 0 0 3px rgba(70,255,214,.12) inset;
+    }
     
+    .chip-all:hover{
+      filter: saturate(1.1);
+    }
+    
+    /* NSFW — danger / warning */
+    .chip-nsfw{
+      border-color: rgba(255,90,90,.55);
+      background: linear-gradient(
+        180deg,
+        rgba(255,90,90,.28),
+        rgba(255,90,90,.14)
+      );
+      color: #ffe6e6;
+      box-shadow: 0 0 0 3px rgba(255,90,90,.18) inset;
+    }
+    
+    .chip-nsfw:hover{
+      filter: saturate(1.15);
+    }
+    
+    /* When selected (aria-pressed="true") */
+    .chip-all[aria-pressed="true"]{
+      box-shadow:
+        0 0 0 3px rgba(70,255,214,.25) inset,
+        0 0 22px rgba(70,255,214,.35);
+    }
+    
+    .chip-nsfw[aria-pressed="true"]{
+      box-shadow:
+        0 0 0 3px rgba(255,90,90,.35) inset,
+        0 0 26px rgba(255,90,90,.45);
+    }
+    .chip-nsfw{
+      margin-left: 6px;
+    }
     @media (max-width: 860px){
       .chips{ grid-template-columns: repeat(3, max-content); } /* 3 per row */
     }
@@ -1170,7 +1218,7 @@
       <section class="controls" aria-label="Playlist filters">
         <div class="controlRow">
           <div class="chips" aria-label="Category filters">
-            <button class="chip" type="button" data-filter="all" aria-pressed="true">All</button>
+            <button class="chip chip-all" type="button" data-filter="all" aria-pressed="true">All</button>
             <button class="chip" type="button" data-filter="AdventureGame" aria-pressed="false">Adventure Game</button>
             <button class="chip" type="button" data-filter="FPS" aria-pressed="false">FPS</button>
             <button class="chip" type="button" data-filter="point-and-click" aria-pressed="false">Point-and-Click</button>
@@ -1182,8 +1230,8 @@
             <button class="chip" type="button" data-filter="Platformer" aria-pressed="false">Platformer</button>
             <button class="chip" type="button" data-filter="VN" aria-pressed="false">VN</button>
             <button class="chip" type="button" data-filter="OpenWorld" aria-pressed="false">OpenWorld</button>
-            <button class="chip" type="button" data-filter="NSFW" aria-pressed="false">NSFW</button>
             <button class="chip" type="button" data-filter="Souls-Like" aria-pressed="false">Souls-Like</button>
+            <button class="chip chip-nsfw" type="button" data-filter="NSFW" aria-pressed="false">NSFW</button>
           </div>
 
           <div class="searchWrap">
