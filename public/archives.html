@@ -700,7 +700,8 @@
     .pillbar{
       position:absolute;
       left: 10px;
-      bottom: 10px;
+      top: 10px;          /* moved from bottom -> top */
+      bottom: auto;       /* ensure bottom no longer applies */
       display:flex;
       gap: 6px;
       flex-wrap: wrap;
