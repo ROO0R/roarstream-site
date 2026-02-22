@@ -645,8 +645,18 @@
     }
 
     .card{
-      display: flex;
-      flex-direction: column;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      box-shadow: 0 14px 46px rgba(0,0,0,.40);
+      overflow:hidden;
+      position:relative;
+      transform: translateZ(0);
+      transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease;
+    
+      /* NEW */
+      display:flex;
+      flex-direction:column;
     }
 
     .card::before{
@@ -713,9 +723,14 @@
     }
 
     .content{
-      display: flex;
-      flex-direction: column;
-      flex: 1; /* fills remaining card height */
+      padding: 12px 12px 14px;   /* IMPORTANT: restores breathing room */
+      position: relative;
+      z-index: 1;
+    
+      /* your layout behavior */
+      display:flex;
+      flex-direction:column;
+      flex:1;
     }
 
     .titleRow{
@@ -754,10 +769,14 @@
     }
 
     .cardActions{
-      margin-top: auto;              /* pushes it to the bottom */
-      display: flex;
-      justify-content: center;       /* center horizontally */
-      padding-top: 12px;
+      margin-top: auto;
+      display:flex;
+      justify-content:center;
+      padding: 14px 10px 10px;
+    
+      /* NEW: separator + subtle footer shelf */
+      border-top: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.00), rgba(145,70,255,.08));
     }
 
     a.watch{
@@ -765,6 +784,7 @@
       align-items:center;
       justify-content:center;
       gap: 10px;
+      a.watch{ min-width: 170px; }
       padding: 10px 12px;
       border-radius: 12px;
       text-decoration:none;
