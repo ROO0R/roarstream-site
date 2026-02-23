@@ -314,6 +314,17 @@
       flex-wrap: wrap;
       align-items:center;
     }
+    .foottext{
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1.35;
+    }
+    
+    .foottext .line2{
+      font-size: 13px;
+      color: rgba(184,185,214,.85);
+    }
     a.smallLink{
       color: var(--muted);
       text-decoration:none;
@@ -514,7 +525,11 @@
       </section>
 
       <footer aria-label="Footer">
-        <div>© Roarstream • Credits page template • Replace with real acknowledgements anytime</div>
+        <div class="foottext">
+          <span class="line1">© Roarstream • Credits &amp; acknowledgements</span>
+          <span class="line2">Live – Sundays / Mondays / Thursdays / Fridays</span>
+        </div>
+      
         <div class="footlinks">
           <a class="smallLink" href="index.html">Main</a>
           <a class="smallLink" href="archives.html">Archives</a>
@@ -522,7 +537,6 @@
           <a class="smallLink" href="https://www.twitch.tv/RoarWuzTaken" target="_blank" rel="noopener noreferrer">Twitch</a>
         </div>
       </footer>
-    </main>
 
     <div class="side right" aria-hidden="true"></div>
   </div>
