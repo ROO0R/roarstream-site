@@ -386,7 +386,7 @@
                 <path d="M10 8v5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
                 <path d="M15 8v5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
               </svg>
-              Watch on Twitch
+              <span class="ctaText">Watch on Twitch</span>
             </a>
         
             <a class="cta secondary" href="archives.html">
@@ -430,7 +430,7 @@
       // When offline, it literally says "offline"
       if (!text.toLowerCase().includes("offline")) {
         const label = btn.querySelector(".ctaText");
-        if (label) label.textContent = "🔴 LIVE on Twitch!";
+        if (label) label.textContent = "STREAMING NOW!";
         btn.style.background =
           "linear-gradient(180deg, #ff4d4d, #b80000)";
         btn.style.boxShadow =
