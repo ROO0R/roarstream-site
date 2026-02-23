@@ -376,7 +376,11 @@
   
         <div class="ctaRow">
           <div class="ctaGroup">
-            <a class="cta primary" href="https://www.twitch.tv/RoarWuzTaken" target="_blank" rel="noopener noreferrer">
+            <a class="cta primary"
+               id="twitchLiveBtn"
+               href="https://www.twitch.tv/RoarWuzTaken"
+               target="_blank"
+               rel="noopener noreferrer">
               <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M4 3h18v11l-5 5h-4l-3 3H8v-3H4V3z" stroke="white" stroke-opacity=".9" stroke-width="1.6" />
                 <path d="M10 8v5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
@@ -384,7 +388,7 @@
               </svg>
               Watch on Twitch
             </a>
-  
+        
             <a class="cta secondary" href="archives.html">
               YouTube Archives
             </a>
@@ -412,4 +416,30 @@
       <div class="side right" aria-hidden="true"></div>
     </div>
   </body>
+  <script>
+  (async function checkTwitchLive(){
+    const channel = "RoarWuzTaken";
+    const btn = document.getElementById("twitchLiveBtn");
+    if (!btn) return;
+  
+    try {
+      // decapi is a public Twitch helper API (no auth needed)
+      const res = await fetch(`https://decapi.me/twitch/uptime/${channel}`);
+      const text = await res.text();
+  
+      // When offline, it literally says "offline"
+      if (!text.toLowerCase().includes("offline")) {
+        const label = btn.querySelector(".ctaText");
+        if (label) label.textContent = "🔴 LIVE on Twitch!";
+        btn.style.background =
+          "linear-gradient(180deg, #ff4d4d, #b80000)";
+        btn.style.boxShadow =
+          "0 0 25px rgba(255,77,77,.65)";
+      }
+    } catch (e) {
+      // Fail silently — button stays normal
+      console.warn("Twitch live check failed");
+    }
+  })();
+  </script>
 </html>
