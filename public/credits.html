@@ -31,6 +31,7 @@
       margin:0;
       color:var(--text);
       font-family: 'Chronotype', sans-serif;
+      background-attachment: fixed, fixed, fixed;
       background:
         radial-gradient(1200px 700px at 50% 20%, rgba(145,70,255,.25), transparent 55%),
         radial-gradient(900px 600px at 15% 80%, rgba(70,255,214,.10), transparent 60%),
@@ -43,7 +44,7 @@
       min-height: 100vh;
       display: grid;
       grid-template-columns: minmax(140px, 1fr) minmax(320px, 920px) minmax(140px, 1fr);
-      align-items: stretch;   /* IMPORTANT */
+      align-items: stretch;         /* IMPORTANT */
       gap: 24px;
       padding: 28px 18px;
       position: relative;
@@ -55,7 +56,7 @@
       top: 0;
     
       min-height: 100vh;
-      height: 100%;           /* allows full column stretch */
+      height: 100%;
       align-self: stretch;
     
       border-radius: 26px;
@@ -659,13 +660,13 @@
         </a>
         
       </section>
-
+     
       <footer aria-label="Footer">
         <div class="foottext">
-          <span class="line1">© Roarstream • Credits</span>
+          <span class="line1">© Roarstream • Credits &amp; acknowledgements</span>
           <span class="line2">Live – Sundays / Mondays / Thursdays / Fridays</span>
         </div>
-      
+
         <div class="footlinks">
           <a class="smallLink" href="index.html">Main</a>
           <a class="smallLink" href="archives.html">Archives</a>
@@ -673,6 +674,7 @@
           <a class="smallLink" href="https://www.twitch.tv/RoarWuzTaken" target="_blank" rel="noopener noreferrer">Twitch</a>
         </div>
       </footer>
+    </main>
 
     <div class="side right" aria-hidden="true"></div>
   </div>
