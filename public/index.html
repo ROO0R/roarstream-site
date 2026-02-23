@@ -108,15 +108,42 @@
       pointer-events:none;
     }
 
+    /* Avatar next to welcome */
     .topline{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap: 10px;
-      margin-bottom: 10px;
-      position:relative;
-      z-index:1;
-      flex-wrap:wrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .avatar{
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 2px solid rgba(145,70,255,.55);
+      box-shadow:
+        0 0 0 3px rgba(145,70,255,.15),
+        0 8px 26px rgba(0,0,0,.45);
+    }
+    
+    .avatar img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    
+    /* On small screens, center everything nicely */
+    @media (max-width: 520px){
+      .topline{
+        flex-direction: column;
+        gap: 10px;
+      }
     }
 
     .badge{
@@ -383,7 +410,13 @@
       <main class="panel" role="main">
         <!-- removed broken topline -->
   
-        <h1 class="glowtext">Hi! It's Roarstream!</h1>
+        <div class="topline">
+          <div class="avatar">
+            <img src="http://www.x.jpg" alt="Roarstream avatar">
+          </div>
+        
+          <h1 class="glowtext">Hi! It's Roarstream!</h1>
+        </div>
   
         <div class="ctaRow">
           <div class="ctaGroup">
