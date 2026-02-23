@@ -120,6 +120,10 @@
     }
     
     .avatar{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
       width: 56px;
       height: 56px;
       border-radius: 50%;
@@ -417,19 +421,19 @@
       <main class="panel" role="main">
         <!-- removed broken topline -->
   
-        <a
-          class="avatar"
-          href="https://www.twitch.tv/RoarWuzTaken"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Roarstream - Twitch"
-        >
-          <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/fc31418e-3d12-43aa-9e98-05c688e6c381-profile_image-70x70.png" alt="Roarstream avatar">
-        </a>
         <div class="topline">
-          <div class="avatar">
-            <img src="" alt="Roar says Hi">
-          </div>
+          <a
+            class="avatar"
+            href="https://www.twitch.tv/RoarWuzTaken"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit Roarstream on Twitch"
+          >
+            <img
+              src="https://static-cdn.jtvnw.net/jtv_user_pictures/fc31418e-3d12-43aa-9e98-05c688e6c381-profile_image-70x70.png"
+              alt="Roarstream avatar"
+            >
+          </a>
         
           <h1 class="glowtext">Hi! It's Roarstream!</h1>
         </div>
@@ -473,7 +477,7 @@
             <a class="smallLink" href="https://discord.gg/Um7k2r7xHg" target="_blank" rel="noopener noreferrer">Discord</a>
             <a class="smallLink" href="https://stt.gg/MXWfzX1w" target="_blank" rel="noopener noreferrer">Stoat</a>
             <a class="smallLink" href="https://www.roarstream.com/credits.html">Credits</a>
-            <span class="versionTag">ver18</span>
+            <span class="versionTag">v19</span>
           </div>
         </footer>
       </main>
