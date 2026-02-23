@@ -423,37 +423,27 @@
     const label = btn?.querySelector(".ctaText");
     if (!btn || !label) return;
   
-    // remember default styles/text so we can revert perfectly
-    const defaultText = label.textContent;
-    const defaultBg = btn.style.background;
-    const defaultShadow = btn.style.boxShadow;
-  
     async function check(){
       try {
-        const url = `https://decapi.me/twitch/online/${channel}?_=${Date.now()}`;
-        const res = await fetch(url, { cache: "no-store" });
-        const text = (await res.text()).trim().toLowerCase();
+        const res = await fetch(`https://decapi.me/twitch/uptime/${channel}`, { cache: "no-store" });
+        const text = (await res.text()).toLowerCase();
   
-        const isLive = (text === "true" || text === "online" || text === "1" || text.includes("true"));
-  
-        if (isLive) {
+        if (!text.includes("offline")) {
           label.textContent = "🔴 STREAMING NOW!";
           btn.style.background = "linear-gradient(180deg, #ff4d4d, #b80000)";
           btn.style.boxShadow = "0 0 25px rgba(255,77,77,.65)";
         } else {
-          label.textContent = defaultText;     // goes back to "Twitch Page"
-          btn.style.background = defaultBg;    // goes back to CSS default
-          btn.style.boxShadow = defaultShadow;
+          label.textContent = "Watch on Twitch";
+          btn.style.background = "";
+          btn.style.boxShadow = "";
         }
-      } catch (e) {
-        // If the check fails, don't force either state.
-        // (Optional: you could revert here instead.)
-        console.warn("Live check failed", e);
+      } catch {
+        // fail silently
       }
     }
   
-    check();
-    setInterval(check, 60000);
+    check();                 // run immediately
+    setInterval(check, 60000); // re-check every 60 seconds
   })();
   </script>
 </html>
