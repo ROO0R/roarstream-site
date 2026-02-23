@@ -40,25 +40,29 @@
 
     /* Full-page layout: left art | center panel | right art */
     .stage{
-      min-height:100vh;
-      display:grid;
+      min-height: 100vh;
+      display: grid;
       grid-template-columns: minmax(140px, 1fr) minmax(320px, 920px) minmax(140px, 1fr);
-      align-items:center;
+      align-items: stretch;   /* IMPORTANT */
       gap: 24px;
       padding: 28px 18px;
-      position:relative;
+      position: relative;
     }
 
     /* Side PNG art panels */
     .side{
-      border-radius: 26px;
-      min-height: 100vh;      /* always at least viewport height */
-      position: sticky;       /* stays in place while center scrolls */
+      position: sticky;
       top: 0;
+    
+      min-height: 100vh;
+      height: 100%;           /* allows full column stretch */
+      align-self: stretch;
+    
+      border-radius: 26px;
       overflow: hidden;
+    
       filter: drop-shadow(0 12px 40px rgba(0,0,0,.55));
       opacity: .95;
-      align-self: stretch;    /* IMPORTANT: stretch with the grid row */
     }
     .side::before{
       content:"";
