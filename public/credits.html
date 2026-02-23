@@ -339,7 +339,17 @@
       outline-offset: 3px;
       border-bottom-color: transparent;
     }
-
+    .linkCard{
+      display: block;
+      color: inherit;
+      text-decoration: none;
+    }
+    
+    .linkCard:hover{
+      transform: translateY(-2px);
+      border-color: rgba(184,132,255,.35);
+      box-shadow: 0 20px 64px rgba(0,0,0,.52);
+    }
     /* Responsive: hide side art on smaller screens */
     @media (max-width: 980px){
       .stage{
@@ -395,133 +405,27 @@
 
       <!-- Credits grid -->
       <section class="grid" aria-label="Acknowledgements list">
-        <article class="card">
+        <a
+          class="card linkCard"
+          href="https://example.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visit The Parthenon Purr Taverna">
+        
           <div class="cardHead">
-            <h2>1) The Parthenon Purr taverna</h2>
-            <span class="tag"><span class="dot"></span>GYROS &amp; GROOMING</span>
+            <h2>1) The Parthenon Purr Taverna</h2>
+            <span class="tag">
+              <span class="dot"></span>
+              GYROS &amp; GROOMING
+            </span>
           </div>
-          <p>For teaching us that tzatziki is a sauce, a lifestyle, and (possibly) a hair product when the tabby gets involved.</p>
-        </article>
-
-        <article class="card">
-          <div class="cardHead">
-            <h2>2) Meowthos &amp; Olives</h2>
-            <span class="tag"><span class="dot"></span>BRINY VIBES</span>
-          </div>
-          <p>For the olive flight “chosen by a cat.” We didn’t ask questions. We simply achieved enlightenment.</p>
-        </article>
-
-        <article class="card">
-          <div class="cardHead">
-            <h2>3) Santorini Cat Café (Not A Trap)</h2>
-            <span class="tag"><span class="dot"></span>ABSOLUTELY SAFE</span>
-          </div>
-          <p>For the panoramic sunsets and the equally panoramic judgment from a one-eyed kitten named Captain Feta.</p>
-        </article>
-
-        <article class="card">
-          <div class="cardHead">
-            <h2>4) The Souvlaki Stray Society</h2>
-            <span class="tag"><span class="dot"></span>STICK TECHNOLOGY</span>
-          </div>
-          <p>For perfect skewers and the honorary adoption paperwork we accidentally signed with a paw print.</p>
-        </article>
-
-        <article class="card">
-          <div class="cardHead">
-            <h2>5) Purrsephone’s Pita Palace</h2>
-            <span class="tag"><span class="dot"></span>UNDERWORLD DEALS</span>
-          </div>
-          <p>For a pita so fluffy it returned from the underworld. Seasonal special: “Six Months of Nap.”</p>
-        </article>
-
-        <article class="card">
-          <div class="cardHead">
-            <h2>6) Aegean Meowze</h2>
-            <span class="tag"><span class="dot"></span>TOUCH GRANTED</span>
-          </div>
-          <p>For the mezze platter that arrives like a boss fight and is guarded by a sphinx-shaped cat.</p>
-        </article>
-
-        <article class="card">
-          <div class="cardHead">
-            <h2>7) Apollo’s Alleycats &amp; Baklava</h2>
-            <span class="tag"><span class="dot"></span>SWEET ORACLE</span>
-          </div>
-          <p>For baklava so crisp it predicts your future. Spoiler: it’s “you will eat more baklava.”</p>
-        </article>
-
-        <article class="card">
-          <div class="cardHead">
-            <h2>8) The Corinthian Collar</h2>
-            <span class="tag"><span class="dot"></span>ARCH SUPPORT</span>
-          </div>
-          <p>For structural integrity, architectural puns, and a cat that only sits on load-bearing columns.</p>
-        </article>
-
-        <article class="card">
-          <div class="cardHead">
-            <h2>9) The Feta Feline Forum</h2>
-            <span class="tag"><span class="dot"></span>HOT TAKES</span>
-          </div>
-          <p>For passionate debates about oregano and the moderator cat who bans you for saying “parsley is fine.”</p>
-        </article>
-
-        <article class="card">
-          <div class="cardHead">
-            <h2>10) Mykonos Mittens Bistro</h2>
-            <span class="tag"><span class="dot"></span>ISLAND ENERGY</span>
-          </div>
-          <p>For beachside bites and mittens that steal fries with the precision of a trained assassin.</p>
-        </article>
-
-        <article class="card">
-          <div class="cardHead">
-            <h2>11) The Delphi Litterbox Oracle</h2>
-            <span class="tag"><span class="dot"></span>PROPHECY</span>
-          </div>
-          <p>For answers to life’s greatest questions, delivered in cryptic meows and aggressively buried sand.</p>
-        </article>
-
-        <article class="card">
-          <div class="cardHead">
-            <h2>12) The Moussaka Meowstery</h2>
-            <span class="tag"><span class="dot"></span>NOIR NIGHT</span>
-          </div>
-          <p>For moussaka layered like secrets, served with a stare that says “I know what you did at 2am.”</p>
-        </article>
-
-        <article class="card">
-          <div class="cardHead">
-            <h2>13) Athens Alley Paws</h2>
-            <span class="tag"><span class="dot"></span>STREET LEGENDS</span>
-          </div>
-          <p>For late-night gyro runs and the tiny cat mayor who taxes you one bite per visit.</p>
-        </article>
-
-        <article class="card">
-          <div class="cardHead">
-            <h2>14) The Neon Nemean Nappers</h2>
-            <span class="tag"><span class="dot"></span>HEROIC SIESTA</span>
-          </div>
-          <p>For defeating hunger like Hercules, then immediately napping like a champion on warm pita.</p>
-        </article>
-
-        <article class="card">
-          <div class="cardHead">
-            <h2>15) The Ouzo Ocelot (Greek-ish)</h2>
-            <span class="tag"><span class="dot"></span>ANISE CHAOS</span>
-          </div>
-          <p>For ouzo that turns water into clouds and a “Greek cat” that might be… extremely committed cosplay.</p>
-        </article>
-
-        <article class="card">
-          <div class="cardHead">
-            <h2>16) Paws of Poseidon Seafood Shack</h2>
-            <span class="tag"><span class="dot"></span>TIDAL SNACKS</span>
-          </div>
-          <p>For ocean-fresh bites, sea-salt air, and a cat who emerges from the waves to demand tribute.</p>
-        </article>
+        
+          <p>
+            For teaching us that tzatziki is a sauce, a lifestyle, and possibly
+            a hair product when the tabby gets involved.
+          </p>
+        
+        </a>
       </section>
 
       <footer aria-label="Footer">
