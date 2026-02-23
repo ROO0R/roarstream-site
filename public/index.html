@@ -242,6 +242,17 @@
       flex-wrap: wrap;
       align-items:center;
     }
+    .foottext{
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1.35;
+    }
+    
+    .foottext .line2{
+      font-size: 13px;
+      color: rgba(184,185,214,.85);
+    }
     a.smallLink{
       color: var(--muted);
       text-decoration:none;
@@ -403,7 +414,10 @@
   
         <!-- ✅ footer moved INSIDE the panel -->
         <footer aria-label="Footer">
-          <div>© Roarstream • Live &amp; archives • Live - Sundays / Mondays / Thursdays / Fridays</div>
+          <div class="foottext">
+            <span class="line1">© Roarstream • Live &amp; archives</span>
+            <span class="line2">Live – Sundays / Mondays / Thursdays / Fridays</span>
+          </div>
           <div class="footlinks">
             <a class="smallLink" href="https://www.youtube.com/@RoarWuzTaken" target="_blank" rel="noopener noreferrer">YouTube</a>
             <a class="smallLink" href="https://www.twitch.tv/RoarWuzTaken" target="_blank" rel="noopener noreferrer">Twitch</a>
