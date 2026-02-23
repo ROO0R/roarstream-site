@@ -417,29 +417,33 @@
     </div>
   </body>
   <script>
-  (async function checkTwitchLive(){
+  (async function(){
     const channel = "RoarWuzTaken";
     const btn = document.getElementById("twitchLiveBtn");
-    if (!btn) return;
+    const label = btn?.querySelector(".ctaText");
+    if (!btn || !label) return;
   
-    try {
-      // decapi is a public Twitch helper API (no auth needed)
-      const res = await fetch(`https://decapi.me/twitch/uptime/${channel}`);
-      const text = await res.text();
+    async function check(){
+      try {
+        const res = await fetch(`https://decapi.me/twitch/uptime/${channel}`, { cache: "no-store" });
+        const text = (await res.text()).toLowerCase();
   
-      // When offline, it literally says "offline"
-      if (!text.toLowerCase().includes("offline")) {
-        const label = btn.querySelector(".ctaText");
-        if (label) label.textContent = "STREAMING NOW!";
-        btn.style.background =
-          "linear-gradient(180deg, #ff4d4d, #b80000)";
-        btn.style.boxShadow =
-          "0 0 25px rgba(255,77,77,.65)";
+        if (!text.includes("offline")) {
+          label.textContent = "🔴 STREAMING NOW!";
+          btn.style.background = "linear-gradient(180deg, #ff4d4d, #b80000)";
+          btn.style.boxShadow = "0 0 25px rgba(255,77,77,.65)";
+        } else {
+          label.textContent = "Watch on Twitch";
+          btn.style.background = "";
+          btn.style.boxShadow = "";
+        }
+      } catch {
+        // fail silently
       }
-    } catch (e) {
-      // Fail silently — button stays normal
-      console.warn("Twitch live check failed");
     }
+  
+    check();                 // run immediately
+    setInterval(check, 60000); // re-check every 60 seconds
   })();
   </script>
 </html>
