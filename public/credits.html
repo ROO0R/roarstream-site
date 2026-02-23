@@ -51,12 +51,14 @@
 
     /* Side PNG art panels */
     .side{
-      height: clamp(520px, 90vh, 980px);
       border-radius: 26px;
-      position:relative;
-      overflow:hidden;
+      min-height: 100vh;      /* always at least viewport height */
+      position: sticky;       /* stays in place while center scrolls */
+      top: 0;
+      overflow: hidden;
       filter: drop-shadow(0 12px 40px rgba(0,0,0,.55));
-      opacity:.95;
+      opacity: .95;
+      align-self: stretch;    /* IMPORTANT: stretch with the grid row */
     }
     .side::before{
       content:"";
@@ -368,7 +370,7 @@
     }
     @media (max-height: 680px){
       .stage{
-        align-items: start;
+        align-items: stretch;
         padding-top: 18px;
         padding-bottom: 28px;
       }
