@@ -1,1 +1,396 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <title>Chapter Four</title>
+
+ <!-- === SAME STYLE AS index.html === -->
+ <style>
+ @font-face {
+  font-family: 'Chronotype';
+  src: url('Chronotype.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+ }
+
+ :root{
+  --accent:#1f6f3a;
+  --bg0:#05070a;
+  --bg1:#070d0a;
+  --panel:#0f1411;
+  --panel2:#141d16;
+  --text:#f3fff7;
+  --muted:#b8d6c3;
+  --border: rgba(255,255,255,.12);
+  --shadow: 0 18px 60px rgba(0,0,0,.55);
+  --radius: 18px;
+ }
+
+ *{ box-sizing:border-box; }
+ html, body { height:100%; }
+
+ body{
+  margin:0;
+  color:var(--text);
+  font-family:'Chronotype', sans-serif;
+  background:
+  radial-gradient(1200px 700px at 50% 20%, rgba(31,111,58,.25), transparent 55%),
+  linear-gradient(180deg, var(--bg0), var(--bg1));
+ }
+
+ .stage{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns: minmax(140px,1fr) minmax(320px,920px) minmax(140px,1fr);
+  gap:24px;
+  padding:28px 18px;
+ }
+
+ .side{
+  border-radius:26px;
+  opacity:.9;
+ }
+
+ .panel{
+  background: linear-gradient(180deg, rgba(20,20,39,.92), rgba(15,15,24,.92));
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:clamp(20px,3vw,36px);
+ }
+
+ /* === STORY CONTENT POLISH === */
+ .story{
+  line-height:1.6;
+  font-size:17px;
+ }
+
+ .story img{
+  max-width:100%;
+  height:auto;
+  border-radius:12px;
+  margin:16px 0;
+  box-shadow:0 10px 30px rgba(0,0,0,.45);
+ }
+
+ .story b{
+  color:#c9ffe0;
+ }
+
+ .story i{
+  color:#e6f5ec;
+ }
+  
+ .line{
+  padding-left: 6px;
+  border-left: 2px solid rgba(126,226,168,.25);
+ }
+ .chapter-title{
+  text-align:center;
+  margin-bottom:24px;
+ }
+
+ .chapter-title h1{
+  margin:0;
+  font-size:clamp(32px,4vw,52px);
+ }
+
+ .chapter-title sub{
+  display:block;
+  color:var(--muted);
+  margin-top:6px;
+  font-size:12px;
+ }
+
+ footer{
+  margin-top:28px;
+  padding-top:14px;
+  border-top:1px solid rgba(255,255,255,.1);
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  font-size:14px;
+  color:var(--muted);
+ }
+
+ a.smallLink{
+  color:var(--muted);
+  text-decoration:none;
+  border-bottom:1px dashed rgba(184,214,195,.35);
+ }
+
+ a.smallLink:hover{ color:#fff; }
+
+ @media (max-width: 980px){
+  .stage{ grid-template-columns:1fr; }
+  .side{ display:none; }
+ }
+ .pager{
+  margin-top: 22px;
+  display:flex;
+  gap: 12px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+ }
+ .pager a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  text-decoration:none;
+  font-weight: 700;
+  font-size: 16px;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.14);
+  background: linear-gradient(180deg, rgba(31,111,58,.92), rgba(20,90,45,.92));
+  box-shadow: 0 14px 40px rgba(31,111,58,.18);
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+ }
+ .pager a:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 18px 55px rgba(31,111,58,.26);
+  filter: saturate(1.05);
+ }
+ .pager a:focus-visible{
+  outline: 3px solid rgba(126,226,168,.65);
+  outline-offset: 3px;
+ }
+ .dialogue{
+  display:flex;
+  align-items:flex-start;
+  gap: 12px;
+  margin: 14px 0;
+ }
+ 
+ .dialogue .icon{
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex: 0 0 auto;
+  box-shadow: 0 10px 26px rgba(0,0,0,.45);
+ }
+ 
+ .dialogue .line{
+  margin: 0;
+ }
+ 
+ .dialogue .line i{
+  color: #e6f5ec;
+ }
+ </style>
+</head>
+
+<body>
+ <div class="stage">
+ <div class="side left"></div>
+
+ <main class="panel">
+  <!-- === CHAPTER HEADER === -->
+  <header class="chapter-title">
+  <h1>The Others</h1>
+  <sub>With our whole cast in place, the real fun can begin...eventually</sub>
+  </header>
+<b></b><br><br><br>
+<br>
+<i>It's past 9:30 p.m.  Um...there're so many things I have to remember. </i><br>
+<br>
+<b>English note:  "Therere" isn't proper.  <img src="1_files/emot-colbert.gif" alt="" border="0"></b><br>
+<br>
+<i>Their menus is
+huge. I don't understand why they have to have more than ten kinds of
+cheese. I don't even want to mention the wines...I guess Shuntaro takes
+care of wines, though. </i><br>
+<br>
+"The
+restaurant will close at ten o'clock. They must be getting the last
+orders now. The other staff should be showing up soon..."</i><br>
+<br>
+I guess there
+are two more waitresses I haven't met yet. I feel thankful for them
+because they'll come just for my welcome party. </i><br>
+<br>
+<b>Free food and drink and they only get paychecks once a month.  Of course they're coming.</b><br>
+<br>
+<i>Sae and Akina
+taught me things, but I guess they're busy closing the shop now. I feel
+lonely in this room. I guess I'll go to the restroom... I don't want to
+leave my seat during the welcome party. </i><br>
+<br>
+The restroom
+is too big and clean for me. I need time to get used to this restroom,
+which is five times bigger than the one in my house. </i><br>
+<br>
+<b>Ed. Note: the scenery doesn't actually change to the restroom,
+despite the fact that the artwork is in the game. However, it does take
+us to the hallway for the trip back to the office.</b><br>
+<br>
+<img src="1_files/snap612.jpg" alt="" class="img" border="0"><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">:  <i>We'll close soon...</i><br>
+<br>
+<b>On our way back in, however...</b><br>
+<br>
+<img src="1_files/snap615.jpg" alt="" class="img" border="0"><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"Eh?"<br>
+<br>
+<i></i>As I open the door and step into the room, I hear someone screeching.  I forgot to knock on the door.  "Eh...ah...oh..."</i><br>
+<br>
+<img src="1_files/Chimaki.JPG" alt="" class="img" border="0">:  <i>Um?  You can't come in here.  This is only for employees."</i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">:  <i>She doesn't
+look like an employee. She's small, has fluffy hair, and speaks with a
+lisp. She must be younger than I am. Is she a waitress here?</i><br>
+<br>
+<img src="1_files/Chimaki.JPG" alt="" class="img" border="0"> <i>"He-he-he.  I forgive you because you're cute.  So listen to me and return to your table, OK?" </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"Ah...I'm going to work as a waiter here, starting tomorrow.  My name is Yukari Fujisawa!  Nice to meet you! </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"And, I'm
+sorry for not knocking on the door. I didn't think anyone was in here."
+I say everything without stopping, and she happily looks at me. </i><br>
+<br>
+<img src="1_files/Chimaki.JPG" alt="" class="img" border="0"> <i>"Oh, you are!"  She comes up and looks at me, and...</i><br>
+<br>
+<img src="1_files/snap632.jpg" alt="" class="img" border="0"><br>
+<br>
+<b>Oh Christ.</b><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">:  <i>She suddenly puts her arms around my neck and kisses my cheek! </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"Eh?  No...ah...hey...!"</i><br>
+<br>
+<b>Way to fight it, girly-man.</b><br>
+<br>
+<img src="1_files/Chimaki.JPG" alt="" class="img" border="0"> <i>"He-he-he.. I'm Chimake Hase.  Nice to meet you, Yuka!" </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"Y...Yuka?" </i><br>
+<br>
+<img src="1_files/Chimaki.JPG" alt="" class="img" border="0"> <i>"Yeah!  You're Yukari, right?  So I'll call you Yuka!" </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"............" </i><br>
+<br>
+<b>And so starts the most irritating nickname in the world.  Luckily, I think she ends up forgetting about it after a while.</b><br>
+<br>
+<i>Chimaki smiles
+at me with her arms around my neck. She isn't like Sae or Hiromi. Her
+innocent smile reminds me of my little sisters. </i><br>
+<br>
+<b><img src="1_files/emot-siren.gif" alt="" border="0"> WARNING.  LEAVE TRAIN OF THOUGHT IMMEDIATELY. <img src="1_files/emot-siren.gif" alt="" border="0"></b><br>
+<br>
+<u>PAT, PAT, PAT...</u><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"Ah...ah...?"<br>
+<br>
+<i>Without giving me time to be sentimental, Chimaki starts doing something strange:  She touches my chest. </i><br>
+<br>
+<img src="1_files/snap644.jpg" alt="" class="img" border="0"><br>
+<br>
+<i>Boobs...?  Does she...?</i><br>
+<br>
+<u>KNOCK, KNOCK!</u><br>
+<br>
+<img src="1_files/snap654.jpg" alt="" class="img" border="0"><br>
+<br>
+<img src="1_files/snap655.jpg" alt="" class="img" border="0"><br>
+<br>
+<b>Welp.  This is awkward.</b><br>
+<br>
+<i>A chill runs through the room...Am I doing the same thing again!? </i><br>
+<br>
+<img src="1_files/Chimaki.JPG" alt="" class="img" border="0"> <i>"Hello, Ryo-chin and Hiro!" </i><br>
+<br>
+<img src="1_files/Ryo.JPG" alt="" class="img" border="0"> <i>"Don't call me Ryo-chin!  How many times do I have to tell you, Chimaki?" </i><br>
+<br>
+<img src="1_files/Chimaki.JPG" alt="" class="img" border="0"> <i>"Eh?  But you're Ryo-chi, right?  Yuka?"  Clinging on my neck, Chimaki asks me. </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"Ooh...I don't know..."<br>
+<br>
+I look at the girl, who has just
+entered in a formal manner. She has her long hair tied back. She's very
+pretty.</i><br>
+<br>
+<b>What's the difference between entering formally and entering informally? </b><br>
+<br>
+<i>She and Chimaki will put on bunny girl costumes when they work...</i><br>
+<br>
+<img src="1_files/Ryo.JPG" alt="" class="img" border="0"> <i>"Who is she...?"
+<br>
+She looks at me, bows, and asks Hiromi. </i><br>
+<br>
+<img src="1_files/Chimaki.JPG" alt="" class="img" border="0"> <i>"She'll start working here tomorrow.  Her name is Yuka!" </i><br>
+<br>
+<b>Jesus, again and again with the "you're a girl" thing.  Maybe you need to update your image, dude.</b><br>
+<br>
+<img src="1_files/hiromi.PNG" alt="" class="img" border="0"> <i>"Yeah, but Yukari isn't a girl..."</i><br>
+<br>
+<img src="1_files/snap670.jpg" alt="" class="img" border="0"><br>
+<br>
+<i>I guess it's kind of my fault because they wanted a waitress. </i><br>
+<br>
+<b>That and the fact that you totally look like a chick.</b><br>
+<br>
+<img src="1_files/Ryo.JPG" alt="" class="img" border="0"> <i>"So...you're a boy. </i><br>
+<br>
+<img src="1_files/Chimaki.JPG" alt="" class="img" border="0"> <i>"Yuka...?"</i><br>
+<br>
+<b>I love the fact that they find it so hard to believe.</b><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"Eh...my name is Yukari Fujisawa.  I'm a boy."
+<br>
+I'm tired of people's curious eyes.  I firmly tell them. </i><br>
+<br>
+<b>Atta boy, Yuk!  They're sure to believ-</b><br>
+<br>
+<i>Suddenly, Chimaki stretches her hand to my crotch. </i><br>
+<br>
+<u>SQUEEZE!</u><br>
+<br>
+what<br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"Ah!?" </i><br>
+<br>
+<img src="1_files/Chimaki.JPG" alt="" class="img" border="0"> <i>"Oh, you're right." </i><br>
+<br>
+<i>I forcefully shake Chimaki off.</i><br>
+<br>
+<img src="1_files/snap681.jpg" alt="" class="img" border="0"><br>
+<br>
+<b>I both love and loathe Chimaki for a multitude of reasons.  This is one of them.</b><br>
+<br>
+<img src="1_files/Ryo.JPG" alt="" class="img" border="0"> <i>"You have other ways to check his sex!" </i><br>
+<br>
+<b>"Shut up bitch she just touched my thing don't discourage her."</b><br>
+<br>
+<img src="1_files/hiromi.PNG" alt="" class="img" border="0"> <i>"Chimaki..."</i><br>
+<br>
+<i>Hiromi and Ryo blush...I want to blush. "Hah..." I
+suddenly feel very tired. Will I be able to work as a respectable
+person here? </i><br>
+<br>
+<b>Well, you drilled your boss ten minutes after you got a job and you
+just got felt up by one of the waitresses. However, this is Japan. So I
+guess the answer is yes. Respectable as fuck.</b><br>
+<br>
+  </section>
+  <nav class="pager" aria-label="Chapter navigation">
+  <a href="04.html" aria-label="Previous chapter">← Back</a>
+  <a href="06.html" aria-label="Next chapter">Next →</a>
+  </nav>
+  <footer>
+  <span>© Roarstream</span>
+  <span>
+   <a class="smallLink" href="index.html">Home</a>
+  </span>
+  </footer>
+ </main>
+
+ <div class="side right"></div>
+ </div>
+</body>
+</html>
