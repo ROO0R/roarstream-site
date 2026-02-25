@@ -7,196 +7,196 @@
 
  <!-- === SAME STYLE AS index.html === -->
  <style>
-  @font-face {
-   font-family: 'Chronotype';
-   src: url('Chronotype.woff2') format('woff2');
-   font-weight: normal;
-   font-style: normal;
-  }
+ @font-face {
+  font-family: 'Chronotype';
+  src: url('Chronotype.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+ }
 
-  :root{
-   --accent:#1f6f3a;
-   --bg0:#05070a;
-   --bg1:#070d0a;
-   --panel:#0f1411;
-   --panel2:#141d16;
-   --text:#f3fff7;
-   --muted:#b8d6c3;
-   --border: rgba(255,255,255,.12);
-   --shadow: 0 18px 60px rgba(0,0,0,.55);
-   --radius: 18px;
-  }
+ :root{
+  --accent:#1f6f3a;
+  --bg0:#05070a;
+  --bg1:#070d0a;
+  --panel:#0f1411;
+  --panel2:#141d16;
+  --text:#f3fff7;
+  --muted:#b8d6c3;
+  --border: rgba(255,255,255,.12);
+  --shadow: 0 18px 60px rgba(0,0,0,.55);
+  --radius: 18px;
+ }
 
-  *{ box-sizing:border-box; }
-  html, body { height:100%; }
+ *{ box-sizing:border-box; }
+ html, body { height:100%; }
 
-  body{
-   margin:0;
-   color:var(--text);
-   font-family:'Chronotype', sans-serif;
-   background:
-    radial-gradient(1200px 700px at 50% 20%, rgba(31,111,58,.25), transparent 55%),
-    linear-gradient(180deg, var(--bg0), var(--bg1));
-  }
+ body{
+  margin:0;
+  color:var(--text);
+  font-family:'Chronotype', sans-serif;
+  background:
+  radial-gradient(1200px 700px at 50% 20%, rgba(31,111,58,.25), transparent 55%),
+  linear-gradient(180deg, var(--bg0), var(--bg1));
+ }
 
-  .stage{
-   min-height:100vh;
-   display:grid;
-   grid-template-columns: minmax(140px,1fr) minmax(320px,920px) minmax(140px,1fr);
-   gap:24px;
-   padding:28px 18px;
-  }
+ .stage{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns: minmax(140px,1fr) minmax(320px,920px) minmax(140px,1fr);
+  gap:24px;
+  padding:28px 18px;
+ }
 
-  .side{
-   border-radius:26px;
-   opacity:.9;
-  }
+ .side{
+  border-radius:26px;
+  opacity:.9;
+ }
 
-  .panel{
-   background: linear-gradient(180deg, rgba(20,20,39,.92), rgba(15,15,24,.92));
-   border:1px solid var(--border);
-   border-radius:var(--radius);
-   box-shadow:var(--shadow);
-   padding:clamp(20px,3vw,36px);
-  }
+ .panel{
+  background: linear-gradient(180deg, rgba(20,20,39,.92), rgba(15,15,24,.92));
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:clamp(20px,3vw,36px);
+ }
 
-  /* === STORY CONTENT POLISH === */
-  .story{
-   line-height:1.6;
-   font-size:17px;
-  }
+ /* === STORY CONTENT POLISH === */
+ .story{
+  line-height:1.6;
+  font-size:17px;
+ }
 
-  .story img{
-   max-width:100%;
-   height:auto;
-   border-radius:12px;
-   margin:16px 0;
-   box-shadow:0 10px 30px rgba(0,0,0,.45);
-  }
+ .story img{
+  max-width:100%;
+  height:auto;
+  border-radius:12px;
+  margin:16px 0;
+  box-shadow:0 10px 30px rgba(0,0,0,.45);
+ }
 
-  .story b{
-   color:#c9ffe0;
-  }
+ .story b{
+  color:#c9ffe0;
+ }
 
-  .story i{
-   color:#e6f5ec;
-  }
-    
-  .line{
-   padding-left: 6px;
-   border-left: 2px solid rgba(126,226,168,.25);
-  }
-  .chapter-title{
-   text-align:center;
-   margin-bottom:24px;
-  }
-
-  .chapter-title h1{
-   margin:0;
-   font-size:clamp(32px,4vw,52px);
-  }
-
-  .chapter-title sub{
-   display:block;
-   color:var(--muted);
-   margin-top:6px;
-   font-size:15px;
-  }
-
-  footer{
-   margin-top:28px;
-   padding-top:14px;
-   border-top:1px solid rgba(255,255,255,.1);
-   display:flex;
-   justify-content:space-between;
-   flex-wrap:wrap;
-   font-size:14px;
-   color:var(--muted);
-  }
-
-  a.smallLink{
-   color:var(--muted);
-   text-decoration:none;
-   border-bottom:1px dashed rgba(184,214,195,.35);
-  }
-
-  a.smallLink:hover{ color:#fff; }
-
-  @media (max-width: 980px){
-   .stage{ grid-template-columns:1fr; }
-   .side{ display:none; }
-  }
-  .pager{
-   margin-top: 22px;
-   display:flex;
-   gap: 12px;
-   justify-content: space-between;
-   flex-wrap: wrap;
-  }
-  .pager a{
-   display:inline-flex;
-   align-items:center;
-   justify-content:center;
-   gap: 10px;
-   padding: 12px 16px;
-   border-radius: 12px;
-   text-decoration:none;
-   font-weight: 700;
-   font-size: 16px;
-   color: #fff;
-   border: 1px solid rgba(255,255,255,.14);
-   background: linear-gradient(180deg, rgba(31,111,58,.92), rgba(20,90,45,.92));
-   box-shadow: 0 14px 40px rgba(31,111,58,.18);
-   transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
-  }
-  .pager a:hover{
-   transform: translateY(-2px);
-   box-shadow: 0 18px 55px rgba(31,111,58,.26);
-   filter: saturate(1.05);
-  }
-  .pager a:focus-visible{
-   outline: 3px solid rgba(126,226,168,.65);
-   outline-offset: 3px;
-  }
-  .dialogue{
-   display:flex;
-   align-items:flex-start;
-   gap: 12px;
-   margin: 14px 0;
-  }
+ .story i{
+  color:#e6f5ec;
+ }
   
-  .dialogue .icon{
-   width: 44px;
-   height: 44px;
-   border-radius: 10px;
-   object-fit: cover;
-   flex: 0 0 auto;
-   box-shadow: 0 10px 26px rgba(0,0,0,.45);
-  }
-  
-  .dialogue .line{
-   margin: 0;
-  }
-  
-  .dialogue .line i{
-   color: #e6f5ec;
-  }
-  </style>
+ .line{
+  padding-left: 6px;
+  border-left: 2px solid rgba(126,226,168,.25);
+ }
+ .chapter-title{
+  text-align:center;
+  margin-bottom:24px;
+ }
+
+ .chapter-title h1{
+  margin:0;
+  font-size:clamp(32px,4vw,52px);
+ }
+
+ .chapter-title sub{
+  display:block;
+  color:var(--muted);
+  margin-top:6px;
+  font-size:15px;
+ }
+
+ footer{
+  margin-top:28px;
+  padding-top:14px;
+  border-top:1px solid rgba(255,255,255,.1);
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  font-size:14px;
+  color:var(--muted);
+ }
+
+ a.smallLink{
+  color:var(--muted);
+  text-decoration:none;
+  border-bottom:1px dashed rgba(184,214,195,.35);
+ }
+
+ a.smallLink:hover{ color:#fff; }
+
+ @media (max-width: 980px){
+  .stage{ grid-template-columns:1fr; }
+  .side{ display:none; }
+ }
+ .pager{
+  margin-top: 22px;
+  display:flex;
+  gap: 12px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+ }
+ .pager a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  text-decoration:none;
+  font-weight: 700;
+  font-size: 16px;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.14);
+  background: linear-gradient(180deg, rgba(31,111,58,.92), rgba(20,90,45,.92));
+  box-shadow: 0 14px 40px rgba(31,111,58,.18);
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+ }
+ .pager a:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 18px 55px rgba(31,111,58,.26);
+  filter: saturate(1.05);
+ }
+ .pager a:focus-visible{
+  outline: 3px solid rgba(126,226,168,.65);
+  outline-offset: 3px;
+ }
+ .dialogue{
+  display:flex;
+  align-items:flex-start;
+  gap: 12px;
+  margin: 14px 0;
+ }
+ 
+ .dialogue .icon{
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex: 0 0 auto;
+  box-shadow: 0 10px 26px rgba(0,0,0,.45);
+ }
+ 
+ .dialogue .line{
+  margin: 0;
+ }
+ 
+ .dialogue .line i{
+  color: #e6f5ec;
+ }
+ </style>
 </head>
 
 <body>
  <div class="stage">
-  <div class="side left"></div>
+ <div class="side left"></div>
 
-  <main class="panel">
-   <!-- === CHAPTER HEADER === -->
-   <header class="chapter-title">
-    <h1>Chapter 2: Better than Gold</h1>
-    <sub>get it platinum is better than gold</sub>
-   </header>
+ <main class="panel">
+  <!-- === CHAPTER HEADER === -->
+  <header class="chapter-title">
+  <h1>Chapter 2: Better than Gold</h1>
+  <sub>get it platinum is better than gold</sub>
+  </header>
 
-   <!-- === ORIGINAL CONTENT GOES HERE === -->
-   <section class="story">
+  <!-- === ORIGINAL CONTENT GOES HERE === -->
+  <section class="story">
 <i>I've looked through some job magazines, and I found work at a restaurant. It's an Italian restaurant called Platinum.'</i><br>
 <br>
 <b>Which, if I don't say so myself, is a damn cool name for a
@@ -238,7 +238,7 @@ I'd better try to find the restaurant...ah..."</i><br>
 <br>
 <img src="1_files/snap106.jpg" alt=" class="img" border="0"><br>
 <br>
-<img src="1_files/emot-geno.gif" alt=" border="0">: <i>"What was I looking for..."<br>
+<img src="1_files/emot-geno.gif" alt=" border="0"> "<i>"What was I looking for..."<br>
 <br>
 I droop my shoulders...I don't have time to be like this. I look at my watch. I have five minutes before the interview.<br>
 <br>
@@ -275,7 +275,7 @@ girls. I wish I were like him.</i><br>
 <br>
 <b>And here's the office. Fucking is to be had here, too.</b><br>
 <br>
-<img src="1_files/shunt.PNG" alt=" class="img" border="0">: <i>"Here you go...Well, she's not here...What the hell is she doing?"<br>
+<img src="1_files/shunt.PNG" alt=" class="img" border="0"> "<i>"Here you go...Well, she's not here...What the hell is she doing?"<br>
 <br>
 He scratches his head and sulkily smiles at me. I haven't heard his name yet.<br>
 <br>
@@ -347,7 +347,7 @@ She throws him an icy look. I thought she was kind...<br>
 <br>
 <b>He's knocking on the door during an interview. What an asshole.</b><br>
 <br>
-<img src="1_files/emot-geno.gif" alt=" border="0">: <i>"Hah..."</i><br>
+<img src="1_files/emot-geno.gif" alt=" border="0"> "<i>"Hah..."</i><br>
 <br>
 <u>KNOCK, KNOCK!</u><br>
 <br>
@@ -363,7 +363,7 @@ He stops knocking after a while, and she comes to me shrugging.<br>
 <br>
 <img src="1_files/emot-geno.gif" alt=" border="0"> "...................."<br>
 <br>
-<img src="1_files/akina.PNG" alt=" class="img" border="0">: <i>"Are you OK?"</i><br>
+<img src="1_files/akina.PNG" alt=" class="img" border="0"> "<i>"Are you OK?"</i><br>
 <br>
 <b>He's terrified in the presence of women, can't you tell?</b><br>
 <br>
@@ -375,7 +375,7 @@ She knows what I'm thinking...I blush.</i><br>
 <br>
 <b>This is it! Sex time!</b><br>
 <br>
-<img src="1_files/akina.PNG" alt=" class="img" border="0">: <i>Wow...how cute. I can't blame Shuntaro for mistaking you for a girl."</i><br>
+<img src="1_files/akina.PNG" alt=" class="img" border="0"> "<i>Wow...how cute. I can't blame Shuntaro for mistaking you for a girl."</i><br>
 <br>
 ...<b>from erect to flacid in five seconds flat.</b><br>
 <br>
@@ -425,25 +425,139 @@ shoulders. There's no way I can get this job because I'm a boy.</i><br>
 <br>
 <b>"You lost me after '...sexual...'."</b><br>
 <br>
-<img src="1_files/akina.PNG" alt=" class="img" border="0">: <i>"You're hired!" She cheerfully declares.</i><br>
+<img src="1_files/akina.PNG" alt=" class="img" border="0"> "<i>"You're hired!" She cheerfully declares.</i><br>
 <br>
 woop.gif<br><br>
-    
-Next time: Job Benefits.
-   </section>
-   <nav class="pager" aria-label="Chapter navigation">
-    <a href="01.html" aria-label="Previous chapter">← Back</a>
-    <a href="03.html" aria-label="Next chapter">Next →</a>
-   </nav>
-   <footer>
-    <span>© Roarstream</span>
-    <span>
-     <a class="smallLink" href="index.html">Home</a>
-    </span>
-   </footer>
-  </main>
+<img src="1_files/emot-geno.gif" alt="" border="0"> "<i>I'm still
+confused, but Ms. Inamura starts explaining about the restaurant. &#8230;&#8230;
+After being taken over by the US occupation army after WWII, Platinum
+became a club for high-ranking officers. Even after the US occupation
+army left the country, the restaurant continued to exist as a members
+only Italian restaurant.</i><br>
+<br>
+<i>Italian chefs
+cook delicious dishes with selected ingredients. Down-to-earth service
+by waitresses and an excellent wine server keeps attracting regulars.
+Basically, they don't accept new customers. The restaurant itself isn't
+easy to find, so only regulars come anyway.</i><br>
+<br>
+<b>&#8230;Wait, what? Why don't they accept new customers again? That doesn't
+make any sense. And as far as I can tell, that little fact never comes
+up again in the story and &#8211; at least once &#8211; is contradicted.</b><br>
+<br>
+<i>I guess I'm
+hired as a waiter. Now I know why they pay so well for just part-time
+work and why they are located in such a place. Then&#8230;</i><br>
+<br>
+<img src="1_files/snap220.jpg" alt="" class="img" border="0"><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> "<i>&#8221;Yes! Bunny girls! Waitresses serve in bunny costumes.&#8221;</i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> "<i>&#8221;&#8230;&#8230;&#8230;&#8230;.&#8221;</i><br>
+<br>
+<b>WAY TO GO, BUNNY BOY. THIS WILL BE THE BEST JOB EVER. <img src="1_files/emot-haw.gif" alt="" border="0"></b><br>
+<br>
+<i>I see&#8230; That's why only girls can do the job. Bunny girls at
+an expensive Italian restaurant&#8230; It sounds strange, but I guess that's
+one of the reasons this restaurant is so popular. I can understand why
+this used to be a club for high-ranking officers.</i><br>
+<br>
+<b>Because high-ranking officers and bunny girls go together like Chinese food and chocolate pudding.</b><br>
+<br>
+<i>&#8230;which means!?</i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> "<i>&#8221;Don't tell me I have to wear that costume&#8230;&#8221;</i><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> "<i>&#8221;Ha-ha-ha! I won't!&#8221;</i><br>
+<br>
+<b>&#8221;I won't tell you! Ha ha ha! But seriously, you can pick one up at the costume shop down the street.</b>&#8221;<br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> "<i>&#8221;DON'T WORRY. I'll prepare a formal suit for you.&#8221;</i><br>
+<br>
+<b>Or that works too, I guess.</b><br>
+<br>
+<i>I get a chill
+when I imagine myself in a bunny costume. It doesn't look right. I sigh
+with relief and Ms. Inamura smiles. She smiles a lot. Her smile is
+attractive.</i><br>
+<br>
+<b>For those of you keeping track, that was two and a half sentences on how much Yukari likes Akina's smiles.</b><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> "<i>&#8221;We used to have waiters. I think it might be good to have a boy: we sometimes need male hands for manual labor.&#8221;</i><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> "<i>&#8221;Ah&#8230; I guess you aren't that strong, huh?&#8221;</i><br>
+<br>
+<b>Burn, baby, <img src="1_files/emot-iceburn.gif" alt="" border="0">.</b><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: &#8220;Well&#8230; I practice judo a little&#8230;&#8221;</i><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> "<i>&#8221;Judo? Really&#8230;? Are you strong?&#8221;</i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> "<i>&#8221;No&#8230; not really. I was afraid to participate in contests.&#8221; </i><br>
+<br>
+<i>I started practicing judo when I was very young to make myself look manly. </i><br>
+<br>
+<b>Apparently, you were wasting your time, huh?</b><br>
+<br>
+<i>I liked the
+feel of tatami mats and enjoyed using my body. People are nice at the
+judo gym, but I haven't been there in a while because they kept bugging
+me to take part in the contests. I don't need any victories or a
+license. Actually, I feel kind of empty. I never did end up looking
+manly. </i><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> "<i>&#8221;I
+see&#8230; I guess I can't judge people just by their looks. Anyways, there's
+not much manual labor to do. You don't have to worry about that."</i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> "<i>&#8221;Ok.&#8221; </i><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> "<i>&#8221;Well,
+let's start talking about your work schedule for the month. We have
+four waitresses at this restaurant. I'll introduce you to them later.&#8221;</i><br>
+<br>
+<b>Oh, okay. I'm sure they will be very nice. <img src="1_files/emot-pervert.gif" alt="" border="0"></b><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> "<i>&#8221;Will you be able to start tomorrow? We'll give you a paycheck at the end of the month. Is that OK?&#8221; </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> "<i>&#8221;Yes. It's perfectly fine with me.&#8221; </i><br>
+<br>
+<i>I deeply bow
+to her. My work schedule isn't that hard. I still have enough time to
+study and go about my hobbies. They treat me very nice. My co-workers
+are all girls&#8230;in bunny girl costumes&#8230;</i><br>
+<br>
+<i>Actually, I've never seen a bunny girl. I don't really know what they look like. Maybe, Ms. Inamura was just kidding&#8230;</i><br>
+<br>
+<b>They look like girls with bunny ears and a puffy tail. It's not a hard concept, Yuk.</b><br>
+<br>
+<b></b>Subtle music change here.</b><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> "<i>&#8221;I think that's all I have to tell you&#8230; Yukari, could you please stand up?&#8221; </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> "<i>&#8221;Eh? Y, yes&#8230;&#8221; When I realize it, she's standing right in front of me. </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> "<i>&#8221;Um?&#8221; </i><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> "<i>&#8221;Please&#8230;don't move&#8230;&#8221;</i><br>
+<br>
+<img src="1_files/snap263.jpg" alt="" class="img" border="0"><br>
+<br>
+<b>Next time: :huh:!</b>
+  </section>
+  <nav class="pager" aria-label="Chapter navigation">
+  <a href="01.html" aria-label="Previous chapter">← Back</a>
+  <a href="03.html" aria-label="Next chapter">Next →</a>
+  </nav>
+  <footer>
+  <span>© Roarstream</span>
+  <span>
+   <a class="smallLink" href="index.html">Home</a>
+  </span>
+  </footer>
+ </main>
 
-  <div class="side right"></div>
+ <div class="side right"></div>
  </div>
 </body>
 </html>
