@@ -182,6 +182,84 @@
  .dialogue .line i{
   color: #e6f5ec;
  }
+
+/* =========================
+  MOBILE FIXES
+  ========================= */
+@media (max-width: 600px){
+
+ /* Reduce outer padding */
+ .stage{
+   padding: 16px 12px;
+   gap: 0;
+ }
+
+ /* Panel breathing room */
+ .panel{
+   padding: 16px 14px;
+   border-radius: 14px;
+ }
+
+ /* Typography scaling */
+ .story{
+   font-size: 15px;
+   line-height: 1.55;
+ }
+
+ .chapter-title h1{
+   font-size: 28px;
+ }
+
+ .chapter-title sub{
+   font-size: 11px;
+ }
+
+ /* Dialogue tightening */
+ .dialogue{
+   gap: 10px;
+   margin: 12px 0;
+ }
+
+ .dialogue .icon{
+   width: 36px;
+   height: 36px;
+   border-radius: 8px;
+ }
+
+ .line{
+   padding-left: 4px;
+   border-left-width: 1px;
+ }
+
+ /* Images behave */
+ .story img,
+ img.img{
+   max-width: 100%;
+   height: auto;
+ }
+
+ /* Pager buttons stack nicely */
+ .pager{
+   flex-direction: column;
+   gap: 10px;
+ }
+
+ .pager a{
+   width: 100%;
+   font-size: 15px;
+   padding: 12px;
+ }
+
+ footer{
+   flex-direction: column;
+   gap: 8px;
+   align-items: center;
+   text-align: center;
+ }
+  .story{
+   max-width: 65ch;
+   margin-inline: auto;
+ }
  </style>
 </head>
 
