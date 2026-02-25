@@ -1,435 +1,427 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chapter One</title>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <title>Chapter One</title>
 
-  <!-- === SAME STYLE AS index.html === -->
-  <style>
-    @font-face {
-      font-family: 'Chronotype';
-      src: url('Chronotype.woff2') format('woff2');
-      font-weight: normal;
-      font-style: normal;
-    }
+ <!-- === SAME STYLE AS index.html === -->
+ <style>
+  @font-face {
+   font-family: 'Chronotype';
+   src: url('Chronotype.woff2') format('woff2');
+   font-weight: normal;
+   font-style: normal;
+  }
 
-    :root{
-      --accent:#1f6f3a;
-      --bg0:#05070a;
-      --bg1:#070d0a;
-      --panel:#0f1411;
-      --panel2:#141d16;
-      --text:#f3fff7;
-      --muted:#b8d6c3;
-      --border: rgba(255,255,255,.12);
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-      --radius: 18px;
-    }
+  :root{
+   --accent:#1f6f3a;
+   --bg0:#05070a;
+   --bg1:#070d0a;
+   --panel:#0f1411;
+   --panel2:#141d16;
+   --text:#f3fff7;
+   --muted:#b8d6c3;
+   --border: rgba(255,255,255,.12);
+   --shadow: 0 18px 60px rgba(0,0,0,.55);
+   --radius: 18px;
+  }
 
-    *{ box-sizing:border-box; }
-    html, body { height:100%; }
+  *{ box-sizing:border-box; }
+  html, body { height:100%; }
 
-    body{
-      margin:0;
-      color:var(--text);
-      font-family:'Chronotype', sans-serif;
-      background:
-        radial-gradient(1200px 700px at 50% 20%, rgba(31,111,58,.25), transparent 55%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-    }
+  body{
+   margin:0;
+   color:var(--text);
+   font-family:'Chronotype', sans-serif;
+   background:
+    radial-gradient(1200px 700px at 50% 20%, rgba(31,111,58,.25), transparent 55%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
+  }
 
-    .stage{
-      min-height:100vh;
-      display:grid;
-      grid-template-columns: minmax(140px,1fr) minmax(320px,920px) minmax(140px,1fr);
-      gap:24px;
-      padding:28px 18px;
-    }
+  .stage{
+   min-height:100vh;
+   display:grid;
+   grid-template-columns: minmax(140px,1fr) minmax(320px,920px) minmax(140px,1fr);
+   gap:24px;
+   padding:28px 18px;
+  }
 
-    .side{
-      border-radius:26px;
-      opacity:.9;
-    }
+  .side{
+   border-radius:26px;
+   opacity:.9;
+  }
 
-    .panel{
-      background: linear-gradient(180deg, rgba(20,20,39,.92), rgba(15,15,24,.92));
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:clamp(20px,3vw,36px);
-    }
+  .panel{
+   background: linear-gradient(180deg, rgba(20,20,39,.92), rgba(15,15,24,.92));
+   border:1px solid var(--border);
+   border-radius:var(--radius);
+   box-shadow:var(--shadow);
+   padding:clamp(20px,3vw,36px);
+  }
 
-    /* === STORY CONTENT POLISH === */
-    .story{
-      line-height:1.6;
-      font-size:17px;
-    }
+  /* === STORY CONTENT POLISH === */
+  .story{
+   line-height:1.6;
+   font-size:17px;
+  }
 
-    .story img{
-      max-width:100%;
-      height:auto;
-      border-radius:12px;
-      margin:16px 0;
-      box-shadow:0 10px 30px rgba(0,0,0,.45);
-    }
+  .story img{
+   max-width:100%;
+   height:auto;
+   border-radius:12px;
+   margin:16px 0;
+   box-shadow:0 10px 30px rgba(0,0,0,.45);
+  }
 
-    .story b{
-      color:#c9ffe0;
-    }
+  .story b{
+   color:#c9ffe0;
+  }
 
-    .story i{
-      color:#e6f5ec;
-    }
-        
-    .line{
-      padding-left: 6px;
-      border-left: 2px solid rgba(126,226,168,.25);
-    }
-    .chapter-title{
-      text-align:center;
-      margin-bottom:24px;
-    }
+  .story i{
+   color:#e6f5ec;
+  }
+    
+  .line{
+   padding-left: 6px;
+   border-left: 2px solid rgba(126,226,168,.25);
+  }
+  .chapter-title{
+   text-align:center;
+   margin-bottom:24px;
+  }
 
-    .chapter-title h1{
-      margin:0;
-      font-size:clamp(32px,4vw,52px);
-    }
+  .chapter-title h1{
+   margin:0;
+   font-size:clamp(32px,4vw,52px);
+  }
 
-    .chapter-title sub{
-      display:block;
-      color:var(--muted);
-      margin-top:6px;
-      font-size:15px;
-    }
+  .chapter-title sub{
+   display:block;
+   color:var(--muted);
+   margin-top:6px;
+   font-size:15px;
+  }
 
-    footer{
-      margin-top:28px;
-      padding-top:14px;
-      border-top:1px solid rgba(255,255,255,.1);
-      display:flex;
-      justify-content:space-between;
-      flex-wrap:wrap;
-      font-size:14px;
-      color:var(--muted);
-    }
+  footer{
+   margin-top:28px;
+   padding-top:14px;
+   border-top:1px solid rgba(255,255,255,.1);
+   display:flex;
+   justify-content:space-between;
+   flex-wrap:wrap;
+   font-size:14px;
+   color:var(--muted);
+  }
 
-    a.smallLink{
-      color:var(--muted);
-      text-decoration:none;
-      border-bottom:1px dashed rgba(184,214,195,.35);
-    }
+  a.smallLink{
+   color:var(--muted);
+   text-decoration:none;
+   border-bottom:1px dashed rgba(184,214,195,.35);
+  }
 
-    a.smallLink:hover{ color:#fff; }
+  a.smallLink:hover{ color:#fff; }
 
-    @media (max-width: 980px){
-      .stage{ grid-template-columns:1fr; }
-      .side{ display:none; }
-    }
-    .pager{
-      margin-top: 22px;
-      display:flex;
-      gap: 12px;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-    .pager a{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap: 10px;
-      padding: 12px 16px;
-      border-radius: 12px;
-      text-decoration:none;
-      font-weight: 700;
-      font-size: 16px;
-      color: #fff;
-      border: 1px solid rgba(255,255,255,.14);
-      background: linear-gradient(180deg, rgba(31,111,58,.92), rgba(20,90,45,.92));
-      box-shadow: 0 14px 40px rgba(31,111,58,.18);
-      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
-    }
-    .pager a:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 18px 55px rgba(31,111,58,.26);
-      filter: saturate(1.05);
-    }
-    .pager a:focus-visible{
-      outline: 3px solid rgba(126,226,168,.65);
-      outline-offset: 3px;
-    }
-    </style>
+  @media (max-width: 980px){
+   .stage{ grid-template-columns:1fr; }
+   .side{ display:none; }
+  }
+  .pager{
+   margin-top: 22px;
+   display:flex;
+   gap: 12px;
+   justify-content: space-between;
+   flex-wrap: wrap;
+  }
+  .pager a{
+   display:inline-flex;
+   align-items:center;
+   justify-content:center;
+   gap: 10px;
+   padding: 12px 16px;
+   border-radius: 12px;
+   text-decoration:none;
+   font-weight: 700;
+   font-size: 16px;
+   color: #fff;
+   border: 1px solid rgba(255,255,255,.14);
+   background: linear-gradient(180deg, rgba(31,111,58,.92), rgba(20,90,45,.92));
+   box-shadow: 0 14px 40px rgba(31,111,58,.18);
+   transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+  }
+  .pager a:hover{
+   transform: translateY(-2px);
+   box-shadow: 0 18px 55px rgba(31,111,58,.26);
+   filter: saturate(1.05);
+  }
+  .pager a:focus-visible{
+   outline: 3px solid rgba(126,226,168,.65);
+   outline-offset: 3px;
+  }
+  </style>
 </head>
 
 <body>
-  <div class="stage">
-    <div class="side left"></div>
+ <div class="stage">
+  <div class="side left"></div>
 
-    <main class="panel">
-      <!-- === CHAPTER HEADER === -->
-      <header class="chapter-title">
-        <h1>Chapter 2:  Better than Gold</h1>
-        <sub>get it platinum is better than gold</sub>
-      </header>
+  <main class="panel">
+   <!-- === CHAPTER HEADER === -->
+   <header class="chapter-title">
+    <h1>Chapter 2: Better than Gold</h1>
+    <sub>get it platinum is better than gold</sub>
+   </header>
 
-      <!-- === ORIGINAL CONTENT GOES HERE === -->
-      <section class="story">
-<img src="1_files/emot-geno.gif" alt="" border="0">:  <i>I&#8217;ve looked through some job magazines, and I found work at a restaurant.  It&#8217;s an Italian restaurant called &#8216;Platinum.&#8217;</i><br>
+   <!-- === ORIGINAL CONTENT GOES HERE === -->
+   <section class="story">
+<i>I've looked through some job magazines, and I found work at a restaurant. It's an Italian restaurant called Platinum.'</i><br>
 <br>
-<b>Which, if I don&#8217;t say so myself, is a damn cool name for a
-restaurant. &#8216;I had lunch the other day at that restaurant.&#8217; &#8216;oh which-&#8216;
-&#8216;MOTHERFUCKING PLATINUM BABY.&#8217;</b><br>
+<b>Which, if I don't say so myself, is a damn cool name for a
+restaurant. 'I had lunch the other day at that restaurant.' 'oh which-'
+'MOTHERFUCKING PLATINUM BABY.'</b><br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  <i>It&#8217;s close to my house, the work doesn&#8217;t sound too tough, and they&#8217;ll pay me good&#8230; It&#8217;s a perfect place to work!</i><br>
+<i>It's close to my house, the work doesn't sound too tough, and they'll pay me good...; It's a perfect place to work! I'm going for an interview now.</i><br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  <i>I&#8217;m going for an interview now.</i><br>
+<b></b>A scene shift later...</b><br>
 <br>
-A scene shift later&#8230;<br>
-<br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  <i>&#8221;Hah&#8230;hah&#8230; I thought the restaurant was close to my house&#8230; but I can&#8217;t find it.&#8221;<br>
-<br>
-<img src="1_files/emot-geno.gif" alt="" border="0">: I&#8217;m lost. I&#8217;m sure
-I&#8217;m close. I thought it was going to take only 15 minutes or so to get
-there, but I&#8217;ve been walking for more than half an hour. I&#8217;ve been
-wandering around this area for a long time&#8230; I may look like a pervert.</i><br>
+<i>"Hah...;hah...; I thought the restaurant was close to my house...; but I can't find it."<br>
+
+I'm lost. I'm sure
+I'm close. I thought it was going to take only 15 minutes or so to get
+there, but I've been walking for more than half an hour. I've been
+wandering around this area for a long time...; I may look like a pervert.</i><br>
 <br>
 <b>This is why we find out where the hell things are before we apply to work for them.</b><br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  <i>&#8221;Usually, restaurants have big signs&#8230;&#8221;<br>
+<i>"Usually, restaurants have big signs...;" I don't often go out to eat at restaurants, so I don't know what to look for...Hah...; Is it a small restaurant?&#822. No - they are offering too much money for just a small restaurant.</i><br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  I don&#8217;t often go out to eat at restaurants, so I don&#8217;t know what to look for&#8230;<br>
+<b>That's right. You only make REAL money at big chains, like Olive Garden.</b><br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;Hah&#8230; Is it a small restaurant?&#8221;<br>
-<br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  However, they are offering too much money for just a small restaurant.</i><br>
-<br>
-<b>That&#8217;s right.  You only make REAL money at big chains, like Olive Garden.</b><br>
-<br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  <i>The info I got
-from the flier mentioned that it&#8217;s an Italian restaurant, and they need
-someone to help, and how much they&#8217;ll pay.<br>
-<br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;It might be an underground restaurant where they always have to keep bouncers&#8230;&#8221;</i><br>
+<i>The info I got
+from the flier mentioned that it's an Italian restaurant, and they need
+someone to help, and how much they'll pay. It might be an underground restaurant where they always have to keep bouncers...;"</i><br>
 <br>
 <b>Yeah, apply good luck applying for THAT job, girlboy.</b><br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  <i>Well, I don&#8217;t
-think so&#8230;&#8221;Oh...I&#8217;ll be late&#8230;&#8221; I&#8217;m glad I left early. But I might be
-late, even though I left early&#8230;If I&#8217;m late for the interview, I&#8217;m sure
-I won&#8217;t get the job. I won&#8217;t be able to find such a good offer
+<i>Well, I don't
+think so...;"Oh...I'll be late...;" I'm glad I left early. But I might be
+late, even though I left early...;If I'm late for the interview, I'm sure
+I won't get the job. I won't be able to find such a good offer
 somewhere else!<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;I&#8217;d better try to find the restaurant&#8230;ah&#8230;&#8221;</i><br>
+I'd better try to find the restaurant...;ah...;"</i><br>
 <br>
-<b>JESUS.  YOU&#8217;RE LATE.  WE GET IT.  Instead of talking about, why don&#8217;t you, you know, look around some more?&#8221;</b><br>
+<b>JESUS. YOU'RE LATE. WE GET IT. Instead of talking about, why don't you, you know, look around some more?"</b><br>
 <br>
 <img src="1_files/snap106.jpg" alt="" class="img" border="0"><br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  <i>&#8220;What was I looking for&#8230;&#8221;<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>&#8220;What was I looking for...;"<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  I droop my shoulders&#8230;I don&#8217;t have time to be like this.  I look at my watch.  I have five minutes before the interview.<br>
+I droop my shoulders...;I don't have time to be like this. I look at my watch. I have five minutes before the interview.<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;Good&#8230; I made it.&#8221;<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: "Good...; I made it."<br>
 <br>
-<img src="1_files/emot-v.gif" alt="" border="0">:  &#8220;You made what?&#8221;<br>
+<img src="1_files/emot-v.gif" alt="" border="0">: "You made what?"<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;Wah&#8230;!?&#8221;<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: "Wah...;!?"<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  Someone suddenly talks to me.</i><br>
+Someone suddenly talks to me.</i><br>
 <br>
 <img src="1_files/snap114.jpg" alt="" class="img" border="0"><br>
 <br>
-<b>It&#8217;s Squall!</b><br>
+<b>It's Squall!</b><br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">  <i>&#8220;I came here for a job interview&#8230;&#8221;<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>&#8220;I came here for a job interview...;"<br>
 <br>
-<img src="1_files/shunt.PNG" alt="" class="img" border="0">:  &#8220;Oh, it&#8217;s you&#8230; Akina, the manager, told me about you.  Come on in.&#8221;<br>
+<img src="1_files/shunt.PNG" alt="" class="img" border="0">: "Oh, it's you...; Akina, the manager, told me about you. Come on in."<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;Eh&#8230;oh&#8230;thank you&#8230;&#8221;<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: "Eh...;oh...;thank you...;"<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  The guy leads me into the restaurant.  I&#8217;m so nervous, my voice screeches.</i><br>
+The guy leads me into the restaurant. I'm so nervous, my voice screeches.</i><br>
 <br>
 <img src="1_files/snap121.jpg" alt="" class="img" border="0"><br>
 <br>
-<b>Welcome to Platinum.  We&#8217;ll be doing some fucking here.</b><br>
+<b>Welcome to Platinum. We'll be doing some fucking here.</b><br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  <i>As he slowly walks in front of me, he hums. &#8220;&#8230;&#8230;&#8230;&#8230;&#8230;&#8221;
-&#8230;does he work here? He&#8217;s tall and masculine&#8230; He must be popular with
+<i>As he slowly walks in front of me, he hums. "...;...;...;...;...;"
+...;does he work here? He's tall and masculine...; He must be popular with
 girls. I wish I were like him.</i><br>
 <br>
-<b>You&#8217;re getting less and less masculine and we&#8217;ve just barely met you, Yuk.</b><br>
+<b>You're getting less and less masculine and we've just barely met you, Yuk.</b><br>
 <br>
 <img src="1_files/snap127.jpg" alt="" class="img" border="0"><br>
 <br>
-<b>And here&#8217;s the office.  Fucking is to be had here, too.</b><br>
+<b>And here's the office. Fucking is to be had here, too.</b><br>
 <br>
-<img src="1_files/shunt.PNG" alt="" class="img" border="0">:  <i>&#8221;Here you go&#8230;Well, she&#8217;s not here&#8230; What the hell is she doing?&#8221;<br>
+<img src="1_files/shunt.PNG" alt="" class="img" border="0">: <i>"Here you go...;Well, she's not here...; What the hell is she doing?"<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  He scratches his head and sulkily smiles at me.  I haven&#8217;t heard his name yet.<br>
+He scratches his head and sulkily smiles at me. I haven't heard his name yet.<br>
 <br>
-<img src="1_files/shunt.PNG" alt="" class="img" border="0">:  &#8220;I&#8217;ll bring the manager.  Have a seat.&#8221;<br>
+<img src="1_files/shunt.PNG" alt="" class="img" border="0">: "I'll bring the manager. Have a seat."<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;Ah&#8230;yes.  Thank you very much.&#8221;  My voice screeches again.<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: "Ah...;yes. Thank you very much." 
 <br>
-<img src="1_files/shunt.PNG" alt="" class="img" border="0">:  &#8220;Ha-ha-ha.  Don&#8217;t be nervous.  I won&#8217;t bother you.  I have a family.&#8221;<br>
+My voice screeches again.<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;Ha&#8230;huh?&#8221;  He won&#8217;t bother me&#8230;?  Does he&#8230;<br>
+<img src="1_files/shunt.PNG" alt="" class="img" border="0">: "Ha-ha-ha. Don't be nervous. I won't bother you. I have a family."<br>
 <br>
-:j:  &#8220;Shuntaro?  What are you doing here?&#8221;<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: "Ha...;huh?" He won't bother me...? Does he...;<br>
 <br>
-<img src="1_files/shunt.PNG" alt="" class="img" border="0">:  &#8220;Oh, Akina&#8230;I mean Boss.  I brought <u>her</u> here.  <u>She</u> came here for the interview.&#8221;</i><br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: "Shuntaro? What are you doing here?"<br>
 <br>
-<b>Double :iceburn: at you, Yukari.  Sucks to be you, chicky.</b><br>
+<img src="1_files/shunt.PNG" alt="" class="img" border="0">: "Oh, Akina...;I mean Boss. I brought her here. She came here for the interview."</i><br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  <i>He turns around and smiles at me.</i><br>
+<b>Double iceburn, Yukari. Sucks to be you.</b><br>
+<br>
+<i>He turns around and smiles at me.</i><br>
 <br>
 <img src="1_files/snap142.jpg" alt="" class="img" border="0"><br>
 <br>
-<b>:awesome:</b><br>
+<b>Neat.</b><br>
 <br>
-:geno:  <i>The lady looks at him, as if he were her little brother.  I don&#8217;t know how to react.<br>
+<i>The lady looks at him, as if he were her little brother. I don't know how to react.<br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  &#8220;Oh&#8230;?&#8221;<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: "Oh...?"<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  She finally notices me.<br>
+She finally notices me.<br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  &#8220;Are you the one who called&#8230;?&#8221;<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: "Are you the one who called...?"<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;Yes!  I&#8217;m Yukari Fujisawa.  Nice to meet you!&#8221;<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: "Yes! I'm Yukari Fujisawa. Nice to meet you!"<br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  &#8220;&#8230;&#8230;&#8230;&#8230;&#8221;<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: "...;...;...;...;"<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;&#8230;um?&#8221;<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: "...;um?"<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  She must be the one I talked to on the phone the other day.  She suspiciously looks at me.<br>
+She must be the one I talked to on the phone the other day. She suspiciously looks at me.<br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  &#8220;Let&#8217;s start the interview, Mr. Fujisawa.&#8221;<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: "Let's start the interview, Mr. Fujisawa."<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;Alright!&#8221;<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: "Alright!"<br>
 <br>
-<img src="1_files/shunt.PNG" alt="" class="img" border="0">:  &#8220;Eh&#8230;?  Mr&#8230;?  Akina&#8230;!?&#8221;</i><br>
+<img src="1_files/shunt.PNG" alt="" class="img" border="0">: "Eh...? Mr...? Akina...;!?"</i><br>
 <br>
 <b>Yes, he IS a dude, dickweasal.</b><br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  &#8220;<i>Go out and clean up, please.&#8221;<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: "<i>Go out and clean up, please."<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  She&#8217;s gently smiling, but she has a tone of authority in her voice.  She&#8217;s a so-called career woman.</i><br>
+She's gently smiling, but she has a tone of authority in her voice. She's a so-called career woman.</i><br>
 <br>
-<b>That line kills me. &#8220;So-called career woman.&#8221; Kind of like saying,
-&#8220;she thinks she&#8217;s a business manager but in reality she&#8217;s just there
-cause she&#8217;s pretty. We all know women can&#8217;t run businesses.&#8221;</b><br>
+<b>That line kills me. "So-called career woman." Kind of like saying,
+&#8220;she thinks she's a business manager but in reality she's just there
+cause she's pretty. We all know women can't run businesses."</b><br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  <i>She pushes him out of the room.<br>
+<i>She pushes him out of the room.<br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  I&#8217;ll kill you if you peep in here.&#8221;<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: I'll kill you if you peep in here."<br>
 <br>
-:pwn:<br>
+Uh-...
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  She throws him an icy look.<br>
+She throws him an icy look.<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;&#8230;&#8230;&#8230;&#8230;&#8230;.&#8221;  I thought she was kind&#8230;<br>
+&#8220;...;...;...;...;...;." I thought she was kind...;<br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  Please have a seat over there.&#8221;</i><br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: Please have a seat over there."</i><br>
 <br>
-<u>KNOCK, KNOCK, KNOCK!</u>  <b>He's knocking on the door during an interview.  What an asshole.</b><br>
+<u>KNOCK, KNOCK, KNOCK!</u> <b>He's knocking on the door during an interview. What an asshole.</b><br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  <i>&#8220;Hah&#8230;&#8221;</i><br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>&#8220;Hah...;"</i><br>
 <br>
 <u>KNOCK, KNOCK!</u><br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  <i>&#8220;Is he OK?&#8221;  I point at the door.<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>&#8220;Is he OK?" I point at the door.<br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  &#8220;Leave him alone.  I&#8217;ll introduce him to you later.&#8221;<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: "Leave him alone. I'll introduce him to you later."<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  He stops knocking after a while, and she comes to me shrugging.<br>
+He stops knocking after a while, and she comes to me shrugging.<br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  &#8220;We finally can sit down and talk&#8230; Nice to meet you.  I&#8217;m Akina Inamura, the manager at Platinum.&#8221;</i><br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: "We finally can sit down and talk...; Nice to meet you. I'm Akina Inamura, the manager at Platinum."</i><br>
 <br>
-<b>&#8221;I&#8217;m happy to <i>meat</i> you too, Akina.  :pervert:</b>&#8221;<br>
+<b>"I'm happy to <i>meat</i> you too, Akina.</b>"<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;..&#8221;<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: "...;...;...;...;...;...;.."<br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  <i>&#8220;Are you OK?&#8221;</i><br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: <i>&#8220;Are you OK?"</i><br>
 <br>
-<b>He&#8217;s terrified in the presence of women, can&#8217;t you tell?</b><br>
+<b>He's terrified in the presence of women, can't you tell?</b><br>
 <br>
-<i><img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;Ah&#8230;yes&#8230;I&#8217;m OK&#8230; Nice to meet you, too.  I&#8217;m Yukari Fujisawa.&#8221;<br>
+<i><img src="1_files/emot-geno.gif" alt="" border="0">: "Ah...;yes...;I'm OK...; Nice to meet you, too. I'm Yukari Fujisawa."<br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  &#8220;He-he&#8230;&#8221;<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: "He-he...;"<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  She knows what I&#8217;m thinking&#8230; I blush.</i><br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: She knows what I'm thinking...; I blush.</i><br>
 <br>
-<b>This is it!  Sex time!</b><br>
+<b>This is it! Sex time!</b><br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  <i>Wow&#8230;how cute.  I can&#8217;t blame Shuntaro for mistaking you for a girl.&#8221;</i><br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: <i>Wow...;how cute. I can't blame Shuntaro for mistaking you for a girl."</i><br>
 <br>
-&#8230;<b>from :dong: to :flaccid: in five seconds flat.</b><br>
+...;<b>from erect to flacid in five seconds flat.</b><br>
 <br>
-<i><img src="1_files/emot-geno.gif" alt="" border="0">: &#8220;Ah&#8230;he did? That&#8217;s what I thought.&#8221; I was so nervous, I
-sounded like a girl&#8230; Now I understand why he treated me like that.<br>
+<i><img src="1_files/emot-geno.gif" alt="" border="0">: "Ah...;he did? That's what I thought." I was so nervous, I
+sounded like a girl...; Now I understand why he treated me like that.<br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  &#8220;He-he&#8230; He used to be a famous playboy.  After he got married, he lost his insight into girls.  Ha-ha-ha!&#8221;<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: "He-he...; He used to be a famous playboy. After he got married, he lost his insight into girls. Ha-ha-ha!"<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;Hah&#8230;&#8221;<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: "Hah...;"<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  Ms. Inamura laughs hard.<br>
+Ms. Inamura laughs hard.<br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  &#8220;Actually, I thought you were a girl until we met.  I&#8217;m sorry&#8230; I thought you were a girl from your name and your voice.&#8221;<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: "Actually, I thought you were a girl until we met. I'm sorry...; I thought you were a girl from your name and your voice."<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;People do that all the time&#8230;:emo:&#8221;<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: "People do that all the time...;:emo:"<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">: I&#8217;m used to being mistaken for a girl, but I&#8217;ve never met
+I'm used to being mistaken for a girl, but I've never met
 someone as honest as her. Come to think of it, her attitude is strong
-and favorable. I almost forgot why I&#8217;m here.<br>
+and favorable. I almost forgot why I'm here.<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;Ah&#8230;by the way, are you only looking for girls?&#8221;<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: "Ah...;by the way, are you only looking for girls?"<br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  &#8220;Actually, yes.&#8221;<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: "Actually, yes."<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">: She nods her head. She gives me a definite answer. I droop my
-shoulders. There&#8217;s no way I can get this job because I&#8217;m a boy.</i><br>
+She nods her head. She gives me a definite answer. I droop my
+shoulders. There's no way I can get this job because I'm a boy.</i><br>
 <br>
-<b>DENIED BY THE DONG.  Jesus, man, you just can&#8217;t catch a break, can you?&#8221;</b><br>
+<b>DENIED BY THE DONG. Jesus, man, you just can't catch a break, can you?"</b><br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  &#8220;<i>We only have waitresses here.  Only girls can do the job.  But two girls suddenly quit.  We need someone as soon as possible.&#8221;<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: "<i>We only have waitresses here. Only girls can do the job. But two girls suddenly quit. We need someone as soon as possible."<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;I see&#8230;&#8221;  Only girls can do the job&#8230;?<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: "I see...;" Only girls can do the job...?<br>
 <br>
 :pervert:<br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  &#8220;Um&#8230;&#8221;<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: "Um..."<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;Yes&#8230;?&#8221;  Ms. Inamura looks into my face.  And&#8230;<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: "Yes...?" Ms. Inamura looks into my face. And...;<br>
 <br>
 <img src="1_files/snap204.jpg" alt="" class="img" border="0"><br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;Eh?&#8221;<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: "Eh?"<br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  &#8220;It&#8217;s good for our restaurant to have a unisexual appeal.  We have female customers too.&#8221;<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: "It's good for our restaurant to have a unisexual appeal. We have female customers too."<br>
 <br>
-<img src="1_files/emot-geno.gif" alt="" border="0">:  &#8220;Huh?  What?&#8221;</i><br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: "Huh? What?"</i><br>
 <br>
-<b>&#8221;You lost me after &#8216;&#8230;sexual&#8230;&#8217;.&#8221;</b><br>
+<b>"You lost me after '...;sexual...;'."</b><br>
 <br>
-<img src="1_files/akina.PNG" alt="" class="img" border="0">:  <i>&#8221;You&#8217;re hired!&#8221;  She cheerfully declares.</i><br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0">: <i>"You're hired!" She cheerfully declares.</i><br>
 <br>
 WOOP.gif
-        
-Next time:  Job Benefits.
-      </section>
-      <nav class="pager" aria-label="Chapter navigation">
-        <a href="00.html" aria-label="Previous chapter">← Back</a>
-        <a href="02.html" aria-label="Next chapter">Next →</a>
-      </nav>
-      <footer>
-        <span>© Roarstream</span>
-        <span>
-          <a class="smallLink" href="index.html">Home</a>
-        </span>
-      </footer>
-    </main>
+    
+Next time: Job Benefits.
+   </section>
+   <nav class="pager" aria-label="Chapter navigation">
+    <a href="00.html" aria-label="Previous chapter">← Back</a>
+    <a href="02.html" aria-label="Next chapter">Next →</a>
+   </nav>
+   <footer>
+    <span>© Roarstream</span>
+    <span>
+     <a class="smallLink" href="index.html">Home</a>
+    </span>
+   </footer>
+  </main>
 
-    <div class="side right"></div>
-  </div>
+  <div class="side right"></div>
+ </div>
 </body>
 </html>
