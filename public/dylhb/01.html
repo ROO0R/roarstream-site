@@ -1,4 +1,146 @@
-<b>Chapter One:  A Part-time Beginning</b><br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chapter One</title>
+
+  <!-- === SAME STYLE AS index.html === -->
+  <style>
+    @font-face {
+      font-family: 'Chronotype';
+      src: url('Chronotype.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root{
+      --accent:#1f6f3a;
+      --bg0:#05070a;
+      --bg1:#070d0a;
+      --panel:#0f1411;
+      --panel2:#141d16;
+      --text:#f3fff7;
+      --muted:#b8d6c3;
+      --border: rgba(255,255,255,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius: 18px;
+    }
+
+    *{ box-sizing:border-box; }
+    html, body { height:100%; }
+
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:'Chronotype', sans-serif;
+      background:
+        radial-gradient(1200px 700px at 50% 20%, rgba(31,111,58,.25), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+    }
+
+    .stage{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns: minmax(140px,1fr) minmax(320px,920px) minmax(140px,1fr);
+      gap:24px;
+      padding:28px 18px;
+    }
+
+    .side{
+      border-radius:26px;
+      opacity:.9;
+    }
+
+    .panel{
+      background: linear-gradient(180deg, rgba(20,20,39,.92), rgba(15,15,24,.92));
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:clamp(20px,3vw,36px);
+    }
+
+    /* === STORY CONTENT POLISH === */
+    .story{
+      line-height:1.6;
+      font-size:17px;
+    }
+
+    .story img{
+      max-width:100%;
+      height:auto;
+      border-radius:12px;
+      margin:16px 0;
+      box-shadow:0 10px 30px rgba(0,0,0,.45);
+    }
+
+    .story b{
+      color:#c9ffe0;
+    }
+
+    .story i{
+      color:#e6f5ec;
+    }
+
+    .chapter-title{
+      text-align:center;
+      margin-bottom:24px;
+    }
+
+    .chapter-title h1{
+      margin:0;
+      font-size:clamp(32px,4vw,52px);
+    }
+
+    .chapter-title sub{
+      display:block;
+      color:var(--muted);
+      margin-top:6px;
+      font-size:15px;
+    }
+
+    footer{
+      margin-top:28px;
+      padding-top:14px;
+      border-top:1px solid rgba(255,255,255,.1);
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      font-size:14px;
+      color:var(--muted);
+    }
+
+    a.smallLink{
+      color:var(--muted);
+      text-decoration:none;
+      border-bottom:1px dashed rgba(184,214,195,.35);
+    }
+
+    a.smallLink:hover{ color:#fff; }
+
+    @media (max-width: 980px){
+      .stage{ grid-template-columns:1fr; }
+      .side{ display:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="stage">
+    <div class="side left"></div>
+
+    <main class="panel">
+      <!-- === CHAPTER HEADER === -->
+      <header class="chapter-title">
+        <h1>Chapter One: A Part-time Beginning</h1>
+        <sub>With a surprising lack of, you know, chicks.</sub>
+      </header>
+
+      <!-- === ORIGINAL CONTENT GOES HERE === -->
+      <section class="story">
+        <!-- paste of your original 01.html body content -->
+        <!-- unchanged, just wrapped -->
+        <b>Chapter One:  A Part-time Beginning</b><br>
 <sub>With a suprising lack of, you know, chicks.</sub><br>
 <br>
 <img src="1_files/snap004.jpg" alt="" class="img" border="0"><br>
@@ -161,3 +303,19 @@ money to buy a bigger aquarium, 3. ...I'll think about it later!<br>
 <i>I'll change by the end of summer.  ....... As a result, I might get a girlfriend.  Needless to say, that's my third goal.</i><br>
 <br>
 <b>Next time:  An actual girl finds her way into the story!</b>
+
+        <!-- etc — keep the rest exactly as-is -->
+      </section>
+
+      <footer>
+        <span>© Roarstream</span>
+        <span>
+          <a class="smallLink" href="index.html">Home</a>
+        </span>
+      </footer>
+    </main>
+
+    <div class="side right"></div>
+  </div>
+</body>
+</html>
