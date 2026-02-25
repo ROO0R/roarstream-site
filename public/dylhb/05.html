@@ -1,1 +1,450 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <title>Chapter Five</title>
+
+ <!-- === SAME STYLE AS index.html === -->
+ <style>
+ @font-face {
+  font-family: 'Chronotype';
+  src: url('Chronotype.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+ }
+
+ :root{
+  --accent:#1f6f3a;
+  --bg0:#05070a;
+  --bg1:#070d0a;
+  --panel:#0f1411;
+  --panel2:#141d16;
+  --text:#f3fff7;
+  --muted:#b8d6c3;
+  --border: rgba(255,255,255,.12);
+  --shadow: 0 18px 60px rgba(0,0,0,.55);
+  --radius: 18px;
+ }
+
+ *{ box-sizing:border-box; }
+ html, body { height:100%; }
+
+ body{
+  margin:0;
+  color:var(--text);
+  font-family:'Chronotype', sans-serif;
+  background:
+  radial-gradient(1200px 700px at 50% 20%, rgba(31,111,58,.25), transparent 55%),
+  linear-gradient(180deg, var(--bg0), var(--bg1));
+ }
+
+ .stage{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns: minmax(140px,1fr) minmax(320px,920px) minmax(140px,1fr);
+  gap:24px;
+  padding:28px 18px;
+ }
+
+ .side{
+  border-radius:26px;
+  opacity:.9;
+ }
+
+ .panel{
+  background: linear-gradient(180deg, rgba(20,20,39,.92), rgba(15,15,24,.92));
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:clamp(20px,3vw,36px);
+ }
+
+ /* === STORY CONTENT POLISH === */
+ .story{
+  line-height:1.6;
+  font-size:17px;
+ }
+
+ .story img{
+  max-width:100%;
+  height:auto;
+  border-radius:12px;
+  margin:16px 0;
+  box-shadow:0 10px 30px rgba(0,0,0,.45);
+ }
+
+ .story b{
+  color:#c9ffe0;
+ }
+
+ .story i{
+  color:#e6f5ec;
+ }
+  
+ .line{
+  padding-left: 6px;
+  border-left: 2px solid rgba(126,226,168,.25);
+ }
+ .chapter-title{
+  text-align:center;
+  margin-bottom:24px;
+ }
+
+ .chapter-title h1{
+  margin:0;
+  font-size:clamp(32px,4vw,52px);
+ }
+
+ .chapter-title sub{
+  display:block;
+  color:var(--muted);
+  margin-top:6px;
+  font-size:12px;
+ }
+
+ footer{
+  margin-top:28px;
+  padding-top:14px;
+  border-top:1px solid rgba(255,255,255,.1);
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  font-size:14px;
+  color:var(--muted);
+ }
+
+ a.smallLink{
+  color:var(--muted);
+  text-decoration:none;
+  border-bottom:1px dashed rgba(184,214,195,.35);
+ }
+
+ a.smallLink:hover{ color:#fff; }
+
+ @media (max-width: 980px){
+  .stage{ grid-template-columns:1fr; }
+  .side{ display:none; }
+ }
+ .pager{
+  margin-top: 22px;
+  display:flex;
+  gap: 12px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+ }
+ .pager a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  text-decoration:none;
+  font-weight: 700;
+  font-size: 16px;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.14);
+  background: linear-gradient(180deg, rgba(31,111,58,.92), rgba(20,90,45,.92));
+  box-shadow: 0 14px 40px rgba(31,111,58,.18);
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+ }
+ .pager a:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 18px 55px rgba(31,111,58,.26);
+  filter: saturate(1.05);
+ }
+ .pager a:focus-visible{
+  outline: 3px solid rgba(126,226,168,.65);
+  outline-offset: 3px;
+ }
+ .dialogue{
+  display:flex;
+  align-items:flex-start;
+  gap: 12px;
+  margin: 14px 0;
+ }
+ 
+ .dialogue .icon{
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex: 0 0 auto;
+  box-shadow: 0 10px 26px rgba(0,0,0,.45);
+ }
+ 
+ .dialogue .line{
+  margin: 0;
+ }
+ 
+ .dialogue .line i{
+  color: #e6f5ec;
+ }
+ </style>
+</head>
+
+<body>
+ <div class="stage">
+ <div class="side left"></div>
+
+ <main class="panel">
+  <!-- === CHAPTER HEADER === -->
+  <header class="chapter-title">
+  <h1>Chapter Four: Hello there, ladies!</h1>
+  <sub>3 out of five met so far! No sex in this chapter, sorry.</sub>
+  </header>
+<b></b><br><br><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> <i>"Well...Let me introduce our newest staff member...This is Yukari Fujisawa. He'll work as a waiter, starting tomorrow." </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"Nice to meet you..."</i><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> <i>"He's a boy, just in case you didn't know." </i><br>
+<br>
+<i>I feel sad
+about this comment, but I can't blame her. They watched me when I was
+about to have sex. Besides, one of them is my cousin! </i><br>
+<br>
+<b>...what does this have to do with being a boy? Are you implying she had to clarify because she does a lot of lesbian shit? :|</b><br>
+<br>
+<i>She stares at me in a bunny girl costume...</i><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> <i>"This guy you met first is the manager and the wine server." </i><br>
+<br>
+<img src="1_files/shunt.PNG" alt="" class="img" border="0"> <i>"I'm Shuntaro Wada. I'm so sorry that I mistook you for a girl." </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"That's OK. I'm used to it." He must be in shock. His smile doesn't look right. </i><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> <i>"The girl with short hair and glasses is Hiromi Yanagi. She's the same age as you."</i><br>
+<br>
+<b>I don't care how old she is. Seriously, as long as she's 18, whatever. Am I going to be quizzed on this shit later?</b><br>
+<br>
+<img src="1_files/snap489.jpg" alt="" class="img" border="0"><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"Nice to meet you too..."</i><br>
+<br>
+<img src="1_files/hiromi.PNG" alt="" class="img" border="0">:<i> "Yes!" </i><br>
+<br>
+<b>Most awkward greeting <i>ever</i></b>.<br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>She deeply bows but doesn't look at me. She's either embarrassed or very polite. </i><br>
+<br>
+<b>She caught you in the buff right after you plugged her boss. That's a pretty intimidating first impression.</b><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>She doesn't look like the type of girl who likes to work as a bunny girl. </i><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> <i>"The girl with a ribbon in her hair is..."</i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>The girl steps forward. </i><br>
+<br>
+<img src="1_files/snap496.jpg" alt="" class="img" border="0"><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"Yeah, you look great, Sae." </i><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> <i>"What?" </i><br>
+<br>
+<img src="1_files/hiromi.PNG" alt="" class="img" border="0">:<i> "Sae...?"</i><br>
+<br>
+<img src="1_files/shunt.PNG" alt="" class="img" border="0"> <i>"Hm..."</i><br>
+<br>
+<b>"Sae <i>knows</i> someone? What is this voodoo!?</b><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>They're surprised because we suddenly greet each other friendly. I'm surprised too. I didn't expect to see her here.</i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>She's my
+cousin, Sae Ishigami. She's the same age as me. Her last name's
+different from mine because her father (my father's little brother) was
+adopted into his wife's family. We saw each other often before
+elementary school. We got busy and didn't see each other much after
+that.</i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>She lives near
+my house, but since we go to different schools, we don't see each other
+very often. I saw her on New Year's Day. We played a lot when we were
+little. Maybe that's why I'm so feminine...</i><br>
+<br>
+<b>About Sae (spoilers): <span class="bbc-spoiler" onmouseover="this.style.color='#FFFFFF';" onmouseout="this.style.color=this.style.backgroundColor='#000000'">&nbsp;Yes, Sae is one of the girls that we can end up having sex with. <i>Yes</i>,
+she's our cousin. I'll give you all a minute to huff loudly and mutter
+&#8220;shameful" under your breath. When you're done, join me in what I like
+to call &#8220;saying it before you do":<br>
+<br>
+OH MY GOD. THAT'S HIS FUCKING COUSIN. THAT'S SICK. WHAT THE HELL, BLOOD
+RELATED EVEN. THAT'S NOT ONLY DISGUSTING, IT'S INCESTOUS! WHAT IS WRONG
+WITH JAPAN?! THIS IS A TERRIBLE GAME, YOU MIGHT AS WELL HAVE BROUGHT IN
+BLIND FOUR YEAR OLDS TO RAPE BECAUSE THIS IS THE WORST THING EVER.<br>
+<br>
+It's his cousin, one that he hardly ever sees. In Hgames, this is
+pretty minor. Get over it. Not that I'm condoning incest, by any means,
+but Sae's cool, alright? Don't jump all over her case. It's certainly
+not any worse then games where you're killing thousands of people. <img src="1_files/frown.gif" alt="" border="0">&nbsp;</span> Now. Back to the scene in progress.</b><br>
+<br>
+<img src="1_files/sae.PNG" alt="" class="img" border="0">:<i> "He's my cousin." </i><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> <i>"Oh...really." </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"Yeah..."</i><br>
+<br>
+<b>What a thrilling conversation.</b><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>All the people in the room are looking at us, and I look down at the floor... Sae is imposing, though. </i><br>
+<br>
+<img src="1_files/shunt.PNG" alt="" class="img" border="0"> <i>"Well, I thought you two used to date or are actually dating right now." </i><br>
+<br>
+<img src="1_files/sae.PNG" alt="" class="img" border="0">:<i> "No way. Our relationship isn't that romantic." </i><br>
+<br>
+<b><i>'That</i> romantic.' Nice wording, there, Sae.</b><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>Sae catches up with this frivolous looking guy. Akina nods her head and Hiromi timidly glances at me. By the way...</i><br>
+<br>
+<img src="1_files/sae.PNG" alt="" class="img" border="0">:<i> "Um? What's wrong, Yukari?" </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"Ah...I'm just trying to believe you're really a bunny girl." </i><br>
+<br>
+<img src="1_files/sae.PNG" alt="" class="img" border="0">:<i> "He-he. Aren't I cute?" </i><br>
+<br>
+<img src="1_files/snap526.jpg" alt="" class="img" border="0"><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>She's wearing the dress, which is like a thong, a bow tie, and bunny ears. Now I understand why this place is so popular...</i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>Sae actually looks very cute. She's pretty to begin with, but this costume emphasizes her gorgeous body. </i><br>
+<br>
+<img src="1_files/snap531.jpg" alt="" class="img" border="0"><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>Why does she wear her glasses...?</i><br>
+<br>
+<b>So she doesn't run into stuff, dumbshit. </b><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>It looks unbalanced, but it makes her look even sexier... Besides, her boobs are bigger than Sae's.</i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"GULP..."</i><br>
+<br>
+<img src="1_files/hiromi.PNG" alt="" class="img" border="0">:<i> "Ah...please don't stare at me..."</i><br>
+<br>
+<b>"Also, please stop yelling &#8216;GULP' at me. It's creepy.</b>"<br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"Eh? Oh...I'm sorry!" </i><br>
+<br>
+<img src="1_files/hiromi.PNG" alt="" class="img" border="0">:<i> "No...that's OK." </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>She looks down at the floor again. If she's so shy...then, why this job...!? I can't believe she works here. </i><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> <i>"Well, work hard, girls! We'll have a welcome party for Yukari after work today." Akina looks like a career woman again. </i><br>
+<br>
+<img src="1_files/sae.PNG" alt="" class="img" border="0">:<i> "Oh? But Ryo and Chimaki..."</i><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> <i>"Don't
+worry. I'll call them and tell them to come after work. Yukari, you can
+either go home or stay here until the restaurant closes tonight." </i><br>
+<br>
+<img src="1_files/snap547.jpg" alt="" class="img" border="0"><br>
+<br>
+<b>What kind of loser goes home early on his first day on the job?</b><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>I imagine there're so many things I have to learn. &#8220;Can I stay here and learn the routine...?"</i><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> <i>"Wow, what a good boy. I'm glad we have you here." </i><br>
+<br>
+<b>"This has nothing at all to do with the dongfest we had twenty minutes ago.</b>"<br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> <i>"Sae, could you please show him the menu and the other things he'd better know?" </i><br>
+<br>
+<img src="1_files/sae.PNG" alt="" class="img" border="0">:<i> "All right."</i><br>
+<br>
+<img src="1_files/akina.PNG" alt="" class="img" border="0"> <i>"I'll
+serve customers too. We don't have that many reservations tonight. You
+can stay here until we get too busy." Akina meaningfully smiles at me
+and leaves. </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>Shuntaro and Hiromi leave too. Now...only Sae and I are left in the room. </i><br>
+<br>
+Subtle music change.<br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"..............." </i><br>
+<br>
+<img src="1_files/sae.PNG" alt="" class="img" border="0">:<i> ".............&#8220;</i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>...this is uncomfortable. She looked at me naked, having sex with Akina, and she's in a bunny girl costume now...</i><br>
+<br>
+<img src="1_files/sae.PNG" alt="" class="img" border="0">:<i> "He-he..."</i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"Eh?' </i><br>
+<br>
+<img src="1_files/sae.PNG" alt="" class="img" border="0">:<i> "You haven't changed at all, Yukari. </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"You haven't changed that much either, Sae." I don't
+know where to look. She looks so sexy. I think we took a bath together
+when we were kids. </i><br>
+<br>
+<b>Jesus, dude, FOCUS.</b><br>
+<br>
+<img src="1_files/sae.PNG" alt="" class="img" border="0">:<i> "Hey, don't worry about this costume, alright? We used to take baths together, don't you remember?" </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>Does she know what I'm thinking!? </i><br>
+<br>
+<b>It's not too hard when your eyes are glued to her tits and you're salivating.</b><br>
+<br>
+<img src="1_files/sae.PNG" alt="" class="img" border="0">:<i> "You
+surprised me. I didn't expect to see you working here..." She blushes and
+smiles. &#8220;I also didn't expect you to become Akina's victim." </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"No...ah...that was...!" I can feel I'm blushing all the
+way up to my ears. I don't know why, but I'm trying to make up an
+excuse. &#8220;Akina told me it was her job to measure everyone..."</i><br>
+<br>
+<b>"...and then she sucked my dick three times. I'M INNOCENT DAMN IT.</b>"<br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"Then it happened... huh? Victim?" </i><br>
+<br>
+<img src="1_files/snap576.jpg" alt="" class="img" border="0">z	<br>
+<br>
+<sub><b>sidenote: apparently the word &#8216;victim' in Japanese has like 8 syllables. </b></sub><b></b><br>
+<br>
+<img src="1_files/sae.PNG" alt="" class="img" border="0">:<i> "Akina's
+a very sexual person, and she doesn't try to hide it. She loves
+beautiful boys. It's no wonder she got you right away. She's so honest
+with herself." </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>Sae doesn't seem to care that much about the
+incident. I guess she doesn't hate or look down on me because of it. I
+feel relieved and depressed at the same time...</i><br>
+<br>
+<b>"Because damn it, I wanted her to hate me!"</b><br>
+<br>
+<img src="1_files/sae.PNG" alt="" class="img" border="0">:<i> "Don't be too open, Yukari, OK?" </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"I'm sorry..."</i><br>
+<br>
+<img src="1_files/sae.PNG" alt="" class="img" border="0">:<i> "Ha-ha-ha... You don't have to apologize to me..."</i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0"> <i>"..........." </i><br>
+<br>
+<img src="1_files/sae.PNG" alt="" class="img" border="0">:<i> ".........." </i><br>
+<br>
+<img src="1_files/emot-geno.gif" alt="" border="0">: <i>Silence comes back between us. I get a little nervous in front of Sae. I'm used to dealing with girls (as friends), though. </i><br>
+<br>
+<img src="1_files/sae.PNG" alt="" class="img" border="0">:<i> "Well,
+are you ready to learn about your job...? I'll explain how to greet
+customers, things you'd better remember, and the menu if you still have
+time." Sae starts moving briskly. Her swaying bunny ears seem to shake
+my mind...</i><br>
+<br>
+<b>Next time:</b> The other ladies! No sex there either. Don't worry. It's coming.  
+  </section>
+  <nav class="pager" aria-label="Chapter navigation">
+  <a href="04.html" aria-label="Previous chapter">← Back</a>
+  <a href="05.html" aria-label="Next chapter">Next →</a>
+  </nav>
+  <footer>
+  <span>© Roarstream</span>
+  <span>
+   <a class="smallLink" href="index.html">Home</a>
+  </span>
+  </footer>
+ </main>
+
+ <div class="side right"></div>
+ </div>
+</body>
+</html>
