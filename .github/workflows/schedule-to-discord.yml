@@ -3,7 +3,7 @@ name: Post schedule.png to Discord
 on:
   push:
     paths:
-      - "schedule.png"        # adjust if it's in a folder, e.g. "assets/schedule.png"
+      - "/public/schedule.png"        # adjust if it's in a folder, e.g. "assets/schedule.png"
 
 jobs:
   post:
@@ -13,7 +13,7 @@ jobs:
 
       - name: Send schedule.png to Discord webhook
         env:
-          WEBHOOK: ${{ secrets.https://discord.com/api/webhooks/1364273277828075581/sDMfNEwOXPiTl4KRnVrwuSCC34jVhMzNCFvxYKdI9ZyQvOthgwpFRcS4uTPAGJ5pzwHR }}
+          WEBHOOK: ${{ secrets.WIL0W }}
         run: |
           if [ ! -f schedule.png ]; then
             echo "schedule.png not found!"
