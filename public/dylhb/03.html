@@ -4,7 +4,7 @@
 <head>
  <meta charset="UTF-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1" />
- <title>Chapter Three</title>
+ <title>Chapter XXX</title>
 
  <!-- === SAME STYLE AS index.html === -->
  <style>
@@ -75,37 +75,42 @@
   box-shadow:0 10px 30px rgba(0,0,0,.45);
  }
 
+ /* === NARRATOR COMMENTARY (AUTO) === */
  .story b{
-  color:#c9ffe0;
+   display: block;
+   margin: 16px 0;
+   padding: 12px 14px;
+   font-size: 0.95em;
+   letter-spacing: .02em;
+   text-transform: none;
+ 
+   font-weight: 700;
+   color: #d7ffe8;
+ 
+   background:
+     linear-gradient(
+       180deg,
+       rgba(31,111,58,.18),
+       rgba(31,111,58,.08)
+     );
+ 
+   border-left: 4px solid rgba(126,226,168,.6);
+   border-radius: 10px;
+ 
+   box-shadow:
+     inset 0 0 0 1px rgba(126,226,168,.18),
+     0 6px 20px rgba(0,0,0,.35);
  }
-
+  
+ .story b::before{
+   content: "✦ ";
+   opacity: .6;
+ }
+  
  .story i{
   color:#e6f5ec;
  }
-   /* === AUTO NARRATOR GLOW (STYLE-ONLY) === */
- .story > i{
-   display: block;
-   margin: 18px 0;
-   padding: 14px 16px;
- 
-   font-style: italic;
-   color: #e9fff2;
- 
-   border-radius: 14px;
- 
-   background:
-     radial-gradient(
-       120% 120% at 50% 0%,
-       rgba(126,226,168,.20),
-       rgba(31,111,58,.12) 45%,
-       transparent 75%
-     );
- 
-   box-shadow:
-     0 0 0 1px rgba(126,226,168,.18),
-     0 0 26px rgba(126,226,168,.22),
-     inset 0 0 22px rgba(126,226,168,.14);
- }
+
  .line{
   padding-left: 6px;
   border-left: 2px solid rgba(126,226,168,.25);
@@ -291,12 +296,15 @@
  <div class="side left"></div>
 
  <main class="panel">
-  <!-- === CHAPTER HEADER === -->
-   <header class="chapter-title">
-    <h1>Apparently I&#8217;m cute enough to fuck</h1>
-    <sub>"Oh, you&#8217;re not a girl?  LET&#8217;S HAVE SEX."</sub>
-   </header>
-<b></b><br>
+
+  <header class="chapter-title">
+    <h1>__</h1>
+    <sub>___</sub>
+  </header>
+
+  <section class="story">
+
+<br>
 <img src="1_files/emot-geno.gif" alt="" border="0"> "<i>Ah&#8230;Ms. Inamura?&#8221; </i><br>
 <br>
 <img src="1_files/akina.PNG" alt="" class="img" border="0"> "<i>Oh, don&#8217;t worry.  I&#8217;m just measuring you.&#8221;</i><br>
