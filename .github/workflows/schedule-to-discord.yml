@@ -1,10 +1,9 @@
 name: Post schedule.png to Discord
 
 on:
-  workflow_dispatch:
   push:
     paths:
-      - "public/schedule.png"
+      - "schedule.png"
 
 jobs:
   post:
