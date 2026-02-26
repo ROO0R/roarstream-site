@@ -3,7 +3,7 @@ name: Post schedule.png to Discord
 on:
   push:
     paths:
-      - "schedule.png"
+      - "public/schedule.png"
 
 jobs:
   post:
