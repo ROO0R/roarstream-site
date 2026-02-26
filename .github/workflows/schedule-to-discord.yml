@@ -1,0 +1,25 @@
+name: Post schedule.png to Discord
+
+on:
+  push:
+    paths:
+      - "schedule.png"        # adjust if it's in a folder, e.g. "assets/schedule.png"
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Send schedule.png to Discord webhook
+        env:
+          WEBHOOK: ${{ secrets.https://discord.com/api/webhooks/1364273277828075581/sDMfNEwOXPiTl4KRnVrwuSCC34jVhMzNCFvxYKdI9ZyQvOthgwpFRcS4uTPAGJ5pzwHR }}
+        run: |
+          if [ ! -f schedule.png ]; then
+            echo "schedule.png not found!"
+            exit 1
+          fi
+
+          curl -sS -X POST "$WEBHOOK" \
+            -F "content=🗓️ Schedule updated!" \
+            -F "file=@schedule.png;filename=schedule.png"
