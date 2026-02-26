@@ -1,0 +1,25 @@
+name: Post schedule.png to Discord
+
+on:
+  push:
+    paths:
+      - "public/schedule.png"
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Send schedule.png to Discord webhook
+        env:
+          WEBHOOK: ${{ secrets.WIL0W }}
+        run: |
+          if [ ! -f public/schedule.png ]; then
+            echo "public/schedule.png not found!"
+            exit 1
+          fi
+
+          curl -sS -X POST "$WEBHOOK" \
+            -F "content=🗓️ Schedule updated!" \
+            -F "file=@public/schedule.png;filename=schedule.png"
