@@ -11,15 +11,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Debug - show files
+        run: |
+          echo "Listing public/:"
+          ls -la public || true
+          echo "Git status:"
+          git status --porcelain || true
+
       - name: Send schedule.png to Discord webhook
         env:
           WEBHOOK: ${{ secrets.WIL0W }}
         run: |
-          if [ ! -f public/schedule.png ]; then
-            echo "public/schedule.png not found!"
-            exit 1
-          fi
-
-          curl -sS -X POST "$WEBHOOK" \
-            -F "content=🗓️ Schedule updated!" \
+          test -f public/schedule.png
+          curl -v -X POST "$WEBHOOK" \
+            -F "content=🗓️ Schedule updated! (from GitHub Actions)" \
             -F "file=@public/schedule.png;filename=schedule.png"
