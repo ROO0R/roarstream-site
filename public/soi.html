@@ -935,7 +935,7 @@
   }).join("");
 
     // Render cards (A→Z)
-    const cardsData = Array.isArray(cfg.playlists) ? cfg.playlists.slice() : [];
+    const cardsData = Array.isArray(cfg.books) ? cfg.books.slice() : [];
     cardsData.sort((a, b) =>
       (a.title || "").localeCompare(b.title || "", undefined, { sensitivity: "base" })
     );
