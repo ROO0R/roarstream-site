@@ -72,20 +72,949 @@
   };
   </script>
 
-  <!-- STYLE + RENDER ENGINE -->
-  <!-- This reuses your exact Roarstream layout & JS engine with variable names adjusted -->
-  <!-- Paste your existing CSS + JS BELOW THIS LINE without changes -->
+  
+  <style>
+    @font-face {
+      font-family: 'Chronotype';
+      src: url('Chronotype.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
 
-</head>
-<body>
-  <!--
-    NOTE:
-    This file intentionally reuses your existing Roarstream system.
+    :root{
+      --twitch: #9146FF;
+      --twitch2:#b884ff;
+      --bg0:#05040a;
+      --bg1:#0c0a16;
+      --panel:#0f0f18;
+      --panel2:#141427;
+      --text:#f3f4ff;
+      --muted:#b8b9d6;
+      --border: rgba(255,255,255,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius: 18px;
+
+      --card: rgba(255,255,255,.04);
+      --card2: rgba(255,255,255,.02);
+      --ring: rgba(145,70,255,.45);
+      --ring2: rgba(184,132,255,.25);
+      --good: rgba(70,255,214,.18);
+    }
+
+    *{ box-sizing:border-box; }
+    html, body { height:100%; }
+
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: 'Chronotype', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background:
+        radial-gradient(1200px 700px at 50% 20%, rgba(145,70,255,.25), transparent 55%),
+        radial-gradient(900px 600px at 15% 80%, rgba(70,255,214,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    /* Full-page layout: left art | center panel | right art */
+    .stage{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns: minmax(140px, 1fr) minmax(320px, 980px) minmax(140px, 1fr);
+      align-items: stretch;
+      gap: 24px;
+      padding: 28px 18px;
+      position:relative;
+    }
+
+    /* Side PNG art panels */
+    .side{
+      border-radius: 26px;
+      min-height: 100vh;
+      position: sticky;   /* sticky goes HERE */
+      top: 0;
+      overflow: hidden;
+      filter: drop-shadow(0 12px 40px rgba(0,0,0,.55));
+      opacity: .95;
+      align-self: stretch;
+    }
     
-    Required changes on your side:
-    1) Replace cfg.playlists → cfg.books in JS
-    2) Change copy text (Watch → Read / Buy)
-    3) Point cover images to /covers/
-  -->
+    /* the tiled ducks layer */
+    .side::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-size: auto;        /* do NOT scale */
+      background-repeat: repeat;    /* tile */
+      background-position: top left;
+    }
+    .side::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55));
+      mix-blend-mode: multiply;
+    }
+    .side.left::before { background-image:url("left-bg.png"); }
+    .side.right::before{ background-image:url("right-bg.png"); }
+
+    /* Center content panel */
+    main.panel{
+      width:100%;
+      background: linear-gradient(180deg, rgba(20,20,39,.92), rgba(15,15,24,.92));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(18px, 3vw, 34px);
+      position:relative;
+      overflow:hidden;
+      backdrop-filter: blur(8px);
+    }
+
+    /* Decorative glow inside panel */
+    main.panel::before{
+      content:"";
+      position:absolute;
+      width: 520px; height: 520px;
+      left: -180px; top: -240px;
+      background: radial-gradient(circle at 30% 30%, rgba(145,70,255,.35), transparent 60%);
+      filter: blur(2px);
+      pointer-events:none;
+    }
+    main.panel::after{
+      content:"";
+      position:absolute;
+      width: 520px; height: 520px;
+      right: -220px; bottom: -260px;
+      background: radial-gradient(circle at 60% 60%, rgba(184,132,255,.22), transparent 62%);
+      filter: blur(2px);
+      pointer-events:none;
+    }
+
+    .topline{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      margin-bottom: 10px;
+      position:relative;
+      z-index:1;
+      flex-wrap:wrap;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(145,70,255,.35);
+      background: rgba(145,70,255,.12);
+      color: var(--muted);
+      text-decoration:none;
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .badge:hover{ transform: translateY(-1px); filter: saturate(1.05); }
+    .badge:focus-visible{
+      outline: 3px solid rgba(184,132,255,.85);
+      outline-offset: 3px;
+    }
+
+    .dot{
+      width:8px; height:8px;
+      border-radius:999px;
+      background: var(--twitch);
+      box-shadow: 0 0 18px rgba(145,70,255,.9);
+    }
+
+    h1{
+      margin: 10px 0 8px;
+      font-size: clamp(34px, 4.2vw, 62px);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      position:relative;
+      z-index:1;
+      text-shadow: 0 10px 34px rgba(0,0,0,.55);
+      text-align: center;
+    }
+
+    .glowtext{
+      background: linear-gradient(90deg, #ffffff 0%, #d9c6ff 35%, #b884ff 60%, #ffffff 100%);
+      -webkit-background-clip: text;
+      background-clip:text;
+      color: transparent;
+      filter: drop-shadow(0 0 18px rgba(145,70,255,.22));
+    }
+
+    .subtitle{
+      margin: 0 auto 14px;
+      max-width: 70ch;
+      text-align:center;
+      color: var(--muted);
+      opacity: .95;
+      line-height: 1.35;
+      position:relative;
+      z-index:1;
+      font-size: 18px;
+    }
+
+    .ctaRow{
+      display:flex;
+      justify-content:center;
+      gap: 12px;
+      flex-wrap:wrap;
+      margin: 12px 0 18px;
+      position:relative;
+      z-index:1;
+    }
+
+    a.cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-decoration:none;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: .01em;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(145,70,255,.92), rgba(116,45,235,.92));
+      box-shadow: 0 14px 40px rgba(145,70,255,.20);
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+      white-space: nowrap;
+    }
+    a.cta:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 18px 55px rgba(145,70,255,.28);
+      filter: saturate(1.05);
+    }
+    a.cta.secondary{
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 14px 46px rgba(0,0,0,.38);
+    }
+    a.cta.secondary:hover{
+      box-shadow: 0 18px 60px rgba(0,0,0,.44);
+    }
+    a.cta:focus-visible{
+      outline: 3px solid rgba(184,132,255,.85);
+      outline-offset: 3px;
+    }
+
+    .icon{
+      width:18px; height:18px;
+      display:inline-block;
+    }
+
+    /* Filter bar */
+    .controls{
+      margin-top: 6px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      padding: 12px;
+      box-shadow: 0 14px 46px rgba(0,0,0,.40);
+      position:relative;
+      z-index:1;
+    }
+
+    /* --- TIDIER CONTROLS LAYOUT (override) --- */
+
+    .controlRow{
+      /* was: flex row with space-between */
+      display:flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+    
+    /* Chips become a centered, wrapped "multi-row" bar */
+    .chips{
+      display: grid;
+      grid-template-columns: repeat(5, max-content); /* 5 per row => 2 rows for ~10 chips */
+      justify-content: center;
+      gap: 10px;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+/* ===== Special filter chips ===== */
+
+
+    /* ALL — friendly / neutral / highlight */
+    .chip-all{
+      border-color: rgba(70,255,214,.45);
+      background: linear-gradient(
+        180deg,
+        rgba(70,255,214,.22),
+        rgba(70,255,214,.10)
+      );
+      color: #dffdf6;
+      box-shadow: 0 0 0 3px rgba(70,255,214,.12) inset;
+    }
+    
+    .chip-all:hover{
+      filter: saturate(1.1);
+    }
+    
+    /* NSFW — danger / warning */
+    .chip-nsfw{
+      border-color: rgba(255,90,90,.55);
+      background: linear-gradient(
+        180deg,
+        rgba(255,90,90,.28),
+        rgba(255,90,90,.14)
+      );
+      color: #ffe6e6;
+      box-shadow: 0 0 0 3px rgba(255,90,90,.18) inset;
+    }
+    
+    .chip-nsfw:hover{
+      filter: saturate(1.15);
+    }
+    
+    /* When selected (aria-pressed="true") */
+    .chip-all[aria-pressed="true"]{
+      box-shadow:
+        0 0 0 3px rgba(70,255,214,.25) inset,
+        0 0 22px rgba(70,255,214,.35);
+    }
+    
+    .chip-nsfw[aria-pressed="true"]{
+      box-shadow:
+        0 0 0 3px rgba(255,90,90,.35) inset,
+        0 0 26px rgba(255,90,90,.45);
+    }
+    .chip-nsfw{
+      margin-left: 6px;
+    }
+    @media (max-width: 860px){
+      .chips{ grid-template-columns: repeat(3, max-content); } 
+    }
+    @media (max-width: 520px){
+      .chips{ grid-template-columns: repeat(2, max-content); } 
+    }
+    
+    /* Make chips a bit tighter vertically */
+    .chip{
+      padding: 7px 10px;
+      font-size: 11px;
+    }
+    
+    .searchWrap{
+      width: 100%;
+      max-width: 460px;    
+      margin: 8px auto 0;   
+      display: flex;
+      flex-direction: column;
+      align-items: center; 
+      gap: 10px;
+    }
+  
+    .search{
+      order: 1;
+      width: 100%;
+      height: 44px;
+    
+      border-radius: 999px;
+      padding: 10px 14px;
+    
+      border: 1px solid rgba(145,70,255,.28);
+      background: rgba(145,70,255,.10);
+      color: var(--text);
+      box-shadow: 0 0 0 3px rgba(145,70,255,.10) inset;
+    }
+    
+    .search::placeholder{ color: rgba(184,185,214,.80); }
+    
+    .search:focus{
+      border-color: rgba(184,132,255,.65);
+      box-shadow:
+        0 0 0 4px rgba(145,70,255,.16),
+        0 0 0 3px rgba(145,70,255,.10) inset;
+    }
+    
+    .count{
+      order: 2;
+      width: auto;           
+      min-width: 140px;      
+      padding: 6px 12px;    
+      border-radius: 999px;
+      text-align: center;
+    
+      border: 1px solid rgba(70,255,214,.22);    
+      background: rgba(70,255,214,.08);
+      color: rgba(210,255,245,.90);
+      box-shadow: 0 0 0 3px rgba(70,255,214,.08) inset;
+    
+      font-size: 13px;
+      letter-spacing: .02em;
+    }
+    
+    .count:hover{
+      border-color: rgba(184,132,255,.40);
+      color: #fff;
+    }
+
+    /* Gallery */
+    .gallery{
+      margin-top: 14px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      position:relative;
+      z-index:1;
+    }
+
+    @media (max-width: 980px){
+      .gallery{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 620px){
+      .gallery{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      box-shadow: 0 14px 46px rgba(0,0,0,.40);
+      overflow:hidden;
+      position:relative;
+      transform: translateZ(0);
+      transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease;
+    
+      /* NEW */
+      display:flex;
+      flex-direction:column;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(600px 240px at 10% 0%, rgba(145,70,255,.18), transparent 55%),
+                  radial-gradient(520px 260px at 90% 10%, rgba(70,255,214,.08), transparent 55%);
+      opacity:.9;
+      pointer-events:none;
+    }
+
+    .card:hover{
+      transform: translateY(-3px);
+      border-color: rgba(184,132,255,.35);
+      box-shadow: 0 20px 64px rgba(0,0,0,.52);
+    }
+
+    .thumb{
+      display:block;
+      aspect-ratio: 16 / 9;
+      width:100%;
+      background: rgba(0,0,0,.25);
+      position:relative;
+      overflow:hidden;
+    }
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      filter: saturate(1.02);
+      transform: scale(1.01);
+      transition: filter .14s ease, transform .14s ease;
+    }
+    .card:hover .thumb img{
+      filter: brightness(1.05) saturate(1.05);
+      transform: scale(1.04);
+    }
+
+    .pillbar{
+      position:absolute;
+      left: 10px;
+      bottom: 10px;     
+      display:flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      z-index:2;
+    }
+    .pill{
+      font-size: 11px;
+      letter-spacing:.08em;
+      text-transform: uppercase;
+      padding: 6px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.35);
+      color: rgba(255,255,255,.88);
+      backdrop-filter: blur(6px);
+    }
+    .pill.good{
+      border-color: rgba(70,255,214,.26);
+      background: rgba(70,255,214,.10);
+    }
+
+    .content{
+      padding: 12px 12px 14px;   /* IMPORTANT: restores breathing room */
+      position: relative;
+      z-index: 1;
+    
+      /* your layout behavior */
+      display:flex;
+      flex-direction:column;
+      flex:1;
+    }
+
+    .titleRow{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 10px;
+    }
+
+    .card h3{
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+    }
+
+    .meta{
+      margin: 6px 0 8px;
+      color: var(--muted);
+      font-size: 14px;
+      opacity:.95;
+      letter-spacing: .01em;
+    }
+
+    .desc{
+      margin: 0 0 12px;
+      color: rgba(243,244,255,.92);
+      opacity: .90;
+      line-height: 1.3;
+      font-size: 15px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow:hidden;
+      min-height: 2.6em;
+    }
+
+    .cardActions{
+      margin-top: auto;
+      display:flex;
+      justify-content:center;
+      padding: 14px 10px 10px;
+    
+      /* NEW: separator + subtle footer shelf */
+      border-top: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.00), rgba(145,70,255,.08));
+    }
+
+    a.watch{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      a.watch{ min-width: 170px; }
+      padding: 10px 12px;
+      border-radius: 12px;
+      text-decoration:none;
+      font-weight: 800;
+      font-size: 15px;
+      color:#fff;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(145,70,255,.88), rgba(116,45,235,.88));
+      box-shadow: 0 14px 40px rgba(145,70,255,.16);
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+    }
+    a.watch:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 18px 55px rgba(145,70,255,.24);
+      filter: saturate(1.05);
+    }
+    a.watch:focus-visible{
+      outline: 3px solid rgba(184,132,255,.85);
+      outline-offset: 3px;
+    }
+
+    a.smallLink{
+      color: var(--muted);
+      text-decoration:none;
+      font-size: 14px;
+      border-bottom: 1px dashed rgba(184,185,214,.35);
+      padding-bottom: 1px;
+      opacity:.95;
+    }
+    a.smallLink:hover{ color:#fff; border-bottom-color: rgba(255,255,255,.35); }
+    a.smallLink:focus-visible{
+      outline: 3px solid rgba(184,132,255,.85);
+      outline-offset: 3px;
+      border-bottom-color: transparent;
+    }
+
+    /* Pagination (NEW) */
+    .pagination{
+      margin: 18px auto 6px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 14px;
+      font-size: 15px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pagination button{
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(145,70,255,.18);
+      color: #fff;
+      cursor:pointer;
+      font-family: inherit;
+      transition: transform .12s ease, filter .12s ease, box-shadow .12s ease;
+    }
+
+    .pagination button:hover{
+      transform: translateY(-1px);
+      filter: saturate(1.05);
+      box-shadow: 0 14px 46px rgba(0,0,0,.35);
+    }
+
+    .pagination button:disabled{
+      opacity:.45;
+      cursor:not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .pagination span{
+      color: var(--muted);
+      min-width: 140px;
+      text-align:center;
+      letter-spacing: .02em;
+      opacity:.95;
+    }
+
+    .pagination button:focus-visible{
+      outline: 3px solid rgba(184,132,255,.85);
+      outline-offset: 3px;
+    }
+
+    /* Footer */
+    footer{
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color: rgba(184,185,214,.95);
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+      font-size: 14px;
+      letter-spacing: .01em;
+    }
+    .footlinks{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+    .foottext{
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1.35;
+    }
+    
+    .foottext .line2{
+      font-size: 13px;
+      color: rgba(184,185,214,.85);
+    }
+
+    /* Responsive: hide side art on smaller screens */
+    @media (max-width: 980px){
+      .stage{
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 18px 14px;
+      }
+      .side{ display:none; }
+      main.panel{
+        max-width: 980px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .controlRow{ justify-content:center; }
+      .searchWrap{ justify-content:center; }
+      footer{ justify-content:center; }
+    }
+
+    @media (max-height: 680px){
+      .stage{
+        align-items: start;
+        padding-top: 18px;
+        padding-bottom: 28px;
+      }
+    }
+  </style>
+</head>
+
+  <body>
+  <div class="stage">
+    <div class="side left" aria-hidden="true"></div>
+
+    <main class="panel" role="main">
+      <h1 id="headline" class="glowtext"></h1>
+      <p id="subtitle" class="subtitle"></p>
+
+      <div class="ctaRow" aria-label="Primary actions">
+        <a class="cta" href="https://www.youtube.com/@RoarWuzTaken/videos" target="_blank" rel="noopener noreferrer">Latest Uploads</a>
+        <a class="cta secondary" href="https://www.youtube.com/@RoarWuzTaken?sub_confirmation=1" target="_blank" rel="noopener noreferrer">Follow on Youtube</a>
+        <a class="cta secondary" href="http://www.roarstream.com">← Back</a>
+      </div>
+
+      <section class="controls" aria-label="Playlist filters">
+        <div class="controlRow">
+          <div class="chips" aria-label="Category filters" id="chips"></div>
+          <div class="searchWrap">
+            <input id="search" class="search" type="search"
+              placeholder="Search playlists (title, game, tags)..."
+              aria-label="Search playlists" />
+            <div id="count" class="count" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="gallery" id="gallery" aria-label="Playlist gallery"></section>
+
+      <nav class="pagination" aria-label="Pagination">
+        <button id="prevPage" type="button" disabled>← Prev</button>
+        <span id="pageInfo" aria-live="polite"></span>
+        <button id="nextPage" type="button">Next →</button>
+      </nav>
+
+      <footer aria-label="Footer">
+        <div class="foottext">
+          <span class="line1">© Roarstream • VODs &amp; playlists</span>
+          <span class="line2">Live – Sundays / Mondays / Thursdays / Fridays</span>
+        </div>
+      
+        <div class="footlinks">
+          <a class="smallLink" href="https://www.roarstream.com">Main</a>
+          <a class="smallLink" href="https://www.twitch.tv/RoarWuzTaken" target="_blank" rel="noopener noreferrer">Twitch</a>
+          <a class="smallLink" href="https://www.youtube.com/@RoarWuzTaken" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a class="smallLink" href="https://discord.gg/Um7k2r7xHg" target="_blank" rel="noopener noreferrer">Discord</a>
+          <a class="smallLink" href="https://stt.gg/MXWfzX1w" target="_blank" rel="noopener noreferrer">Stoat</a>
+          <a class="smallLink" href="https://www.roarstream.com/credits.html">Credits</a>
+        </div>
+      </footer>
+    </main>
+
+    <div class="side right" aria-hidden="true"></div>
+  </div>
+<script>
+  const cfg = window.ROAR || {};
+
+  // Page title + header text
+  if (cfg.pageTitle) document.title = cfg.pageTitle;
+  document.getElementById("headline").textContent = cfg.headline || "";
+  document.getElementById("subtitle").textContent = cfg.subtitle || "";
+
+  const chipsWrap = document.getElementById("chips");
+  const gallery   = document.getElementById("gallery");
+  const search    = document.getElementById("search");
+  const count     = document.getElementById("count");
+
+  // Pagination
+  const PAGE_SIZE = 6;
+  let currentPage = 1;
+  const prevBtn  = document.getElementById("prevPage");
+  const nextBtn  = document.getElementById("nextPage");
+  const pageInfo = document.getElementById("pageInfo");
+
+  // Helpers
+  function normalize(s){ return (s || "").toString().toLowerCase().trim(); }
+
+  function escapeHTML(s){
+    const str = (s ?? "").toString();
+    return str
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#39;");
+  }
+
+  function pillHTML(p){
+    if (typeof p === "string") return `<span class="pill">${escapeHTML(p)}</span>`;
+    const cls = p && p.good ? "pill good" : "pill";
+    return `<span class="${cls}">${escapeHTML(p?.text || "")}</span>`;
+  }
+
+  function cardHTML(item){
+    const tagsArr  = Array.isArray(item.tags) ? item.tags : [];
+    const tagsNorm = tagsArr.map(t => normalize(t)).filter(Boolean);
+    const tagsAttr = tagsNorm.join(" ");
+
+    const pills = (item.pills || []).map(pillHTML).join("");
+    const title = escapeHTML(item.title || "");
+    const meta  = escapeHTML(item.meta || "");
+    const desc  = escapeHTML(item.desc || "");
+    const url   = escapeHTML(item.url || "#");
+    const thumb = escapeHTML(item.thumb || "");
+
+    return `
+      <article class="card" data-tags="${escapeHTML(tagsAttr)}">
+        <a class="thumb" href="${url}" target="_blank" rel="noopener noreferrer"
+           aria-label="Open playlist: ${title}">
+          <img src="${thumb}" alt="Thumbnail for ${title} playlist" loading="lazy">
+          <div class="pillbar" aria-hidden="true">${pills}</div>
+        </a>
+        <div class="content">
+          <div class="titleRow"><h3>${title}</h3></div>
+          <div class="meta">${meta}</div>
+          <p class="desc">${desc}</p>
+          <div class="cardActions">
+            <a class="watch" href="${url}" target="_blank" rel="noopener noreferrer">Watch</a>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  // Build filters (All first, NSFW last, middle alphabetical)
+  const LABEL_MAP = {
+    "AdventureGame": "Adventure Game",
+    "Point-and-Click": "Point-and-Click",
+    "OpenWorld": "OpenWorld",
+    "Souls-Like": "Souls-Like"
+  };
+
+  function buildFilters(filters){
+    const cleaned = (filters || []).map(f => f.toString());
+    const hasAll  = cleaned.includes("All");
+    const hasNSFW = cleaned.includes("NSFW");
+
+    const middle = cleaned
+      .filter(f => f !== "All" && f !== "NSFW")
+      .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+
+    return [
+      ...(hasAll ? ["All"] : []),
+      ...middle,
+      ...(hasNSFW ? ["NSFW"] : [])
+    ];
+  }
+
+  const sortedFilters = buildFilters(cfg.filters || []);
+
+  chipsWrap.innerHTML = sortedFilters.map(filter => {
+    const isAll  = filter === "All";
+    const isNSFW = filter === "NSFW";
+
+    const classes = [
+      "chip",
+      isAll  && "chip-all",
+      isNSFW && "chip-nsfw"
+    ].filter(Boolean).join(" ");
+
+    const label = LABEL_MAP[filter] || filter;
+    const data  = isAll ? "all" : filter;
+
+    return `
+      <button class="${classes}" type="button" data-filter="${escapeHTML(data)}"
+              aria-pressed="${isAll ? "true" : "false"}">
+        ${escapeHTML(label)}
+      </button>
+    `;
+  }).join("");
+
+    // Render cards (A→Z)
+    const cardsData = Array.isArray(cfg.playlists) ? cfg.playlists.slice() : [];
+    cardsData.sort((a, b) =>
+      (a.title || "").localeCompare(b.title || "", undefined, { sensitivity: "base" })
+    );
+    gallery.innerHTML = cardsData.map(cardHTML).join("");
+  
+    // Now that cards exist:
+    const chips = Array.from(document.querySelectorAll(".chip"));
+    const cards = Array.from(document.querySelectorAll(".card"));
+  
+    let activeFilter = "all";
+  
+    function cardText(card){
+      const title = card.querySelector("h3")?.textContent || "";
+      const meta  = card.querySelector(".meta")?.textContent || "";
+      const desc  = card.querySelector(".desc")?.textContent || "";
+      const tags  = card.getAttribute("data-tags") || "";
+      return normalize([title, meta, desc, tags].join(" "));
+    }
+  
+    function matchesFilter(card){
+      if (activeFilter === "all") return true;
+      const tags = (card.getAttribute("data-tags") || "")
+        .split(/\s+/)
+        .map(normalize)
+        .filter(Boolean);
+      return tags.includes(normalize(activeFilter));
+    }
+  
+    function matchesSearch(card){
+      const q = normalize(search.value);
+      if (!q) return true;
+      return cardText(card).includes(q);
+    }
+  
+    function apply(){
+      const filtered = cards.filter(card => matchesFilter(card) && matchesSearch(card));
+  
+      const total = filtered.length;
+      const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+      if (currentPage > totalPages) currentPage = totalPages;
+  
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const end   = start + PAGE_SIZE;
+  
+      cards.forEach(card => card.style.display = "none");
+      filtered.slice(start, end).forEach(card => card.style.display = "");
+  
+      count.textContent = `${total} result${total === 1 ? "" : "s"}`;
+      pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+  
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = currentPage === totalPages;
+    }
+  
+    chips.forEach(btn => {
+      btn.addEventListener("click", () => {
+        chips.forEach(b => b.setAttribute("aria-pressed", "false"));
+        btn.setAttribute("aria-pressed", "true");
+        activeFilter = btn.getAttribute("data-filter") || "all";
+        currentPage = 1;
+        apply();
+      });
+    });
+  
+    search.addEventListener("input", () => {
+      currentPage = 1;
+      apply();
+    });
+  
+    prevBtn.addEventListener("click", () => {
+      if (currentPage > 1){ currentPage--; apply(); }
+    });
+  
+    nextBtn.addEventListener("click", () => {
+      currentPage++;
+      apply();
+    });
+  
+    apply();
+  </script>
 </body>
 </html>
