@@ -17,20 +17,21 @@
       --accent: #1f6f3a;     /* forest green */
       --accent2:#2f8a4d;     /* lighter green */
       --accent3:#7ee2a8;     /* mint glow highlight */
-
+    
       /* Backgrounds stay dark */
       --bg0:#05070a;
       --bg1:#070d0a;
       --panel:#0f1411;
       --panel2:#141d16;
-
+    
       --text:#f3fff7;
       --muted:#b8d6c3;
       --border: rgba(255,255,255,.12);
       --shadow: 0 18px 60px rgba(0,0,0,.55);
       --radius: 18px;
     }
-    
+
+
     *{ box-sizing:border-box; }
     html, body { height:100%; }
     body{
@@ -124,7 +125,7 @@
       position: relative;
       z-index: 1;
     }
-
+    
     .avatar{
       display: inline-flex;
       align-items: center;
@@ -140,19 +141,40 @@
         0 0 0 3px rgba(145,70,255,.15),
         0 8px 26px rgba(0,0,0,.45);
     }
-
+    
     .avatar img{
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
-
+    
+    /* On small screens, center everything nicely */
     @media (max-width: 520px){
       .topline{
         flex-direction: column;
         gap: 10px;
       }
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(145,70,255,.35);
+      background: rgba(145,70,255,.12);
+      color: var(--muted);
+    }
+    .dot{
+      width:8px; height:8px;
+      border-radius:999px;
+      background: var(--twitch);
+      box-shadow: 0 0 18px rgba(145,70,255,.9);
     }
 
     h1{
@@ -200,8 +222,6 @@
       background: linear-gradient(180deg, rgba(145,70,255,.92), rgba(116,45,235,.92));
       box-shadow: 0 14px 40px rgba(145,70,255,.20);
       transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
-      position: relative; /* needed for image overlay button */
-      overflow: hidden;   /* needed for image overlay button */
     }
     a.cta:hover{
       transform: translateY(-2px);
@@ -218,6 +238,26 @@
       display:inline-block;
     }
 
+    /* Schedule image framing */
+    .frame{
+      margin-top: 6px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      padding: 12px;
+      box-shadow: 0 14px 46px rgba(0,0,0,.40);
+      position:relative;
+      z-index:1;
+    }
+    .frame img{
+      width: 100%;
+      height: auto;
+      display:block;
+      border-radius: 12px;
+      max-height: 62vh;
+      object-fit: contain;
+      background: rgba(0,0,0,.25);
+    }
     /* Footer (same as archives) */
     footer{
       margin-top: 18px;
@@ -246,7 +286,7 @@
       gap: 2px;
       line-height: 1.35;
     }
-
+    
     .foottext .line2{
       font-size: 13px;
       color: rgba(184,185,214,.85);
@@ -272,7 +312,6 @@
       outline-offset: 3px;
       border-bottom-color: transparent;
     }
-
     /* Group wrapper */
     .ctaGroup{
       display: inline-flex;
@@ -281,110 +320,68 @@
       box-shadow: 0 18px 55px rgba(0,0,0,.45);
       border: 1px solid rgba(255,255,255,.14);
     }
-
+    
     /* Remove individual rounded edges */
     .ctaGroup .cta{
       border-radius: 0;
       border: none;
       box-shadow: none;
     }
-
+    
     /* Left button */
     .ctaGroup .cta:first-child{
       border-top-left-radius: 14px;
       border-bottom-left-radius: 14px;
     }
-
+    
     /* Right button */
     .ctaGroup .cta:last-child{
       border-top-right-radius: 14px;
       border-bottom-right-radius: 14px;
     }
-
+    
     /* Divider line between them */
     .ctaGroup .cta + .cta{
       border-left: 1px solid rgba(255,255,255,.18);
     }
-
+    
     /* Primary Twitch button */
     .cta.primary{
       background: linear-gradient(180deg, rgba(145,70,255,.95), rgba(116,45,235,.95));
     }
-
+    
     /* Secondary Archives button */
     .cta.secondary{
       background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
     }
-
-    /* ✅ NEW: "Most recent YouTube" image button */
-    .cta.ytLatest{
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.72)),
-        var(--yt-latest-bg, none);
-      background-size: cover;
-      background-position: center;
-    }
-    .cta.ytLatest::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: radial-gradient(700px 220px at 30% 30%, rgba(255,255,255,.10), transparent 60%);
-      pointer-events:none;
-    }
-    .cta.ytLatest .ctaText{
-      position: relative;
-      z-index: 1;
-      text-shadow: 0 10px 26px rgba(0,0,0,.65);
-    }
-
+    
     /* Hover */
     .ctaGroup .cta:hover{
       transform: translateY(-2px);
       filter: saturate(1.05);
     }
-
+    
     /* Mobile stacking */
     @media (max-width: 520px){
       .ctaGroup{
         flex-direction: column;
         width: 100%;
       }
-
+    
       .ctaGroup .cta{
         width: 100%;
         border-left: none !important;
         border-top: 1px solid rgba(255,255,255,.18);
       }
-
+    
       .ctaGroup .cta:first-child{
         border-top: none;
         border-radius: 14px 14px 0 0;
       }
-
+    
       .ctaGroup .cta:last-child{
         border-radius: 0 0 14px 14px;
       }
-    }
-
-    /* Schedule image framing */
-    .frame{
-      margin-top: 6px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      padding: 12px;
-      box-shadow: 0 14px 46px rgba(0,0,0,.40);
-      position:relative;
-      z-index:1;
-    }
-    .frame img{
-      width: 100%;
-      height: auto;
-      display:block;
-      border-radius: 12px;
-      max-height: 62vh;
-      object-fit: contain;
-      background: rgba(0,0,0,.25);
     }
 
     /* Clickable schedule image polish */
@@ -424,188 +421,105 @@
   </style>
 </head>
 
-<body>
-  <div class="stage">
-    <div class="side left" aria-hidden="true"></div>
-
-    <main class="panel" role="main">
-      <div class="topline">
-        <a
-          class="avatar"
-          href="https://www.twitch.tv/RoarWuzTaken"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Visit Roarstream on Twitch"
-        >
-          <img
-            src="https://static-cdn.jtvnw.net/jtv_user_pictures/fc31418e-3d12-43aa-9e98-05c688e6c381-profile_image-70x70.png"
-            alt="Roarstream avatar"
+  <body>
+    <div class="stage">
+      <div class="side left" aria-hidden="true"></div>
+  
+      <main class="panel" role="main">
+        <!-- removed broken topline -->
+  
+        <div class="topline">
+          <a
+            class="avatar"
+            href="https://www.twitch.tv/RoarWuzTaken"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit Roarstream on Twitch"
           >
-        </a>
-
-        <h2 class="glowtext">Hi! Welcome to Roarstream.com!</h2>
-      </div>
-
-      <div class="ctaRow">
-        <div class="ctaGroup">
-          <a class="cta primary"
-             id="twitchLiveBtn"
-             href="https://www.twitch.tv/RoarWuzTaken"
-             target="_blank"
-             rel="noopener noreferrer">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M4 3h18v11l-5 5h-4l-3 3H8v-3H4V3z" stroke="white" stroke-opacity=".9" stroke-width="1.6" />
-              <path d="M10 8v5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
-              <path d="M15 8v5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
-            </svg>
-            <span class="ctaText">Twitch Page</span>
+            <img
+              src="https://static-cdn.jtvnw.net/jtv_user_pictures/fc31418e-3d12-43aa-9e98-05c688e6c381-profile_image-70x70.png"
+              alt="Roarstream avatar"
+            >
           </a>
-          
-          <a class="cta secondary" href="archives.html">
-            YouTube Archives
+        
+          <h2 class="glowtext">Hi! Welcome to Roarstream.com!</h2>
+        </div>
+  
+        <div class="ctaRow">
+          <div class="ctaGroup">
+            <a class="cta primary"
+               id="twitchLiveBtn"
+               href="https://www.twitch.tv/RoarWuzTaken"
+               target="_blank"
+               rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 3h18v11l-5 5h-4l-3 3H8v-3H4V3z" stroke="white" stroke-opacity=".9" stroke-width="1.6" />
+                <path d="M10 8v5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M15 8v5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+              <span class="ctaText">Twitch Page</span>
+            </a>
+        
+            <a class="cta secondary" href="archives.html">
+              YouTube Archives
+            </a>
+          </div>
+        </div>
+  
+        <section class="frame" aria-label="Stream schedule image">
+          <a href="https://www.twitch.tv/RoarWuzTaken" target="_blank" rel="noopener noreferrer">
+            <img src="schedule.png" alt="Roarstream schedule" />
           </a>
-          
-          <!-- ✅ Most Recent YouTube -->
-          <a class="cta ytLatest" id="mostRecentYoutubeBtn"
-             href="https://www.youtube.com/@RoarWuzTaken/videos"
-             target="_blank" rel="noopener noreferrer">
-            <span class="ctaText">Most Recent YouTube</span>
-          </a>
-        </div>
-      </div>
-
-      <section class="frame" aria-label="Stream schedule image">
-        <a href="https://www.twitch.tv/RoarWuzTaken" target="_blank" rel="noopener noreferrer">
-          <img src="schedule.png" alt="Roarstream schedule" />
-        </a>
-      </section>
-
-      <footer aria-label="Footer">
-        <div class="foottext">
-          <span class="line1">© Roarstream • Live &amp; archives</span>
-          <span class="line2">Live – Sundays / Mondays / Thursdays / Fridays</span>
-        </div>
-        <div class="footlinks">
-          <a class="smallLink" href="https://www.twitch.tv/RoarWuzTaken" target="_blank" rel="noopener noreferrer">Twitch</a>
-          <a class="smallLink" href="https://www.youtube.com/@RoarWuzTaken" target="_blank" rel="noopener noreferrer">YouTube</a>
-          <a class="smallLink" href="https://discord.gg/Um7k2r7xHg" target="_blank" rel="noopener noreferrer">Discord</a>
-          <a class="smallLink" href="https://stt.gg/MXWfzX1w" target="_blank" rel="noopener noreferrer">Stoat</a>
-          <a class="smallLink" href="https://www.roarstream.com/credits.html">Credits</a>
-          <span class="versionTag">v21</span>
-        </div>
-      </footer>
-    </main>
-
-    <div class="side right" aria-hidden="true"></div>
-  </div>
-</body>
-
-<script>
-/* ==============================
-   ✅ QUICK EDIT CONFIG (TOP)
-   ============================== */
-const ROAR_YT_LATEST = {
-  url: "https://www.youtube.com/@RoarWuzTaken/videos",  // <-- paste your most recent video link here anytime
-  bgImage: "https://i9.ytimg.com/vi/hDJzZvdxPSU/mqdefault.jpg"                              // <-- put this jpg in the same folder as index.html
-};
-
-(async function(){
-  const ytBtn = document.getElementById("mostRecentYoutubeBtn");
-
-<script>
-const ROAR_YT_LATEST = {
-  url: "https://www.youtube.com/@RoarWuzTaken/videos",
-  bgImage: "https://i9.ytimg.com/vi/hDJzZvdxPSU/mqdefault.jpg"
-};
-
-(async function(){
-  const ytBtn = document.getElementById("mostRecentYoutubeBtn");
-  if (!ytBtn) return;
-
-  // ✅ APPLY BACKGROUND IMAGE
-  if (ROAR_YT_LATEST.bgImage) {
-    ytBtn.style.setProperty("--yt-latest-bg", `url("${ROAR_YT_LATEST.bgImage}")`);
-  }
-
-  // ✅ OPTIONAL: set a default href first
-  ytBtn.href = ROAR_YT_LATEST.url || ytBtn.href;
-
-  // If you use the txt file to override the URL:
-  try{
-    const res = await fetch("./most_recent_youtube.txt", { cache: "no-store" });
-    if (!res.ok) throw new Error("Could not fetch most_recent_youtube.txt");
-    const url = (await res.text()).trim().split(/\r?\n/)[0];
-    if (!url) throw new Error("most_recent_youtube.txt is empty");
-    ytBtn.href = url;
-  } catch (err) {
-    console.warn("Most Recent YouTube failed to load:", err);
-  }
-
-  // --- Existing Twitch live checker ---
-  const channel = "RoarWuzTaken";
-  const btn = document.getElementById("twitchLiveBtn");
-  const label = btn?.querySelector(".ctaText");
-  if (!btn || !label) return;
-
-  async function check(){
-    try {
-      const res = await fetch(`https://decapi.me/twitch/uptime/${channel}`, { cache: "no-store" });
-      const text = (await res.text()).toLowerCase();
-
-      if (!text.includes("offline")) {
-        label.textContent = "🔴 STREAMING NOW!";
-        btn.style.background = "linear-gradient(180deg, #ff4d4d, #b80000)";
-        btn.style.boxShadow = "0 0 25px rgba(255,77,77,.65)";
-      } else {
-        label.textContent = "Twitch Page";
-        btn.style.background = "";
-        btn.style.boxShadow = "";
+        </section>
+  
+        <!-- ✅ footer moved INSIDE the panel -->
+        <footer aria-label="Footer">
+          <div class="foottext">
+            <span class="line1">© Roarstream • Live &amp; archives</span>
+            <span class="line2">Live – Sundays / Mondays / Thursdays / Fridays</span>
+          </div>
+          <div class="footlinks">
+            <a class="smallLink" href="https://www.twitch.tv/RoarWuzTaken" target="_blank" rel="noopener noreferrer">Twitch</a>
+            <a class="smallLink" href="https://www.youtube.com/@RoarWuzTaken" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a class="smallLink" href="https://discord.gg/Um7k2r7xHg" target="_blank" rel="noopener noreferrer">Discord</a>
+            <a class="smallLink" href="https://stt.gg/MXWfzX1w" target="_blank" rel="noopener noreferrer">Stoat</a>
+            <a class="smallLink" href="https://www.roarstream.com/credits.html">Credits</a>
+            <span class="versionTag">v21</span>
+          </div>
+        </footer>
+      </main>
+  
+      <div class="side right" aria-hidden="true"></div>
+    </div>
+  </body>
+  <script>
+  (async function(){
+    const channel = "RoarWuzTaken";
+    const btn = document.getElementById("twitchLiveBtn");
+    const label = btn?.querySelector(".ctaText");
+    if (!btn || !label) return;
+  
+    async function check(){
+      try {
+        const res = await fetch(`https://decapi.me/twitch/uptime/${channel}`, { cache: "no-store" });
+        const text = (await res.text()).toLowerCase();
+  
+        if (!text.includes("offline")) {
+          label.textContent = "🔴 STREAMING NOW!";
+          btn.style.background = "linear-gradient(180deg, #ff4d4d, #b80000)";
+          btn.style.boxShadow = "0 0 25px rgba(255,77,77,.65)";
+        } else {
+          label.textContent = "Twitch Page";
+          btn.style.background = "";
+          btn.style.boxShadow = "";
+        }
+      } catch {
+        // fail silently
       }
-    } catch {}
-  }
-
-  check();
-  setInterval(check, 60000);
-})();
-</script>
-
-  try{
-    const res = await fetch("./most_recent_youtube.txt", { cache: "no-store" });
-    if (!res.ok) throw new Error("Could not fetch most_recent_youtube.txt");
-    const url = (await res.text()).trim().split(/\r?\n/)[0];
-    if (!url) throw new Error("most_recent_youtube.txt is empty");
-    ytBtn.href = url;
-  } catch (err) {
-    console.warn("Most Recent YouTube failed to load:", err);
-  }
-
-  // --- Existing Twitch live checker ---
-  const channel = "RoarWuzTaken";
-  const btn = document.getElementById("twitchLiveBtn");
-  const label = btn?.querySelector(".ctaText");
-  if (!btn || !label) return;
-
-  async function check(){
-    try {
-      const res = await fetch(`https://decapi.me/twitch/uptime/${channel}`, { cache: "no-store" });
-      const text = (await res.text()).toLowerCase();
-
-      if (!text.includes("offline")) {
-        label.textContent = "🔴 STREAMING NOW!";
-        btn.style.background = "linear-gradient(180deg, #ff4d4d, #b80000)";
-        btn.style.boxShadow = "0 0 25px rgba(255,77,77,.65)";
-      } else {
-        label.textContent = "Twitch Page";
-        btn.style.background = "";
-        btn.style.boxShadow = "";
-      }
-    } catch {
-      // fail silently
     }
-  }
-
-  check();
-  setInterval(check, 60000);
-})();
-</script>
+  
+    check();                 // run immediately
+    setInterval(check, 60000); // re-check every 60 seconds
+  })();
+  </script>
 </html>
