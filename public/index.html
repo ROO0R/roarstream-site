@@ -509,6 +509,63 @@ const ROAR_YT_LATEST = {
 (async function(){
   const ytBtn = document.getElementById("mostRecentYoutubeBtn");
 
+<script>
+const ROAR_YT_LATEST = {
+  url: "https://www.youtube.com/@RoarWuzTaken/videos",
+  bgImage: "https://i9.ytimg.com/vi/hDJzZvdxPSU/mqdefault.jpg"
+};
+
+(async function(){
+  const ytBtn = document.getElementById("mostRecentYoutubeBtn");
+  if (!ytBtn) return;
+
+  // ✅ APPLY BACKGROUND IMAGE
+  if (ROAR_YT_LATEST.bgImage) {
+    ytBtn.style.setProperty("--yt-latest-bg", `url("${ROAR_YT_LATEST.bgImage}")`);
+  }
+
+  // ✅ OPTIONAL: set a default href first
+  ytBtn.href = ROAR_YT_LATEST.url || ytBtn.href;
+
+  // If you use the txt file to override the URL:
+  try{
+    const res = await fetch("./most_recent_youtube.txt", { cache: "no-store" });
+    if (!res.ok) throw new Error("Could not fetch most_recent_youtube.txt");
+    const url = (await res.text()).trim().split(/\r?\n/)[0];
+    if (!url) throw new Error("most_recent_youtube.txt is empty");
+    ytBtn.href = url;
+  } catch (err) {
+    console.warn("Most Recent YouTube failed to load:", err);
+  }
+
+  // --- Existing Twitch live checker ---
+  const channel = "RoarWuzTaken";
+  const btn = document.getElementById("twitchLiveBtn");
+  const label = btn?.querySelector(".ctaText");
+  if (!btn || !label) return;
+
+  async function check(){
+    try {
+      const res = await fetch(`https://decapi.me/twitch/uptime/${channel}`, { cache: "no-store" });
+      const text = (await res.text()).toLowerCase();
+
+      if (!text.includes("offline")) {
+        label.textContent = "🔴 STREAMING NOW!";
+        btn.style.background = "linear-gradient(180deg, #ff4d4d, #b80000)";
+        btn.style.boxShadow = "0 0 25px rgba(255,77,77,.65)";
+      } else {
+        label.textContent = "Twitch Page";
+        btn.style.background = "";
+        btn.style.boxShadow = "";
+      }
+    } catch {}
+  }
+
+  check();
+  setInterval(check, 60000);
+})();
+</script>
+
   try{
     const res = await fetch("./most_recent_youtube.txt", { cache: "no-store" });
     if (!res.ok) throw new Error("Could not fetch most_recent_youtube.txt");
