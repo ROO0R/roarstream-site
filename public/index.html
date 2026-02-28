@@ -460,27 +460,9 @@
             </svg>
             <span class="ctaText">Twitch Page</span>
           </a>
-
-          <a class="cta secondary" href="archives.html">
-            YouTube Archives
-          </a>
         
-          
-            try{
-              const res = await fetch("./most_recent_youtube.txt", { cache: "no-store" });
-              if (!res.ok) throw new Error("Could not fetch most_recent_youtube.txt");
-              const url = (await res.text()).trim().split(/\r?\n/)[0];
-              if (!url) throw new Error("most_recent_youtube.txt is empty");
-          
-              btn.href = url;
-            }catch(err){
-              console.warn("Most Recent YouTube failed to load:", err);
-              // Keep existing href as a fallback
-            }
-          })();
-          </script>
-          
-          <!-- ✅ NEW BUTTON -->
+          <a class="cta secondary" href="archives.html">YouTube Archives</a>
+        
           <a class="cta ytLatest" id="mostRecentYoutubeBtn"
              href="https://youtube.com"
              target="_blank" rel="noopener noreferrer">
@@ -525,14 +507,16 @@ const ROAR_YT_LATEST = {
 };
 
 (async function(){
-  // --- YouTube "Most Recent" button setup ---
   const ytBtn = document.getElementById("mostRecentYoutubeBtn");
-  if (ytBtn) {
-    ytBtn.href = ROAR_YT_LATEST.url || "https://www.youtube.com/@RoarWuzTaken/videos";
-    // Set CSS variable so the button can use your image as a background
-    if (ROAR_YT_LATEST.bgImage) {
-      ytBtn.style.setProperty("--yt-latest-bg", `url("${ROAR_YT_LATEST.bgImage}")`);
-    }
+
+  try{
+    const res = await fetch("./most_recent_youtube.txt", { cache: "no-store" });
+    if (!res.ok) throw new Error("Could not fetch most_recent_youtube.txt");
+    const url = (await res.text()).trim().split(/\r?\n/)[0];
+    if (!url) throw new Error("most_recent_youtube.txt is empty");
+    ytBtn.href = url;
+  } catch (err) {
+    console.warn("Most Recent YouTube failed to load:", err);
   }
 
   // --- Existing Twitch live checker ---
