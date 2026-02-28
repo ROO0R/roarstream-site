@@ -30,7 +30,13 @@
       --shadow: 0 18px 60px rgba(0,0,0,.55);
       --radius: 18px;
     }
-
+  
+    #mostRecentYoutubeBtn{
+      background-image: url("./most_recent_youtube.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+    
     *{ box-sizing:border-box; }
     html, body { height:100%; }
     body{
@@ -464,10 +470,29 @@
           <a class="cta secondary" href="archives.html">
             YouTube Archives
           </a>
-
+          
+          <script>
+          (async function loadMostRecentYoutube(){
+            const btn = document.getElementById("mostRecentYoutubeBtn");
+            if (!btn) return;
+          
+            try{
+              const res = await fetch("./most_recent_youtube.txt", { cache: "no-store" });
+              if (!res.ok) throw new Error("Could not fetch most_recent_youtube.txt");
+              const url = (await res.text()).trim().split(/\r?\n/)[0];
+              if (!url) throw new Error("most_recent_youtube.txt is empty");
+          
+              btn.href = url;
+            }catch(err){
+              console.warn("Most Recent YouTube failed to load:", err);
+              // Keep existing href as a fallback
+            }
+          })();
+          </script>
+          
           <!-- ✅ NEW BUTTON -->
-          <a class="cta ytLatest" id="ytLatestBtn" href="#" target="_blank" rel="noopener noreferrer">
-            <span class="ctaText">Most Recent YouTube</span>
+          <a class="btn" id="mostRecentYoutubeBtn" href="https://youtube.com" target="_blank" rel="noopener">
+            Most Recent YouTube
           </a>
         </div>
       </div>
