@@ -30,12 +30,6 @@
       --shadow: 0 18px 60px rgba(0,0,0,.55);
       --radius: 18px;
     }
-  
-    #mostRecentYoutubeBtn{
-      background-image: url("./most_recent_youtube.jpg");
-      background-size: cover;
-      background-position: center;
-    }
     
     *{ box-sizing:border-box; }
     html, body { height:100%; }
@@ -470,11 +464,7 @@
           <a class="cta secondary" href="archives.html">
             YouTube Archives
           </a>
-          
-          <script>
-          (async function loadMostRecentYoutube(){
-            const btn = document.getElementById("mostRecentYoutubeBtn");
-            if (!btn) return;
+        
           
             try{
               const res = await fetch("./most_recent_youtube.txt", { cache: "no-store" });
@@ -491,8 +481,10 @@
           </script>
           
           <!-- ✅ NEW BUTTON -->
-          <a class="btn" id="mostRecentYoutubeBtn" href="https://youtube.com" target="_blank" rel="noopener">
-            Most Recent YouTube
+          <a class="cta ytLatest" id="mostRecentYoutubeBtn"
+             href="https://youtube.com"
+             target="_blank" rel="noopener noreferrer">
+            <span class="ctaText">Most Recent YouTube</span>
           </a>
         </div>
       </div>
@@ -534,7 +526,7 @@ const ROAR_YT_LATEST = {
 
 (async function(){
   // --- YouTube "Most Recent" button setup ---
-  const ytBtn = document.getElementById("ytLatestBtn");
+  const ytBtn = document.getElementById("mostRecentYoutubeBtn");
   if (ytBtn) {
     ytBtn.href = ROAR_YT_LATEST.url || "https://www.youtube.com/@RoarWuzTaken/videos";
     // Set CSS variable so the button can use your image as a background
