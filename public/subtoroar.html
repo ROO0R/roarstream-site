@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Why should I sub? • Roarstream!!</title>
+
+  <style>
+    @font-face {
+      font-family: 'Chronotype';
+      src: url('Chronotype.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root{
+      --accent: #1f6f3a;     /* forest green */
+      --accent2:#2f8a4d;     /* lighter green */
+      --accent3:#7ee2a8;     /* mint glow highlight */
+
+      --bg0:#05070a;
+      --bg1:#070d0a;
+      --panel:#0f1411;
+      --panel2:#141d16;
+
+      --text:#f3fff7;
+      --muted:#b8d6c3;
+      --border: rgba(255,255,255,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius: 18px;
+
+      --twitch: #9146FF;
+      --hot: #ff4d4d;
+      --hot2: #b80000;
+    }
+
+    *{ box-sizing:border-box; }
+    html, body { height:100%; }
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: 'Chronotype', sans-serif;
+      background:
+        radial-gradient(1200px 700px at 50% 20%, rgba(31,111,58,.25), transparent 55%),
+        radial-gradient(900px 600px at 15% 80%, rgba(126,226,168,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    /* Full-page layout: left art | center panel | right art */
+    .stage{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns: minmax(140px, 1fr) minmax(320px, 980px) minmax(140px, 1fr);
+      align-items:center;
+      gap: 24px;
+      padding: 28px 18px;
+      position:relative;
+    }
+
+    /* Side PNG art panels */
+    .side{
+      height: clamp(520px, 90vh, 980px);
+      border-radius: 26px;
+      position:relative;
+      overflow:hidden;
+      filter: drop-shadow(0 12px 40px rgba(0,0,0,.55));
+      opacity:.95;
+    }
+    .side::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-size: auto;
+      background-repeat: repeat;
+      background-position: top left;
+    }
+    .side::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55));
+      mix-blend-mode: multiply;
+    }
+    .side.left::before { background-image:url("left-bg.png"); }
+    .side.right::before{ background-image:url("right-bg.png"); }
+
+    /* Center content panel */
+    .panel{
+      width:100%;
+      background: linear-gradient(180deg, rgba(20,20,39,.92), rgba(15,15,24,.92));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(18px, 3vw, 34px);
+      position:relative;
+      overflow:hidden;
+      backdrop-filter: blur(8px);
+    }
+
+    .panel::before{
+      content:"";
+      position:absolute;
+      width: 520px; height: 520px;
+      left: -180px; top: -240px;
+      background: radial-gradient(circle at 30% 30%, rgba(145,70,255,.35), transparent 60%);
+      filter: blur(2px);
+      pointer-events:none;
+    }
+    .panel::after{
+      content:"";
+      position:absolute;
+      width: 520px; height: 520px;
+      right: -220px; bottom: -260px;
+      background: radial-gradient(circle at 60% 60%, rgba(47,138,77,.22), transparent 62%);
+      filter: blur(2px);
+      pointer-events:none;
+    }
+
+    /* Top area */
+    .topline{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 14px;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+      flex-wrap: wrap;
+    }
+
+    .avatar{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 2px solid rgba(145,70,255,.55);
+      box-shadow:
+        0 0 0 3px rgba(145,70,255,.15),
+        0 8px 26px rgba(0,0,0,.45);
+    }
+    .avatar img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    h1{
+      margin: 10px 0 6px;
+      font-size: clamp(34px, 4.2vw, 58px);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      position:relative;
+      z-index:1;
+      text-shadow: 0 10px 34px rgba(0,0,0,.55);
+      text-align:center;
+    }
+
+    .glowtext{
+      background: linear-gradient(90deg, #ffffff 0%, #c9ffe0 35%, #2f8a4d 60%, #ffffff 100%);
+      -webkit-background-clip: text;
+      background-clip:text;
+      color: transparent;
+      filter: drop-shadow(0 0 18px rgba(31,111,58,.22));
+    }
+
+    .subhead{
+      margin: 6px auto 14px;
+      max-width: 860px;
+      text-align:center;
+      color: rgba(184,214,195,.95);
+      line-height: 1.45;
+      font-size: 18px;
+      position:relative;
+      z-index:1;
+    }
+
+    /* CTA row */
+    .ctaRow{
+      display:flex;
+      justify-content:center;
+      gap: 12px;
+      flex-wrap:wrap;
+      margin: 12px 0 18px;
+      position:relative;
+      z-index:1;
+    }
+
+    a.cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-decoration:none;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: .01em;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(145,70,255,.92), rgba(116,45,235,.92));
+      box-shadow: 0 14px 40px rgba(145,70,255,.20);
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+      user-select:none;
+    }
+    a.cta:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 18px 55px rgba(145,70,255,.28);
+      filter: saturate(1.05);
+    }
+    a.cta:focus-visible{
+      outline: 3px solid rgba(184,132,255,.85);
+      outline-offset: 3px;
+    }
+
+    .ctaGroup{
+      display: inline-flex;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 18px 55px rgba(0,0,0,.45);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .ctaGroup .cta{
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+    }
+    .ctaGroup .cta:first-child{
+      border-top-left-radius: 14px;
+      border-bottom-left-radius: 14px;
+    }
+    .ctaGroup .cta:last-child{
+      border-top-right-radius: 14px;
+      border-bottom-right-radius: 14px;
+    }
+    .ctaGroup .cta + .cta{
+      border-left: 1px solid rgba(255,255,255,.18);
+    }
+
+    .cta.primary{
+      background: linear-gradient(180deg, rgba(145,70,255,.95), rgba(116,45,235,.95));
+    }
+    .cta.secondary{
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+      color: rgba(243,255,247,.95);
+    }
+
+    .icon{ width:18px; height:18px; display:inline-block; }
+
+    @media (max-width: 520px){
+      .ctaGroup{ flex-direction: column; width: 100%; }
+      .ctaGroup .cta{ width: 100%; border-left: none !important; border-top: 1px solid rgba(255,255,255,.18); }
+      .ctaGroup .cta:first-child{ border-top: none; border-radius: 14px 14px 0 0; }
+      .ctaGroup .cta:last-child{ border-radius: 0 0 14px 14px; }
+    }
+
+    /* Section container */
+    .card{
+      margin-top: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      padding: 14px 14px;
+      box-shadow: 0 14px 46px rgba(0,0,0,.40);
+      position:relative;
+      z-index:1;
+    }
+
+    /* Benefits grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    @media (max-width: 860px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .benefit{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(20,29,22,.55), rgba(15,20,17,.42));
+      padding: 14px 14px 12px;
+      box-shadow: 0 12px 34px rgba(0,0,0,.35);
+      position:relative;
+      overflow:hidden;
+    }
+    .benefit::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(420px 220px at 15% 15%, rgba(126,226,168,.10), transparent 55%);
+      pointer-events:none;
+    }
+
+    .bTop{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 10px;
+      position:relative;
+      z-index:1;
+    }
+    .bTitle{
+      margin:0;
+      font-size: 22px;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+    }
+    .pill{
+      flex-shrink:0;
+      display:inline-flex;
+      align-items:center;
+      gap: 6px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(145,70,255,.32);
+      background: rgba(145,70,255,.10);
+      color: rgba(184,214,195,.95);
+      font-size: 13px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .pill .dot{
+      width:7px; height:7px; border-radius:99px;
+      background: var(--accent3);
+      box-shadow: 0 0 18px rgba(126,226,168,.85);
+    }
+
+    .benefit p{
+      margin: 10px 0 0;
+      color: rgba(243,255,247,.92);
+      line-height: 1.45;
+      font-size: 16px;
+      position:relative;
+      z-index:1;
+    }
+    .benefit .mini{
+      margin-top: 8px;
+      color: rgba(184,214,195,.90);
+      font-size: 15px;
+      line-height: 1.45;
+    }
+    .benefit b{ color: #fff; }
+    .tiny{
+      font-size: 13px;
+      color: rgba(184,214,195,.78);
+    }
+
+    /* Big bottom callout */
+    .bigCallout{
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(500px 220px at 20% 20%, rgba(145,70,255,.18), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow: 0 16px 54px rgba(0,0,0,.45);
+      position:relative;
+      z-index:1;
+      text-align:center;
+    }
+    .bigCallout h2{
+      margin: 0 0 8px;
+      font-size: 28px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    .bigCallout p{
+      margin: 0 auto 12px;
+      max-width: 860px;
+      color: rgba(243,255,247,.92);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    a.bigBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      text-decoration:none;
+      font-weight: 800;
+      font-size: 18px;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.16);
+      background: linear-gradient(180deg, rgba(145,70,255,.95), rgba(116,45,235,.95));
+      box-shadow: 0 16px 52px rgba(145,70,255,.22);
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+    }
+    a.bigBtn:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 22px 70px rgba(145,70,255,.32);
+      filter: saturate(1.08);
+    }
+    a.bigBtn:focus-visible{
+      outline: 3px solid rgba(184,132,255,.85);
+      outline-offset: 4px;
+    }
+
+    .linksRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content:center;
+      margin-top: 10px;
+    }
+    a.smallLinkBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 12px;
+      border-radius: 12px;
+      text-decoration:none;
+      font-weight: 700;
+      color: rgba(243,255,247,.95);
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+      transition: transform .12s ease, filter .12s ease;
+    }
+    a.smallLinkBtn:hover{ transform: translateY(-2px); filter: brightness(1.05); }
+
+    /* Footer */
+    footer{
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color: rgba(184,185,214,.95);
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+      font-size: 14px;
+      letter-spacing: .01em;
+    }
+    .footlinks{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+    .foottext{
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1.35;
+    }
+    .foottext .line2{
+      font-size: 13px;
+      color: rgba(184,185,214,.85);
+    }
+    .versionTag{
+      font-size: 12px;
+      color: rgba(184,185,214,.65);
+      letter-spacing: .06em;
+      margin-left: 6px;
+      user-select: none;
+    }
+    a.smallLink{
+      color: var(--muted);
+      text-decoration:none;
+      font-size: 14px;
+      border-bottom: 1px dashed rgba(184,185,214,.35);
+      padding-bottom: 1px;
+      opacity:.95;
+    }
+    a.smallLink:hover{ color:#fff; border-bottom-color: rgba(255,255,255,.35); }
+    a.smallLink:focus-visible{
+      outline: 3px solid rgba(184,132,255,.85);
+      outline-offset: 3px;
+      border-bottom-color: transparent;
+    }
+
+    /* Responsive: hide side art on smaller screens */
+    @media (max-width: 980px){
+      .stage{ grid-template-columns: 1fr; gap: 16px; padding: 18px 14px; }
+      .side{ display:none; }
+      .panel{ max-width: 980px; margin: 0 auto; text-align: center; }
+    }
+    @media (max-height: 680px){
+      .stage{ align-items: start; padding-top: 18px; padding-bottom: 28px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="stage">
+    <div class="side left" aria-hidden="true"></div>
+
+    <main class="panel" role="main">
+
+      <div class="topline">
+        <a class="avatar"
+           href="https://www.twitch.tv/RoarWuzTaken"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Visit Roarstream on Twitch">
+          <img
+            src="https://static-cdn.jtvnw.net/jtv_user_pictures/fc31418e-3d12-43aa-9e98-05c688e6c381-profile_image-70x70.png"
+            alt="Roarstream avatar">
+        </a>
+
+        <h1 class="glowtext">Why should I sub?</h1>
+      </div>
+
+      <p class="subhead">
+        ? ? ? ? ?? ? ? ? ? ? ?? ? ? ?? 
+      </p>
+
+      <div class="ctaRow">
+        <div class="ctaGroup" aria-label="Primary navigation">
+          <a class="cta primary"
+             id="twitchLiveBtn"
+             href="https://www.twitch.tv/RoarWuzTaken"
+             target="_blank"
+             rel="noopener noreferrer">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 3h18v11l-5 5h-4l-3 3H8v-3H4V3z" stroke="white" stroke-opacity=".9" stroke-width="1.6" />
+              <path d="M10 8v5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M15 8v5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            <span class="ctaText">Twitch Page</span>
+          </a>
+
+          <a class="cta secondary" href="index.html">← Back to Home</a>
+        </div>
+      </div>
+
+      <section class="card" aria-label="Subscription benefits">
+        <div class="grid">
+
+          <article class="benefit">
+            <div class="bTop">
+              <h3 class="bTitle">ℕ𝕠 𝕋𝕨𝕚𝕥𝕔𝕙 𝔸𝕕𝕤 (𝕠𝕟 𝕞𝕪 𝕤𝕥𝕣𝕖𝕒𝕞)</h3>
+              <span class="pill"><span class="dot"></span>Quality of life</span>
+            </div>
+            <p>
+              You probably have an ad-blocker, so I know that might not seem like a big deal.
+              <b>But what</b> if you're traveling? <b>What</b> if you're driving?
+              <span class="tiny">⁽ᵈᵒⁿ'ᵗ ʷᵃᵗᶜʰ ᵐᵉ ʷʰⁱˡᵉ ʸᵒᵘ'ʳᵉ ᵈʳⁱᵛⁱⁿᵍ⁾</span>
+            </p>
+            <p class="mini">
+              <b>What</b> if the ad-blocker needs an update and you can't be assed to fix it???
+              <b>You'll never have to see any of those unavoidable Roarstream ads ever again!!</b> How cool is that?
+            </p>
+          </article>
+
+          <article class="benefit">
+            <div class="bTop">
+              <h3 class="bTitle">𝔻𝕚𝕣𝕖𝕔𝕥 𝕊𝕠𝕦𝕟𝕕 𝔸𝕝𝕖𝕣𝕥𝕤</h3>
+              <span class="pill"><span class="dot"></span>Instant chaos</span>
+            </div>
+            <p>I have 300+ sound alerts.</p>
+            <p class="mini">
+              Do you really want to spend your precious Twitch channel points hearing them?
+              <b>You can directly play sound alerts in chat if you're a Twitch Sub!</b>
+              (ie. <b>!yourdad</b>, <b>!coffee</b>, <b>!random</b>)
+            </p>
+          </article>
+
+          <article class="benefit">
+            <div class="bTop">
+              <h3 class="bTitle">𝕄𝕠𝕣𝕖 ℂ𝕙𝕒𝕟𝕟𝕖𝕝 ℙ𝕠𝕚𝕟𝕥𝕤</h3>
+              <span class="pill"><span class="dot"></span>Gains</span>
+            </div>
+            <p>
+              Speaking of channel points, <b>you get 20% more channel points as a Twitch subscriber</b>
+              (even more at higher Twitch tiers) —
+              and I am usually a little more lenient with my channel refunds to people who support my wife and I.
+              </p>
+          </article>
+
+          <article class="benefit">
+            <div class="bTop">
+              <h3 class="bTitle">𝔼𝕞𝕠𝕥𝕖𝕤!!</h3>
+              <span class="pill"><span class="dot"></span>Drip</span>
+            </div>
+            <p>
+              Have you seen my emotes?
+              I just used three of them! (I'll fix this later lol)
+            </p>
+            <p class="mini">
+              <b>You can have these emotes and more if you subscribe to Roarstream!</b>
+              You can also use them <b>anywhere</b> on Twitch and Discord*!
+            </p>
+          </article>
+
+          <article class="benefit">
+            <div class="bTop">
+              <h3 class="bTitle">𝔸 ℂ𝕆𝕆𝕃 𝔻𝕌ℂ𝕂 ℂℍ𝔸𝕋 𝔹𝔸𝔻𝔾𝔼!</h3>
+              <span class="pill"><span class="dot"></span>Prestige</span>
+            </div>
+            <p>
+              Do you want a badge on Twitch that looks like a duck when you talk in my channel ? ? ? ?<br/>
+              Of course you do!
+              <b>You get this cool duck if you subscribe to Roarstream!</b>
+            </p>
+            <p class="mini"><b>*It changes color at month milestones!*</b></p>
+          </article>
+
+          <article class="benefit">
+            <div class="bTop">
+              <h3 class="bTitle">𝕋𝕙𝕖 𝕃𝕚𝕝' 𝔹𝕚𝕥𝕤!</h3>
+              <span class="pill"><span class="dot"></span>Bonus content</span>
+            </div>
+            <p>
+              The Lil' Bits are gifs that more or less paraphrase streams visually in a matter of minutes!
+            </p>
+            <p class="mini">
+              Like pretty much everything in this hellhole life of ours, they used to be free, and now they're not!!
+            </p>
+          </article>
+
+          <article class="benefit">
+            <div class="bTop">
+              <h3 class="bTitle">𝕊𝕙𝕠𝕣𝕥𝕖𝕣 𝔹𝕠𝕥 ℂ𝕠𝕠𝕝𝕕𝕠𝕨𝕟</h3>
+              <span class="pill"><span class="dot"></span>Power user</span>
+            </div>
+            <p>
+              <b>Certain Discord bots have long cooldowns that are shortened for supporters!</b><br/>
+              You know what bots those are! You sick little monkeys!
+            </p>
+          </article>
+
+          <article class="benefit">
+            <div class="bTop">
+              <h3 class="bTitle">𝕊𝕥𝕣𝕖𝕒𝕞 𝕍𝕆𝔻 𝔸𝕣𝕔𝕙𝕚𝕧𝕖</h3>
+              <span class="pill"><span class="dot"></span>Deep lore</span>
+            </div>
+            <p>
+              All stream VODs are available to everyone on
+              <a class="smallLink" href="https://www.youtube.com/@RoarWuzTaken" target="_blank" rel="noopener noreferrer">
+                The Roarstream VOD YouTube Channel
+              </a>.
+            </p>
+            <p class="mini">
+              But if you want to see the <b>full archive of what I've done on an easy to navigate curated list</b>,
+              those are available in the Discord Sub Gourd o'Plenty!
+            </p>
+          </article>
+
+          <article class="benefit">
+            <div class="bTop">
+              <h3 class="bTitle">𝔽𝕦𝕝𝕝 𝕊𝕥𝕣𝕖𝕒𝕞 𝕊𝕔𝕙𝕖𝕕𝕦𝕝𝕖</h3>
+              <span class="pill"><span class="dot"></span>Espionage</span>
+            </div>
+            <p>
+              The upcoming next week's worth of schedules for Roarstream is available on Discord.
+            </p>
+            <p class="mini">
+              But if you want the ENTIRE month — <span class="tiny">ᴀʟᴏɴɢ ᴡɪᴛʜ ᴀʟʟ ꜰᴜᴛᴜʀᴇ ᴘʟᴀɴɴᴇᴅ ᴍᴏɴᴛʜꜱ</span> —
+              <b>a Twitch subscription will let you *SPY* on my *SHIT!*</b>
+            </p>
+          </article>
+
+          <article class="benefit">
+            <div class="bTop">
+              <h3 class="bTitle">𝕊𝕥𝕣𝕖𝕒𝕞 𝔾𝕣𝕠𝕨𝕥𝕙</h3>
+              <span class="pill"><span class="dot"></span>Unlocks</span>
+            </div>
+            <p>
+              <b>I'm emote-locked!</b> I can't add any more emotes until we reach certain subscriber thresholds, which is <i>AWFUL</i>.
+            </p>
+            <p class="mini">
+              <b>But once those thresholds are reached, they stay unlocked forever!</b>
+              A small contribution from you could make that happen!
+            </p>
+            <p class="mini">
+              Also, higher subbed channels have better rankings in the algorithm... <b>and that would help the stream a LOT!</b>
+            </p>
+          </article>
+
+          <article class="benefit">
+            <div class="bTop">
+              <h3 class="bTitle">𝔻𝕚𝕣𝕖𝕔𝕥𝕝𝕪 𝕊𝕦𝕡𝕡𝕠𝕣𝕥 ℝ𝕠𝕒𝕣 𝕒𝕟𝕕 𝕂𝕚𝕥𝕚</h3>
+              <span class="pill"><span class="dot"></span>Support</span>
+            </div>
+            <p>
+              <b>Amazon doesn't need your money. But Kiti and I do!!!</b><br/>
+              And we'd be way more appreciative than some bill collector!!
+            </p>
+          </article>
+
+        </div>
+      </section>
+
+      <section class="bigCallout" aria-label="Subscribe call to action">
+        <h2 class="glowtext">Do the thing. Become legend.</h2>
+        <p>
+          <b>If you're a cool enough dude to drop six dollars on a streamer and his amazing wife</b>,
+          then click the big purple button and change the future.
+        </p>
+
+        <a class="bigBtn"
+           href="https://www.twitch.tv/subs/RoarWuzTaken"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Subscribe to Roarstream on Twitch">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 3h18v11l-5 5h-4l-3 3H8v-3H4V3z" stroke="white" stroke-opacity=".9" stroke-width="1.6" />
+            <path d="M10 8v5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M15 8v5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <span>Subscribe to Roarstream</span>
+        </a>
+
+        <div class="linksRow" aria-label="Prime subscription link">
+          <a class="smallLinkBtn"
+             href="https://www.twitch.tv/prime"
+             target="_blank"
+             rel="noopener noreferrer">
+            Got Prime? Use your free monthly sub
+          </a>
+          <a class="smallLinkBtn"
+             href="https://discord.gg/Um7k2r7xHg"
+             target="_blank"
+             rel="noopener noreferrer">
+            Join Discord
+          </a>
+          <a class="smallLinkBtn"
+             href="archives.html">
+            VOD Archives
+          </a>
+        </div>
+
+        <p class="tiny" style="margin-top:10px;">
+          If you aren't already supporting a Twitch streamer with your Amazon Prime Free Monthly Subscription…
+          they are happily accepted on Roarstream!
+        </p>
+      </section>
+
+      <footer aria-label="Footer">
+        <div class="foottext">
+          <span class="line1">© Roarstream • Live &amp; archives</span>
+          <span class="line2">Live – Sundays / Mondays / Thursdays / Fridays</span>
+        </div>
+        <div class="footlinks">
+          <a class="smallLink" href="https://www.twitch.tv/RoarWuzTaken" target="_blank" rel="noopener noreferrer">Twitch</a>
+          <a class="smallLink" href="https://www.youtube.com/@RoarWuzTaken" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a class="smallLink" href="https://discord.gg/Um7k2r7xHg" target="_blank" rel="noopener noreferrer">Discord</a>
+          <a class="smallLink" href="https://stt.gg/MXWfzX1w" target="_blank" rel="noopener noreferrer">Stoat</a>
+          <a class="smallLink" href="https://www.roarstream.com/credits.html">Credits</a>
+          <span class="versionTag">v21</span>
+        </div>
+      </footer>
+    </main>
+
+    <div class="side right" aria-hidden="true"></div>
+  </div>
+
+  <script>
+    (async function(){
+      const channel = "RoarWuzTaken";
+      const btn = document.getElementById("twitchLiveBtn");
+      const label = btn?.querySelector(".ctaText");
+      if (!btn || !label) return;
+
+      async function check(){
+        try {
+          const res = await fetch(`https://decapi.me/twitch/uptime/${channel}`, { cache: "no-store" });
+          const text = (await res.text()).toLowerCase();
+
+          if (!text.includes("offline")) {
+            label.textContent = "🔴 STREAMING NOW!";
+            btn.style.background = "linear-gradient(180deg, #ff4d4d, #b80000)";
+            btn.style.boxShadow = "0 0 25px rgba(255,77,77,.65)";
+          } else {
+            label.textContent = "Twitch Page";
+            btn.style.background = "";
+            btn.style.boxShadow = "";
+          }
+        } catch {
+          // fail silently
+        }
+      }
+
+      check();
+      setInterval(check, 60000);
+    })();
+  </script>
+</body>
+</html>
