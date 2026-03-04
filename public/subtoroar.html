@@ -161,12 +161,13 @@
       text-align:center;
     }
 
+    /* override glowtext to be plain white */
     .glowtext{
-      background: linear-gradient(90deg, #ffffff 0%, #c9ffe0 35%, #2f8a4d 60%, #ffffff 100%);
-      -webkit-background-clip: text;
-      background-clip:text;
-      color: transparent;
-      filter: drop-shadow(0 0 18px rgba(31,111,58,.22));
+      background: none !important;
+      -webkit-background-clip: initial !important;
+      background-clip: initial !important;
+      color: #ffffff !important;
+      filter: none !important;
     }
 
     .subhead{
