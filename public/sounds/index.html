@@ -83,7 +83,8 @@ background:var(--chip);
 border:1px solid rgba(255,255,255,.08);
 font-family:Consolas, monospace;
 white-space:normal;
-break-word:break-word;
+overflow-wrap:anywhere;
+word-break:break-word;
 }
 
 footer{
@@ -133,10 +134,11 @@ Loading Sounds...
 </div>
 
 <script>
-
 /*
 EDIT ONLY THIS BLOCK
-Add one sound per line
+Add one sound per line at the bottom.
+The page will keep the raw order here for "most recent added",
+but display the visible list alphabetically.
 */
 
 const SOUND_SOURCE = `
@@ -492,40 +494,46 @@ zag
 lesson
 `;
 
-
 const grid = document.getElementById("commandGrid");
 const sub = document.getElementById("subheadText");
 
-function parse(){
+function normalizeSound(line) {
+  return line
+    .replace(/^\s*!play\s+/i, "")
+    .trim();
+}
 
-const sourceSounds = SOUND_SOURCE
-.split("
-")
-.map(x => x.trim())
-.filter(Boolean);
+function parse() {
+  try {
+    const sourceSounds = SOUND_SOURCE
+      .split("\n")
+      .map(normalizeSound)
+      .filter(Boolean);
 
-const total = sourceSounds.length;
-const latest = total ? sourceSounds[sourceSounds.length - 1] : "None Yet";
+    const total = sourceSounds.length;
+    const latest = total ? sourceSounds[sourceSounds.length - 1] : "None Yet";
 
-const displaySounds = [...sourceSounds].sort((a, b) =>
-  a.localeCompare(b, undefined, { sensitivity: "base", numeric: true })
-);
+    const displaySounds = [...sourceSounds].sort((a, b) =>
+      a.localeCompare(b, undefined, { sensitivity: "base", numeric: true })
+    );
 
-sub.textContent = `Roarstream Sound Alert List - Last Update - ${total} - ${latest}`;
+    sub.textContent = `Roarstream Sound Alert List - Last Update - ${total} - ${latest}`;
 
-grid.innerHTML = "";
+    grid.innerHTML = "";
 
-displaySounds.forEach(sound => {
-  const el = document.createElement("div");
-  el.className = "cmd";
-  el.textContent = sound;
-  grid.appendChild(el);
-});
-
+    displaySounds.forEach((sound) => {
+      const el = document.createElement("div");
+      el.className = "cmd";
+      el.textContent = sound;
+      grid.appendChild(el);
+    });
+  } catch (err) {
+    console.error(err);
+    sub.textContent = "Sound list failed to load.";
+  }
 }
 
 parse();
-
 </script>
 
 </body>
