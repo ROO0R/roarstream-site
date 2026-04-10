@@ -86,8 +86,8 @@ font-size:14px;
 line-height:1.25;
 text-align:center;
 white-space:normal;
-overflow-wrap:normal;
-word-break:normal;
+overflow-wrap:anywhere;
+word-break:break-word;
 hyphens:none;
 min-height:54px;
 display:flex;
@@ -102,16 +102,16 @@ color:var(--text);
 width:100%;
 }
 
-.cmd.copied{
-border-color:rgba(126,226,168,.75);
-background:linear-gradient(180deg, rgba(126,226,168,.28), rgba(126,226,168,.10));
-}
-
 .cmd:hover{
 transform:translateY(-2px);
 background:linear-gradient(180deg, rgba(126,226,168,.18), rgba(126,226,168,.05));
 border-color:rgba(126,226,168,.35);
 box-shadow:0 10px 24px rgba(0,0,0,.35);
+}
+
+.cmd.copied{
+border-color:rgba(126,226,168,.75);
+background:linear-gradient(180deg, rgba(126,226,168,.28), rgba(126,226,168,.10));
 }
 
 footer{
