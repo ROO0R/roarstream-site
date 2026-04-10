@@ -86,8 +86,8 @@ font-size:14px;
 line-height:1.25;
 text-align:center;
 white-space:normal;
-overflow-wrap:anywhere;
-word-break:break-word;
+overflow-wrap:normal;
+word-break:normal;
 hyphens:none;
 min-height:54px;
 display:flex;
@@ -101,7 +101,7 @@ appearance:none;
 color:var(--text);
 width:100%;
 }
-
+  
 .cmd:hover{
 transform:translateY(-2px);
 background:linear-gradient(180deg, rgba(126,226,168,.18), rgba(126,226,168,.05));
@@ -603,12 +603,6 @@ try {
   console.error("Parse failed:", err);
   sub.textContent = "Could not load sounds.";
 }
-</script>
-
-}
-
-parse();
-
 </script>
 
 </body>
