@@ -312,7 +312,6 @@ learnsomething
 legal
 lesbian
 lesbians
-lesson
 letsgohome
 libra
 lifefindsaway
@@ -499,25 +498,28 @@ const sub = document.getElementById("subheadText");
 
 function parse(){
 
-const sounds = SOUND_SOURCE
-.split("\n")
-.map(x=>x.trim())
+const sourceSounds = SOUND_SOURCE
+.split("
+")
+.map(x => x.trim())
 .filter(Boolean);
 
-const total = sounds.length;
-const latest = sounds[sounds.length-1];
+const total = sourceSounds.length;
+const latest = total ? sourceSounds[sourceSounds.length - 1] : "None Yet";
+
+const displaySounds = [...sourceSounds].sort((a, b) =>
+  a.localeCompare(b, undefined, { sensitivity: "base", numeric: true })
+);
 
 sub.textContent = `Roarstream Sound Alert List - Last Update - ${total} - ${latest}`;
 
+grid.innerHTML = "";
 
-sounds.forEach(sound=>{
-
-const el=document.createElement("div");
-el.className="cmd";
-el.textContent=sound;
-
-grid.appendChild(el);
-
+displaySounds.forEach(sound => {
+  const el = document.createElement("div");
+  el.className = "cmd";
+  el.textContent = sound;
+  grid.appendChild(el);
 });
 
 }
