@@ -82,11 +82,13 @@ border-radius:14px;
 background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
 border:1px solid rgba(255,255,255,.10);
 font-family:Consolas, monospace;
-font-size:15px;
+font-size:14px;
+line-height:1.25;
 text-align:center;
 white-space:normal;
-overflow-wrap:anywhere;
-word-break:break-word;
+overflow-wrap:normal;
+word-break:normal;
+hyphens:none;
 min-height:54px;
 display:flex;
 align-items:center;
@@ -149,11 +151,10 @@ Loading Sounds...
 </div>
 
 <script>
+
 /*
 EDIT ONLY THIS BLOCK
-Add one sound per line at the bottom.
-The page will keep the raw order here for "most recent added",
-but display the visible list alphabetically.
+Add one sound per line
 */
 
 const SOUND_SOURCE = `
@@ -509,13 +510,15 @@ zag
 lesson
 `;
 
+
 const grid = document.getElementById("commandGrid");
 const sub = document.getElementById("subheadText");
 
 function parse(){
 
 const sourceSounds = SOUND_SOURCE
-.split("\n")
+.split("
+")
 .map(x => x.trim())
 .filter(Boolean);
 
