@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RS Sound Effects</title>
+<title>Roarstream Sound Effects</title>
 
 <style>
 :root{
@@ -64,6 +64,35 @@ gap:12px;
 margin-top:16px;
 }
 
+.copyToggleWrap{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:10px;
+margin:10px 0 18px;
+padding:10px 14px;
+border:1px solid rgba(255,255,255,.10);
+border-radius:14px;
+background:rgba(255,255,255,.04);
+width:fit-content;
+margin-left:auto;
+margin-right:auto;
+}
+
+.copyToggleWrap label{
+color:var(--text);
+font-size:14px;
+cursor:pointer;
+user-select:none;
+}
+
+.copyToggle{
+width:18px;
+height:18px;
+cursor:pointer;
+accent-color:var(--accent);
+}
+  
 @media (max-width:900px){
 .commandGrid{
 grid-template-columns:repeat(2,1fr);
@@ -143,6 +172,11 @@ margin-right:12px;
 Loading Sounds...
 </p>
 
+<div class="copyToggleWrap">
+  <input type="checkbox" id="bangToggle" class="copyToggle">
+  <label for="bangToggle">(Twitch Subs) Add ! prefix</label>
+</div>
+  
 <div class="commandGrid" id="commandGrid"></div>
 
 <footer>
@@ -517,9 +551,10 @@ yoyos
 zag
 lesson
 `;
-
+  
 const grid = document.getElementById("commandGrid");
 const sub = document.getElementById("subheadText");
+const bangToggle = document.getElementById("bangToggle");
 
 async function copyText(text) {
   try {
@@ -578,7 +613,7 @@ function parse() {
     a.localeCompare(b, undefined, { sensitivity: "base", numeric: true })
   );
 
-  sub.textContent = `Roarstream Sound Alert List - Last Update - ${total} - ${latest}`;
+  sub.textContent = `Roarstream Sound Alert List - Last Update: ${total} - ${latest}`;
   grid.innerHTML = "";
 
   displaySounds.forEach(sound => {
@@ -589,8 +624,9 @@ function parse() {
     el.title = `Copy ${sound}`;
 
     el.addEventListener("click", async function () {
-      const ok = await copyText(sound);
-      showCopyFeedback(el, sound, ok);
+      const copiedValue = bangToggle && bangToggle.checked ? `!${sound}` : sound;
+      const ok = await copyText(copiedValue);
+      showCopyFeedback(el, copiedValue, ok);
     });
 
     grid.appendChild(el);
