@@ -165,6 +165,7 @@
       background:rgba(255,255,255,.06);
       color:var(--text);
       font-size:14px;
+      text-align:center;
     }
 
     .frame{
@@ -178,6 +179,39 @@
       z-index:1;
     }
 
+    .editorBlock{
+      margin-bottom:18px;
+      padding:14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.16);
+    }
+
+    .editorBlock h2,
+    .listHeader h2{
+      margin:0;
+      font-size:24px;
+    }
+
+    .editorNote{
+      margin:8px 0 12px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.45;
+    }
+
+    #sourceList{
+      width:100%;
+      min-height:180px;
+      resize:vertical;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.28);
+      color:var(--text);
+      padding:12px;
+      font:14px/1.45 Consolas, Monaco, monospace;
+    }
+
     .listHeader{
       display:flex;
       justify-content:space-between;
@@ -187,11 +221,6 @@
       margin-bottom:14px;
       padding-bottom:12px;
       border-bottom:1px solid rgba(255,255,255,.08);
-    }
-
-    .listHeader h2{
-      margin:0;
-      font-size:24px;
     }
 
     .count{
@@ -206,7 +235,9 @@
     }
 
     .cmd{
-      display:block;
+      display:flex;
+      align-items:flex-start;
+      min-height:46px;
       padding:10px 12px;
       border-radius:12px;
       background:var(--chip);
@@ -215,9 +246,10 @@
       text-decoration:none;
       font-family:Consolas, Monaco, monospace;
       font-size:14px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      line-height:1.35;
+      white-space:normal;
+      overflow-wrap:anywhere;
+      word-break:break-word;
     }
 
     .cmd:hover{
@@ -248,6 +280,18 @@
       font-size:14px;
     }
 
+    .foottext{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      line-height:1.35;
+    }
+
+    .line2{
+      font-size:13px;
+      color:rgba(184,185,214,.85);
+    }
+
     .footlinks{
       display:flex;
       gap:12px;
@@ -260,6 +304,11 @@
       text-decoration:none;
       border-bottom:1px dashed rgba(184,185,214,.35);
       padding-bottom:1px;
+    }
+
+    .smallLink:hover{
+      color:#fff;
+      border-bottom-color:rgba(255,255,255,.35);
     }
 
     .versionTag{
@@ -290,8 +339,8 @@
         <h1 class="glowtext">RS Sound Effects</h1>
       </div>
 
-      <p class="subhead">
-        Roarstream Sound Alert List - Last Update - 351 - Lesson 
+      <p class="subhead" id="subheadText">
+        Roarstream Sound Alert List - Last Update - 0 - None Yet
       </p>
 
       <div class="toolbar">
@@ -301,385 +350,435 @@
       </div>
 
       <section class="frame" aria-label="Sound effect commands">
+        <div class="editorBlock">
+          <h2>Master Source List</h2>
+          <p class="editorNote">
+            Edit only this box. Put one sound name per line, or paste lines like <strong>!play soundname</strong>. The page will automatically clean them, count them, and build the grid below.
+          </p>
+          <textarea id="sourceList">2kids
+2kidsdie
+30points
+3dog
+5bees
+800
+age
+america
+andre
+andy
+asians
+asked
+atthismoment
+audacity
+audience
+avocado
+awesome
+aww
+bakedbean
+balls
+banned
+bat
+batteries
+beacon
+beans
+beatdick
+becauseican
+bees
+bell
+belt
+bethere
+bigbear
+bigbust
+bigdeal
+biggusdikkus
+bisexuality
+black
+bonecrunch
+boos
+boourns
+boring
+bought
+bowser
+brokeit
+buttnut
+byebye
+caillou
+callmeback
+came
+camel
+carn
+carrot
+chalmers
+charisma
+chinese
+christmas
+chuck
+clique
+coffee
+conversation
+crickets
+dambait
+dampictures
+damquestions
+damtour
+darn
+day
+dbag
+deadmen
+deathtrap
+deedee
+diabetes
+didntlike
+die
+disappointed
+dishwasher
+dogfarts
+donehere
+dong
+dontshow
+dontwantthat
+doorchimes
+doos
+doozy
+dreams
+drink
+drones
+drphil
+dumbdog
+dundundun
+e
+eating
+eight
+eisner
+ending
+energize
+evilemperor
+eyecontact
+fail
+fairshare
+fake
+fall
+family
+farmer
+fcanada
+fewword
+findnone
+fingies
+fired
+fish
+fishbulb
+flapjacks
+florida
+forgiveme
+fortunecall
+froosh
+funnyassjoke
+gallon
+gettysburg
+goodnight
+goodpie
+goodride
+goodword
+grapes
+gulag
+halloween
+handleit
+happy
+haveagoodday
+healing
+hehasawife
+hell
+hens
+hitler
+honk
+horny
+hotdog
+hotels
+hotstuff
+howsyourwife
+husband
+iamyou
+igotfive
+iknewit
+ilikehim
+illegal
+impressme
+imthebest
+indicted
+injured
+isgay
+itsadogthing
+itsajoke
+itsme
+jacket
+kekw
+kicked
+kill
+killjobs
+killsomebody
+kq6tp
+l
+labrador
+laserdragon
+latte
+laugh
+laugh2
+laugh3
+learnsomething
+legal
+lesbian
+lesbians
+lesson
+letsgohome
+libra
+lifefindsaway
+localtv
+logic
+loser
+lovemen
+lovemoney
+madeup
+madpenis
+magicmap
+mail
+makestuffhappen
+manners
+mannod
+mediterranean
+meow
+miku
+mikusega
+millionbillion
+minsk
+money
+moneyshots
+moreneedles
+move
+mrcelery
+muppetyay
+mustard
+mydream
+mypenis
+mywife
+needles
+nerfthis
+newguy
+nintendo
+no
+noimnot
+nolaugh
+nomakemoney
+nonintendo
+nootnoot
+nothorny
+notracist
+noway
+nowheretogo
+o
+obamna
+objection
+ohwait
+ohwell
+oldman
+onfire
+onlygood
+opinions
+panic
+pasta
+paulshouse
+pee
+phil
+phone
+pivot
+pm
+pm2
+pomeranians
+pope
+pornography
+porridge
+ppworld
+presents
+privates
+propane
+proud
+proudlesbian
+q1
+q2
+q3
+races
+racistsnake
+redthing
+reginald
+ridicule
+ridiculous
+robotsnotdogs
+ruinit
+running
+samesong
+scissored
+scissors
+seaworld
+secretlesbian
+sega
+sendmoney
+shenyeah
+sheshaving
+shineon
+shoopuf1
+shoopuf2
+shootyou
+shotmygun
+showpenis
+shutup
+sleepwith
+smoke
+snack
+snake
+snoopy
+snot
+space
+spooky
+spookyspooky
+spreadbutt
+spritzer
+stab
+standing
+staywithme
+steel
+steelmill
+stfu
+stop
+subway
+succumb
+summoner
+t
+tada
+tankofdicks
+teenagers
+tests
+thankme
+thanks
+thankyousomuch
+thatguy
+thatsokay
+thearmy
+themoreyouknow
+thewaygodmadeyou
+theword
+tomorrow
+tongue
+toobig
+toofat
+touchofdeath
+twain
+tylenol
+uhoh
+union
+vaping
+water
+whatahole
+whatanidea
+whatashame
+whatwho
+whisperquiet
+white
+whitehorse
+who
+whooer
+whyflorida
+whysaidthat
+wiener
+wifedeath
+withgas
+women
+wow
+wrap
+xxxstore
+yay
+yeah
+yippee
+youblind
+youdidntknowher
+yougotanitem
+youngster
+yourboat
+yourdad
+youropinion
+yoyos
+zag</textarea>
+        </div>
+
         <div class="listHeader">
           <h2>Sounds List</h2>
-          <div class="count"></div>
+          <div class="count" id="countText">0 sounds</div>
         </div>
 
-          <span class="cmd">2kids</span>
-          <span class="cmd">2kidsdie</span>
-          <span class="cmd">30points</span>
-          <span class="cmd">3dog</span>
-          <span class="cmd">5bees</span>
-          <span class="cmd">800</span>
-          <span class="cmd">age</span>
-          <span class="cmd">america</span>
-          <span class="cmd">andre</span>
-          <span class="cmd">andy</span>
-          <span class="cmd">asians</span>
-          <span class="cmd">asked</span>
-          <span class="cmd">atthismoment</span>
-          <span class="cmd">audacity</span>
-          <span class="cmd">audience</span>
-          <span class="cmd">avocado</span>
-          <span class="cmd">awesome</span>
-          <span class="cmd">aww</span>
-          <span class="cmd">bakedbean</span>
-          <span class="cmd">balls</span>
-          <span class="cmd">banned</span>
-          <span class="cmd">bat</span>
-          <span class="cmd">batteries</span>
-          <span class="cmd">beacon</span>
-          <span class="cmd">beans</span>
-          <span class="cmd">beatdick</span>
-          <span class="cmd">becauseican</span>
-          <span class="cmd">bees</span>
-          <span class="cmd">bell</span>
-          <span class="cmd">belt</span>
-          <span class="cmd">bethere</span>
-          <span class="cmd">bigbear</span>
-          <span class="cmd">bigbust</span>
-          <span class="cmd">bigdeal</span>
-          <span class="cmd">biggusdikkus</span>
-          <span class="cmd">bisexuality</span>
-          <span class="cmd">black</span>
-          <span class="cmd">bonecrunch</span>
-          <span class="cmd">boos</span>
-          <span class="cmd">boourns</span>
-          <span class="cmd">boring</span>
-          <span class="cmd">bought</span>
-          <span class="cmd">bowser</span>
-          <span class="cmd">brokeit</span>
-          <span class="cmd">buttnut</span>
-          <span class="cmd">byebye</span>
-          <span class="cmd">caillou</span>
-          <span class="cmd">callmeback</span>
-          <span class="cmd">came</span>
-          <span class="cmd">camel</span>
-          <span class="cmd">carn</span>
-          <span class="cmd">carrot</span>
-          <span class="cmd">chalmers</span>
-          <span class="cmd">charisma</span>
-          <span class="cmd">chinese</span>
-          <span class="cmd">christmas</span>
-          <span class="cmd">chuck</span>
-          <span class="cmd">clique</span>
-          <span class="cmd">coffee</span>
-          <span class="cmd">conversation</span>
-          <span class="cmd">crickets</span>
-          <span class="cmd">dambait</span>
-          <span class="cmd">dampictures</span>
-          <span class="cmd">damquestions</span>
-          <span class="cmd">damtour</span>
-          <span class="cmd">darn</span>
-          <span class="cmd">day</span>
-          <span class="cmd">dbag</span>
-          <span class="cmd">deadmen</span>
-          <span class="cmd">deathtrap</span>
-          <span class="cmd">deedee</span>
-          <span class="cmd">diabetes</span>
-          <span class="cmd">didntlike</span>
-          <span class="cmd">die</span>
-          <span class="cmd">disappointed</span>
-          <span class="cmd">dishwasher</span>
-          <span class="cmd">dogfarts</span>
-          <span class="cmd">donehere</span>
-          <span class="cmd">dong</span>
-          <span class="cmd">dontshow</span>
-          <span class="cmd">dontwantthat</span>
-          <span class="cmd">doorchimes</span>
-          <span class="cmd">doos</span>
-          <span class="cmd">doozy</span>
-          <span class="cmd">dreams</span>
-          <span class="cmd">drink</span>
-          <span class="cmd">drones</span>
-          <span class="cmd">drphil</span>
-          <span class="cmd">dumbdog</span>
-          <span class="cmd">dundundun</span>
-          <span class="cmd">e</span>
-          <span class="cmd">eating</span>
-          <span class="cmd">eight</span>
-          <span class="cmd">eisner</span>
-          <span class="cmd">ending</span>
-          <span class="cmd">energize</span>
-          <span class="cmd">evilemperor</span>
-          <span class="cmd">eyecontact</span>
-          <span class="cmd">fail</span>
-          <span class="cmd">fairshare</span>
-          <span class="cmd">fake</span>
-          <span class="cmd">fall</span>
-          <span class="cmd">family</span>
-          <span class="cmd">farmer</span>
-          <span class="cmd">fcanada</span>
-          <span class="cmd">fewword</span>
-          <span class="cmd">findnone</span>
-          <span class="cmd">fingies</span>
-          <span class="cmd">fired</span>
-          <span class="cmd">fish</span>
-          <span class="cmd">fishbulb</span>
-          <span class="cmd">flapjacks</span>
-          <span class="cmd">florida</span>
-          <span class="cmd">forgiveme</span>
-          <span class="cmd">fortunecall</span>
-          <span class="cmd">froosh</span>
-          <span class="cmd">funnyassjoke</span>
-          <span class="cmd">gallon</span>
-          <span class="cmd">gettysburg</span>
-          <span class="cmd">goodnight</span>
-          <span class="cmd">goodpie</span>
-          <span class="cmd">goodride</span>
-          <span class="cmd">goodword</span>
-          <span class="cmd">grapes</span>
-          <span class="cmd">gulag</span>
-          <span class="cmd">halloween</span>
-          <span class="cmd">handleit</span>
-          <span class="cmd">happy</span>
-          <span class="cmd">haveagoodday</span>
-          <span class="cmd">healing</span>
-          <span class="cmd">hehasawife</span>
-          <span class="cmd">hell</span>
-          <span class="cmd">hens</span>
-          <span class="cmd">hitler</span>
-          <span class="cmd">honk</span>
-          <span class="cmd">horny</span>
-          <span class="cmd">hotdog</span>
-          <span class="cmd">hotels</span>
-          <span class="cmd">hotstuff</span>
-          <span class="cmd">howsyourwife</span>
-          <span class="cmd">husband</span>
-          <span class="cmd">iamyou</span>
-          <span class="cmd">igotfive</span>
-          <span class="cmd">iknewit</span>
-          <span class="cmd">ilikehim</span>
-          <span class="cmd">illegal</span>
-          <span class="cmd">impressme</span>
-          <span class="cmd">imthebest</span>
-          <span class="cmd">indicted</span>
-          <span class="cmd">injured</span>
-          <span class="cmd">isgay</span>
-          <span class="cmd">itsadogthing</span>
-          <span class="cmd">itsajoke</span>
-          <span class="cmd">itsme</span>
-          <span class="cmd">jacket</span>
-          <span class="cmd">kekw</span>
-          <span class="cmd">kicked</span>
-          <span class="cmd">kill</span>
-          <span class="cmd">killjobs</span>
-          <span class="cmd">killsomebody</span>
-          <span class="cmd">kq6tp</span>
-          <span class="cmd">l</span>
-          <span class="cmd">labrador</span>
-          <span class="cmd">laserdragon</span>
-          <span class="cmd">latte</span>
-          <span class="cmd">laugh</span>
-          <span class="cmd">laugh2</span>
-          <span class="cmd">laugh3</span>
-          <span class="cmd">learnsomething</span>
-          <span class="cmd">legal</span>
-          <span class="cmd">lesbian</span>
-          <span class="cmd">lesbians</span>
-          <span class="cmd">lesson</span>
-          <span class="cmd">letsgohome</span>
-          <span class="cmd">libra</span>
-          <span class="cmd">lifefindsaway</span>
-          <span class="cmd">localtv</span>
-          <span class="cmd">logic</span>
-          <span class="cmd">loser</span>
-          <span class="cmd">lovemen</span>
-          <span class="cmd">lovemoney</span>
-          <span class="cmd">madeup</span>
-          <span class="cmd">madpenis</span>
-          <span class="cmd">magicmap</span>
-          <span class="cmd">mail</span>
-          <span class="cmd">makestuffhappen</span>
-          <span class="cmd">manners</span>
-          <span class="cmd">mannod</span>
-          <span class="cmd">mediterranean</span>
-          <span class="cmd">meow</span>
-          <span class="cmd">miku</span>
-          <span class="cmd">mikusega</span>
-          <span class="cmd">millionbillion</span>
-          <span class="cmd">minsk</span>
-          <span class="cmd">money</span>
-          <span class="cmd">moneyshots</span>
-          <span class="cmd">moreneedles</span>
-          <span class="cmd">move</span>
-          <span class="cmd">mrcelery</span>
-          <span class="cmd">muppetyay</span>
-          <span class="cmd">mustard</span>
-          <span class="cmd">mydream</span>
-          <span class="cmd">mypenis</span>
-          <span class="cmd">mywife</span>
-          <span class="cmd">needles</span>
-          <span class="cmd">nerfthis</span>
-          <span class="cmd">newguy</span>
-          <span class="cmd">nintendo</span>
-          <span class="cmd">no</span>
-          <span class="cmd">noimnot</span>
-          <span class="cmd">nolaugh</span>
-          <span class="cmd">nomakemoney</span>
-          <span class="cmd">nonintendo</span>
-          <span class="cmd">nootnoot</span>
-          <span class="cmd">nothorny</span>
-          <span class="cmd">notracist</span>
-          <span class="cmd">noway</span>
-          <span class="cmd">nowheretogo</span>
-          <span class="cmd">o</span>
-          <span class="cmd">obamna</span>
-          <span class="cmd">objection</span>
-          <span class="cmd">ohwait</span>
-          <span class="cmd">ohwell</span>
-          <span class="cmd">oldman</span>
-          <span class="cmd">onfire</span>
-          <span class="cmd">onlygood</span>
-          <span class="cmd">opinions</span>
-          <span class="cmd">panic</span>
-          <span class="cmd">pasta</span>
-          <span class="cmd">paulshouse</span>
-          <span class="cmd">pee</span>
-          <span class="cmd">phil</span>
-          <span class="cmd">phone</span>
-          <span class="cmd">pivot</span>
-          <span class="cmd">pm</span>
-          <span class="cmd">pm2</span>
-          <span class="cmd">pomeranians</span>
-          <span class="cmd">pope</span>
-          <span class="cmd">pornography</span>
-          <span class="cmd">porridge</span>
-          <span class="cmd">ppworld</span>
-          <span class="cmd">presents</span>
-          <span class="cmd">privates</span>
-          <span class="cmd">propane</span>
-          <span class="cmd">proud</span>
-          <span class="cmd">proudlesbian</span>
-          <span class="cmd">q1</span>
-          <span class="cmd">q2</span>
-          <span class="cmd">q3</span>
-          <span class="cmd">races</span>
-          <span class="cmd">racistsnake</span>
-          <span class="cmd">redthing</span>
-          <span class="cmd">reginald</span>
-          <span class="cmd">ridicule</span>
-          <span class="cmd">ridiculous</span>
-          <span class="cmd">robotsnotdogs</span>
-          <span class="cmd">ruinit</span>
-          <span class="cmd">running</span>
-          <span class="cmd">samesong</span>
-          <span class="cmd">scissored</span>
-          <span class="cmd">scissors</span>
-          <span class="cmd">seaworld</span>
-          <span class="cmd">secretlesbian</span>
-          <span class="cmd">sega</span>
-          <span class="cmd">sendmoney</span>
-          <span class="cmd">shenyeah</span>
-          <span class="cmd">sheshaving</span>
-          <span class="cmd">shineon</span>
-          <span class="cmd">shoopuf1</span>
-          <span class="cmd">shoopuf2</span>
-          <span class="cmd">shootyou</span>
-          <span class="cmd">shotmygun</span>
-          <span class="cmd">showpenis</span>
-          <span class="cmd">shutup</span>
-          <span class="cmd">sleepwith</span>
-          <span class="cmd">smoke</span>
-          <span class="cmd">snack</span>
-          <span class="cmd">snake</span>
-          <span class="cmd">snoopy</span>
-          <span class="cmd">snot</span>
-          <span class="cmd">space</span>
-          <span class="cmd">spooky</span>
-          <span class="cmd">spookyspooky</span>
-          <span class="cmd">spreadbutt</span>
-          <span class="cmd">spritzer</span>
-          <span class="cmd">stab</span>
-          <span class="cmd">standing</span>
-          <span class="cmd">staywithme</span>
-          <span class="cmd">steel</span>
-          <span class="cmd">steelmill</span>
-          <span class="cmd">stfu</span>
-          <span class="cmd">stop</span>
-          <span class="cmd">subway</span>
-          <span class="cmd">succumb</span>
-          <span class="cmd">summoner</span>
-          <span class="cmd">t</span>
-          <span class="cmd">tada</span>
-          <span class="cmd">tankofdicks</span>
-          <span class="cmd">teenagers</span>
-          <span class="cmd">tests</span>
-          <span class="cmd">thankme</span>
-          <span class="cmd">thanks</span>
-          <span class="cmd">thankyousomuch</span>
-          <span class="cmd">thatguy</span>
-          <span class="cmd">thatsokay</span>
-          <span class="cmd">thearmy</span>
-          <span class="cmd">themoreyouknow</span>
-          <span class="cmd">thewaygodmadeyou</span>
-          <span class="cmd">theword</span>
-          <span class="cmd">tomorrow</span>
-          <span class="cmd">tongue</span>
-          <span class="cmd">toobig</span>
-          <span class="cmd">toofat</span>
-          <span class="cmd">touchofdeath</span>
-          <span class="cmd">twain</span>
-          <span class="cmd">tylenol</span>
-          <span class="cmd">uhoh</span>
-          <span class="cmd">union</span>
-          <span class="cmd">vaping</span>
-          <span class="cmd">water</span>
-          <span class="cmd">whatahole</span>
-          <span class="cmd">whatanidea</span>
-          <span class="cmd">whatashame</span>
-          <span class="cmd">whatwho</span>
-          <span class="cmd">whisperquiet</span>
-          <span class="cmd">white</span>
-          <span class="cmd">whitehorse</span>
-          <span class="cmd">who</span>
-          <span class="cmd">whooer</span>
-          <span class="cmd">whyflorida</span>
-          <span class="cmd">whysaidthat</span>
-          <span class="cmd">wiener</span>
-          <span class="cmd">wifedeath</span>
-          <span class="cmd">withgas</span>
-          <span class="cmd">women</span>
-          <span class="cmd">wow</span>
-          <span class="cmd">wrap</span>
-          <span class="cmd">xxxstore</span>
-          <span class="cmd">yay</span>
-          <span class="cmd">yeah</span>
-          <span class="cmd">yippee</span>
-          <span class="cmd">youblind</span>
-          <span class="cmd">youdidntknowher</span>
-          <span class="cmd">yougotanitem</span>
-          <span class="cmd">youngster</span>
-          <span class="cmd">yourboat</span>
-          <span class="cmd">yourdad</span>
-          <span class="cmd">youropinion</span>
-          <span class="cmd">yoyos</span>
-          <span class="cmd">zag</span>
-        </div>
+        <div class="commandGrid" id="commandGrid"></div>
 
         <div class="note">
-          Replace the sample command blocks with the full list from your source file, or generate them dynamically from a plain-text file if you want this page to auto-update.
+          To add a new sound, paste a new line into the source box above. The total count and most recently added sound update automatically.
         </div>
       </section>
 
-        <footer aria-label="Footer">
-          <div class="foottext">
-            <span class="line1">© Roarstream • Live &amp; archives</span>
-            <span class="line2">Live – Sundays / Mondays / Thursdays / Fridays</span>
-          </div>
-          <div class="footlinks">
-            <a class="smallLink" href="https://www.twitch.tv/RoarWuzTaken" target="_blank" rel="noopener noreferrer">Twitch</a>
-            <a class="smallLink" href="https://www.youtube.com/@RoarWuzTaken" target="_blank" rel="noopener noreferrer">YouTube</a>
-            <a class="smallLink" href="https://discord.gg/Um7k2r7xHg" target="_blank" rel="noopener noreferrer">Discord</a>
-            <a class="smallLink" href="https://stt.gg/MXWfzX1w" target="_blank" rel="noopener noreferrer">Stoat</a>
-            <a class="smallLink" href="https://www.roarstream.com/credits.html">Credits</a>
-            <span class="versionTag">v21</span>
-          </div>
-        </footer>
+      <footer aria-label="Footer">
+        <div class="foottext">
+          <span class="line1">© Roarstream • Live &amp; archives</span>
+          <span class="line2">Live – Sundays / Mondays / Thursdays / Fridays</span>
+        </div>
+        <div class="footlinks">
+          <a class="smallLink" href="https://www.twitch.tv/RoarWuzTaken" target="_blank" rel="noopener noreferrer">Twitch</a>
+          <a class="smallLink" href="https://www.youtube.com/@RoarWuzTaken" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a class="smallLink" href="https://discord.gg/Um7k2r7xHg" target="_blank" rel="noopener noreferrer">Discord</a>
+          <a class="smallLink" href="https://stt.gg/MXWfzX1w" target="_blank" rel="noopener noreferrer">Stoat</a>
+          <a class="smallLink" href="https://www.roarstream.com/credits.html">Credits</a>
+          <span class="versionTag">v22</span>
+        </div>
+      </footer>
     </main>
 
     <div class="side" aria-hidden="true"></div>
   </div>
+
+  <script>
+    const sourceList = document.getElementById('sourceList');
+    const commandGrid = document.getElementById('commandGrid');
+    const countText = document.getElementById('countText');
+    const subheadText = document.getElementById('subheadText');
+
+    function normalizeLine(line) {
+      return line
+        .replace(/^\s*!play\s+/i, '')
+        .replace(/^\s+|\s+$/g, '')
+        .replace(/\r/g, '');
+    }
+
+    function parseSounds(raw) {
+      return raw
+        .split('\n')
+        .map(normalizeLine)
+        .filter(Boolean);
+    }
+
+    function renderSounds() {
+      const sounds = parseSounds(sourceList.value);
+      const total = sounds.length;
+      const latest = total ? sounds[total - 1] : 'None Yet';
+
+      countText.textContent = `${total} sound${total === 1 ? '' : 's'}`;
+      subheadText.textContent = `Roarstream Sound Alert List - Last Update - ${total} - ${latest}`;
+
+      commandGrid.innerHTML = sounds
+        .map(sound => `<span class="cmd">${escapeHtml(sound)}</span>`)
+        .join('');
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    sourceList.addEventListener('input', renderSounds);
+    renderSounds();
+  </script>
 </body>
 </html>
