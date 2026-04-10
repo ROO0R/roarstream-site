@@ -95,6 +95,16 @@ align-items:center;
 justify-content:center;
 transition:all .15s ease;
 box-shadow:0 6px 18px rgba(0,0,0,.25);
+cursor:pointer;
+appearance:none;
+-webkit-appearance:none;
+color:var(--text);
+width:100%;
+}
+
+.cmd.copied{
+border-color:rgba(126,226,168,.75);
+background:linear-gradient(180deg, rgba(126,226,168,.28), rgba(126,226,168,.10));
 }
 
 .cmd:hover{
@@ -533,12 +543,88 @@ sub.textContent = `Roarstream Sound Alert List - Last Update - ${total} - ${late
 
 grid.innerHTML = "";
 
-displaySounds.forEach(sound => {
-  const el = document.createElement("div");
-  el.className = "cmd";
-  el.textContent = sound;
-  grid.appendChild(el);
-});
+<script>
+const grid = document.getElementById("commandGrid");
+const sub = document.getElementById("subheadText");
+
+async function copyText(text) {
+  // Best option for modern browsers
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return true;
+  }
+
+  // Fallback for older/iOS behavior
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.setAttribute("readonly", "");
+  ta.style.position = "fixed";
+  ta.style.top = "-9999px";
+  ta.style.left = "-9999px";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+
+  ta.focus();
+  ta.select();
+  ta.setSelectionRange(0, ta.value.length);
+
+  let ok = false;
+  try {
+    ok = document.execCommand("copy");
+  } catch (e) {
+    ok = false;
+  }
+
+  document.body.removeChild(ta);
+  return ok;
+}
+
+function showCopyFeedback(el, text, ok) {
+  const old = el.textContent;
+  el.textContent = ok ? `Copied: ${text}` : `Could not copy`;
+  el.classList.add("copied");
+
+  setTimeout(() => {
+    el.textContent = old;
+    el.classList.remove("copied");
+  }, 900);
+}
+
+function parse() {
+  const sourceSounds = SOUND_SOURCE
+    .split("\n")
+    .map(x => x.trim())
+    .filter(Boolean);
+
+  const total = sourceSounds.length;
+  const latest = total ? sourceSounds[sourceSounds.length - 1] : "None Yet";
+
+  const displaySounds = [...sourceSounds].sort((a, b) =>
+    a.localeCompare(b, undefined, { sensitivity: "base", numeric: true })
+  );
+
+  sub.textContent = `Roarstream Sound Alert List - Last Update - ${total} - ${latest}`;
+
+  grid.innerHTML = "";
+
+  displaySounds.forEach(sound => {
+    const el = document.createElement("button");
+    el.className = "cmd";
+    el.type = "button";
+    el.textContent = sound;
+    el.title = `Copy "${sound}"`;
+
+    el.addEventListener("click", async () => {
+      const ok = await copyText(sound);
+      showCopyFeedback(el, sound, ok);
+    });
+
+    grid.appendChild(el);
+  });
+}
+
+parse();
+</script>;
 
 }
 
