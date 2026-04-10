@@ -583,14 +583,13 @@ async function copyText(text) {
     return false;
   }
 }
-
-function showCopyFeedback(el, sound, ok) {
-  const original = sound;
-  el.textContent = ok ? `Copied: ${sound}` : `Copy failed`;
+  
+function showCopyFeedback(el, originalSound, ok, copiedValue) {
+  el.textContent = ok ? `Copied: ${copiedValue}` : `Copy failed`;
   el.classList.add("copied");
 
   setTimeout(() => {
-    el.textContent = original;
+    el.textContent = originalSound;
     el.classList.remove("copied");
   }, 900);
 }
@@ -613,7 +612,7 @@ function parse() {
     a.localeCompare(b, undefined, { sensitivity: "base", numeric: true })
   );
 
-  sub.textContent = `Roarstream Sound Alert List - Last Update: ${total} - ${latest}`;
+  sub.textContent = `Last Update: ${total} - ${latest}`;
   grid.innerHTML = "";
 
   displaySounds.forEach(sound => {
@@ -626,7 +625,7 @@ function parse() {
     el.addEventListener("click", async function () {
       const copiedValue = bangToggle && bangToggle.checked ? `!${sound}` : sound;
       const ok = await copyText(copiedValue);
-      showCopyFeedback(el, copiedValue, ok);
+      showCopyFeedback(el, sound, ok, copiedValue);
     });
 
     grid.appendChild(el);
