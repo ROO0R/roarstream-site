@@ -59,8 +59,21 @@ margin-bottom:20px;
 
 .commandGrid{
 display:grid;
-grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-gap:10px;
+grid-template-columns:repeat(3, 1fr);
+gap:12px;
+margin-top:16px;
+}
+
+@media (max-width:900px){
+.commandGrid{
+grid-template-columns:repeat(2,1fr);
+}
+}
+
+@media (max-width:600px){
+.commandGrid{
+grid-template-columns:1fr;
+}
 }
 
 .cmd{
@@ -217,7 +230,6 @@ drones
 drphil
 dumbdog
 dundundun
-e
 eating
 eight
 eisner
@@ -288,7 +300,6 @@ kill
 killjobs
 killsomebody
 kq6tp
-l
 labrador
 laserdragon
 latte
@@ -345,7 +356,6 @@ nothorny
 notracist
 noway
 nowheretogo
-o
 obamna
 objection
 ohwait
@@ -422,7 +432,6 @@ stop
 subway
 succumb
 summoner
-t
 tada
 tankofdicks
 teenagers
