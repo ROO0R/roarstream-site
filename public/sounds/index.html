@@ -595,6 +595,10 @@ lesson
 const grid = document.getElementById("commandGrid");
 const sub = document.getElementById("subheadText");
 const bangToggle = document.getElementById("bangToggle");
+const searchInput = document.getElementById("searchInput");
+
+let allSounds = [];
+let defaultSubhead = "";
 
 async function copyText(text) {
   try {
@@ -634,11 +638,47 @@ function showCopyFeedback(el, originalSound, ok, copiedValue) {
   }, 900);
 }
 
-function parse() {
-  if (!grid || !sub) {
-    console.error("Missing page elements.");
-    return;
+function renderSounds(filter = "") {
+
+  const query = filter.toLowerCase();
+
+  const filtered = !query
+    ? allSounds
+    : allSounds.filter(s => s.toLowerCase().includes(query));
+
+  grid.innerHTML = "";
+
+  filtered.forEach(sound => {
+
+    const el = document.createElement("button");
+    el.type = "button";
+    el.className = "cmd";
+    el.textContent = sound;
+
+    el.addEventListener("click", async function () {
+
+      const copiedValue =
+        bangToggle && bangToggle.checked
+        ? `!${sound}`
+        : sound;
+
+      const ok = await copyText(copiedValue);
+      showCopyFeedback(el, sound, ok, copiedValue);
+
+    });
+
+    grid.appendChild(el);
+
+  });
+
+  if (query) {
+    sub.textContent = `${filtered.length} match${filtered.length===1?"":"es"}`;
+  } else {
+    sub.textContent = defaultSubhead;
   }
+}
+  
+function parse() {
 
   const sourceSounds = SOUND_SOURCE
     .split("\n")
@@ -646,30 +686,22 @@ function parse() {
     .filter(Boolean);
 
   const total = sourceSounds.length;
-  const latest = total ? sourceSounds[sourceSounds.length - 1] : "None Yet";
+  const latest = sourceSounds[sourceSounds.length - 1];
 
-  const displaySounds = [...sourceSounds].sort((a, b) =>
-    a.localeCompare(b, undefined, { sensitivity: "base", numeric: true })
+  allSounds = [...sourceSounds].sort((a, b) =>
+    a.localeCompare(b, undefined, { sensitivity:"base", numeric:true })
   );
 
-  sub.textContent = `Last Update: ${total} - ${latest}`;
-  grid.innerHTML = "";
+  defaultSubhead = `Last Update: ${total} - ${latest}`;
 
-  displaySounds.forEach(sound => {
-    const el = document.createElement("button");
-    el.type = "button";
-    el.className = "cmd";
-    el.textContent = sound;
-    el.title = `Copy ${sound}`;
+  sub.textContent = defaultSubhead;
 
-    el.addEventListener("click", async function () {
-      const copiedValue = bangToggle && bangToggle.checked ? `!${sound}` : sound;
-      const ok = await copyText(copiedValue);
-      showCopyFeedback(el, sound, ok, copiedValue);
-    });
+  renderSounds();
 
-    grid.appendChild(el);
+  searchInput.addEventListener("input", e => {
+    renderSounds(e.target.value);
   });
+
 }
 
 try {
