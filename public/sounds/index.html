@@ -646,7 +646,6 @@ function showCopyFeedback(el, originalSound, ok, copiedValue) {
 }
 
 function renderSounds(filter = "") {
-
   const query = filter.toLowerCase();
 
   const filtered = !query
@@ -656,26 +655,22 @@ function renderSounds(filter = "") {
   grid.innerHTML = "";
 
   filtered.forEach(sound => {
-
     const el = document.createElement("button");
     el.type = "button";
     el.className = "cmd";
     el.textContent = sound;
 
     el.addEventListener("click", async function () {
-
       const copiedValue =
         bangToggle && bangToggle.checked
-        ? `!${sound}`
-        : sound;
+          ? `!${sound}`
+          : sound;
 
       const ok = await copyText(copiedValue);
       showCopyFeedback(el, sound, ok, copiedValue);
-
     });
 
     grid.appendChild(el);
-
   });
 
   if (query) {
@@ -683,6 +678,30 @@ function renderSounds(filter = "") {
   } else {
     sub.innerHTML = defaultSubhead;
   }
+}
+
+function parse() {
+  const sourceSounds = SOUND_SOURCE
+    .split("\n")
+    .map(x => x.trim())
+    .filter(Boolean);
+
+  const total = sourceSounds.length;
+  const latest = sourceSounds[sourceSounds.length - 1];
+
+  allSounds = [...sourceSounds].sort((a, b) =>
+    a.localeCompare(b, undefined, { sensitivity: "base", numeric: true })
+  );
+
+  defaultSubhead = `Click on a bubble to copy it to the clipboard.
+Last Update: ${total} — <span class="latestSound">${latest}</span>`;
+
+  renderSounds();
+
+  searchInput.addEventListener("input", e => {
+    renderSounds(e.target.value);
+  });
+}
   
 function parse() {
 
