@@ -694,41 +694,14 @@ function parse() {
   );
 
   defaultSubhead = `Click on a bubble to copy it to the clipboard.
-  For Twitch Subs, click the checkmark to add a ! for direct sound alerts in chat.
-  Last Update: ${total} — <span class="latestSound">${latest}</span>`;
+For Twitch Subs, click the checkmark to add a ! for direct sound alerts in chat.
+Last Update: ${total} — <span class="latestSound">${latest}</span>`;
 
   renderSounds();
 
   searchInput.addEventListener("input", e => {
     renderSounds(e.target.value);
   });
-}
-  
-function parse() {
-
-  const sourceSounds = SOUND_SOURCE
-    .split("\n")
-    .map(x => x.trim())
-    .filter(Boolean);
-
-  const total = sourceSounds.length;
-  const latest = sourceSounds[sourceSounds.length - 1];
-
-  allSounds = [...sourceSounds].sort((a, b) =>
-    a.localeCompare(b, undefined, { sensitivity:"base", numeric:true })
-  );
-
-  defaultSubhead = `Click on a bubble to copy it to the clipboard.
-  Last Update: ${total} — <span class="latestSound">${latest}</span>`;
-  
-  sub.innerHTML = defaultSubhead;
-
-  renderSounds();
-
-  searchInput.addEventListener("input", e => {
-    renderSounds(e.target.value);
-  });
-
 }
 
 try {
