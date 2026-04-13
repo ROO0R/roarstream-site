@@ -82,6 +82,7 @@ color:transparent;
 text-align:center;
 color:var(--muted);
 margin-bottom:20px;
+white-space:pre-line;
 }
 
 .commandGrid{
@@ -695,7 +696,7 @@ function parse() {
 
   defaultSubhead = `Click on a bubble to copy it to the clipboard.
   Last Update: ${total} - ${latest}`;
-
+  
   sub.textContent = defaultSubhead;
 
   renderSounds();
