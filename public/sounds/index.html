@@ -679,7 +679,7 @@ function renderSounds(filter = "") {
   });
 
   if (query) {
-    sub.textContent = `${filtered.length} match${filtered.length===1?"":"es"}`;
+    sub.textContent = `${filtered.length} match${filtered.length===1 ? "" : "es"}`;
   } else {
     sub.innerHTML = defaultSubhead;
   }
@@ -698,10 +698,8 @@ function parse() {
     a.localeCompare(b, undefined, { sensitivity:"base", numeric:true })
   );
 
-  defaultSubhead = `
-  Click on a bubble to copy it to the clipboard.
-  Last Update: ${total} — <span class="latestSound">${latest}</span>
-  `;
+  defaultSubhead = `Click on a bubble to copy it to the clipboard.
+  Last Update: ${total} — <span class="latestSound">${latest}</span>`;
   
   sub.innerHTML = defaultSubhead;
 
