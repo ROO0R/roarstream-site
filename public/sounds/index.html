@@ -637,8 +637,9 @@ async function copyText(text) {
   
 function showCopyFeedback(el, originalSound, ok, copiedValue) {
   el.innerHTML = ok 
-    ? `<strong>Copied:</strong><br>${copiedValue}`
+    ? `Copied:<br>${copiedValue}` 
     : `Copy failed`;
+
   el.classList.add("copied");
 
   setTimeout(() => {
