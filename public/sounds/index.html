@@ -681,9 +681,8 @@ function renderSounds(filter = "") {
   if (query) {
     sub.textContent = `${filtered.length} match${filtered.length===1?"":"es"}`;
   } else {
-    sub.textContent = defaultSubhead;
+    sub.innerHTML = defaultSubhead;
   }
-}
   
 function parse() {
 
