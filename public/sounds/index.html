@@ -24,6 +24,11 @@ justify-content:center;
 margin:0 0 18px;
 }
 
+.latestSound{
+font-weight:700;
+color:#7ee2a8;
+}
+  
 .searchInput{
 width:min(100%, 520px);
 padding:12px 14px;
@@ -694,10 +699,12 @@ function parse() {
     a.localeCompare(b, undefined, { sensitivity:"base", numeric:true })
   );
 
-  defaultSubhead = `Click on a bubble to copy it to the clipboard.
-  Last Update: ${total} - ${latest}`;
+  defaultSubhead = `
+  Click on a bubble to copy it to the clipboard.
+  Last Update: ${total} — <span class="latestSound">${latest}</span>
+  `;
   
-  sub.textContent = defaultSubhead;
+  sub.innerHTML = defaultSubhead;
 
   renderSounds();
 
