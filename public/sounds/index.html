@@ -655,7 +655,11 @@ function renderSounds(filter = "") {
 
   const filtered = !query
     ? allSounds
-    : allSounds.filter(s => s.name.toLowerCase().includes(query));
+    : allSounds.filter(s =>
+        s.name.toLowerCase().includes(query) ||
+        s.description.toLowerCase().includes(query) ||
+        s.category.toLowerCase().includes(query)
+      );
 
   grid.innerHTML = "";
 
