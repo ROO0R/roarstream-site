@@ -126,7 +126,6 @@ cursor:pointer;
 accent-color:var(--accent);
 }
 
-  
 @media (max-width:900px){
 .commandGrid{
 grid-template-columns:repeat(2,1fr);
@@ -177,6 +176,30 @@ border-color:rgba(126,226,168,.75);
 background:linear-gradient(180deg, rgba(126,226,168,.28), rgba(126,226,168,.10));
 }
 
+/* MODAL */
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.65);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:999;
+}
+
+.modal.hidden{
+display:none;
+}
+
+.modalContent{
+background:#111;
+padding:24px;
+border-radius:16px;
+max-width:400px;
+width:90%;
+box-shadow:0 10px 40px rgba(0,0,0,.5);
+}
+
 footer{
 margin-top:20px;
 border-top:1px solid rgba(255,255,255,.10);
@@ -197,7 +220,6 @@ margin-right:12px;
 <body>
 
 <div class="stage">
-
 <main class="panel">
 
 <h1 class="glowtext">RS Sound Effects</h1>
@@ -210,7 +232,6 @@ Loading Sounds...
   <input type="checkbox" id="bangToggle" class="copyToggle">
   <label for="bangToggle">Add ! prefix to copy/paste</label>
 </div>
-
 
 <div class="searchWrap">
   <input
@@ -226,10 +247,7 @@ Loading Sounds...
 <div class="commandGrid" id="commandGrid"></div>
   
 <footer>
-<div>
-© Roarstream
-</div>
-
+<div>© Roarstream</div>
 <div>
 <a class="smallLink" href="https://www.roarstream.com">Back</a>
 <a class="smallLink" href="https://www.twitch.tv/RoarWuzTaken">Twitch</a>
@@ -238,16 +256,23 @@ Loading Sounds...
 </footer>
 
 </main>
-
 </div>
+
+<!-- MODAL -->
+<div id="soundModal" class="modal hidden">
+  <div class="modalContent">
+    <h2 id="modalTitle"></h2>
+    <p><strong>Category:</strong> <span id="modalCategory"></span></p>
+    <p><strong>Description:</strong> <span id="modalDescription"></span></p>
+    <p><strong>Length:</strong> <span id="modalLength"></span></p>
+    <button id="closeModal">Close</button>
+  </div>
+</div>
+
 <script>
-/*
-EDIT ONLY THIS BLOCK
-Add one sound per line
-*/
 const SOUND_SOURCE = `
-2kids
-2kidsdie
+2kids.ogg||assorted||test||0:02
+2kidsdie.ogg||assorted||wegweghwegh||0:02
 30points
 3dog
 5bees
@@ -616,7 +641,7 @@ sucked
 schedule
 tuesday
 `;
-  
+
 const grid = document.getElementById("commandGrid");
 const sub = document.getElementById("subheadText");
 const bangToggle = document.getElementById("bangToggle");
@@ -671,7 +696,7 @@ function renderSounds(filter = "") {
 
   const filtered = !query
     ? allSounds
-    : allSounds.filter(s => s.toLowerCase().includes(query));
+    : allSounds.filter(s => s.name.toLowerCase().includes(query));
 
   grid.innerHTML = "";
 
@@ -679,16 +704,25 @@ function renderSounds(filter = "") {
     const el = document.createElement("button");
     el.type = "button";
     el.className = "cmd";
-    el.textContent = sound;
+    el.textContent = sound.name;
 
     el.addEventListener("click", async function () {
+
+      // SHOW MODAL
+      document.getElementById("modalTitle").textContent = sound.name;
+      document.getElementById("modalCategory").textContent = sound.category;
+      document.getElementById("modalDescription").textContent = sound.description;
+      document.getElementById("modalLength").textContent = sound.length;
+      document.getElementById("soundModal").classList.remove("hidden");
+
+      // COPY
       const copiedValue =
         bangToggle && bangToggle.checked
-          ? `!${sound}`
-          : sound;
+          ? `!${sound.name}`
+          : sound.name;
 
       const ok = await copyText(copiedValue);
-      showCopyFeedback(el, sound, ok, copiedValue);
+      showCopyFeedback(el, sound.name, ok, copiedValue);
     });
 
     grid.appendChild(el);
@@ -705,13 +739,23 @@ function parse() {
   const sourceSounds = SOUND_SOURCE
     .split("\n")
     .map(x => x.trim())
-    .filter(Boolean);
+    .filter(Boolean)
+    .map(line => {
+      const [file, category, description, length] = line.split("||");
+      return {
+        name: file.replace(".ogg", ""),
+        file,
+        category,
+        description,
+        length
+      };
+    });
 
   const total = sourceSounds.length;
-  const latest = sourceSounds[sourceSounds.length - 1];
+  const latest = sourceSounds[sourceSounds.length - 1]?.name;
 
   allSounds = [...sourceSounds].sort((a, b) =>
-    a.localeCompare(b, undefined, { sensitivity: "base", numeric: true })
+    a.name.localeCompare(b.name, undefined, { sensitivity: "base", numeric: true })
   );
 
   defaultSubhead = `Click on a bubble to copy it to the clipboard.
@@ -727,6 +771,10 @@ Last Update: ${total} — <span class="latestSound">${latest}</span>`;
     renderSounds(e.target.value);
   });
 }
+
+document.getElementById("closeModal").addEventListener("click", () => {
+  document.getElementById("soundModal").classList.add("hidden");
+});
 
 try {
   parse();
