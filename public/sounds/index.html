@@ -102,7 +102,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 gap:10px;
-margin:10px 0 18px;
+margin:10px 0 10px;
 padding:10px 14px;
 border:1px solid rgba(255,255,255,.10);
 border-radius:14px;
@@ -110,6 +110,24 @@ background:rgba(255,255,255,.04);
 width:fit-content;
 margin-left:auto;
 margin-right:auto;
+}
+
+/* NEW INFO PANEL */
+.infoPanel{
+margin:10px auto 18px;
+padding:14px;
+border-radius:14px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.10);
+max-width:520px;
+text-align:center;
+color:var(--text);
+}
+
+.infoPanel .name{
+font-weight:700;
+color:#7ee2a8;
+margin-bottom:6px;
 }
 
 .copyToggleWrap label{
@@ -147,10 +165,6 @@ font-family:Consolas, monospace;
 font-size:14px;
 line-height:1.25;
 text-align:center;
-white-space:normal;
-overflow-wrap:normal;
-word-break:normal;
-hyphens:none;
 min-height:54px;
 display:flex;
 align-items:center;
@@ -158,8 +172,6 @@ justify-content:center;
 transition:all .15s ease;
 box-shadow:0 6px 18px rgba(0,0,0,.25);
 cursor:pointer;
-appearance:none;
--webkit-appearance:none;
 color:var(--text);
 width:100%;
 }
@@ -168,36 +180,11 @@ width:100%;
 transform:translateY(-2px);
 background:linear-gradient(180deg, rgba(126,226,168,.18), rgba(126,226,168,.05));
 border-color:rgba(126,226,168,.35);
-box-shadow:0 10px 24px rgba(0,0,0,.35);
 }
 
 .cmd.copied{
 border-color:rgba(126,226,168,.75);
 background:linear-gradient(180deg, rgba(126,226,168,.28), rgba(126,226,168,.10));
-}
-
-/* MODAL */
-.modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.65);
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:999;
-}
-
-.modal.hidden{
-display:none;
-}
-
-.modalContent{
-background:#111;
-padding:24px;
-border-radius:16px;
-max-width:400px;
-width:90%;
-box-shadow:0 10px 40px rgba(0,0,0,.5);
 }
 
 footer{
@@ -215,37 +202,33 @@ text-decoration:none;
 margin-right:12px;
 }
 </style>
-
 </head>
-<body>
 
+<body>
 <div class="stage">
 <main class="panel">
 
 <h1 class="glowtext">RS Sound Effects</h1>
 
-<p class="subhead" id="subheadText">
-Loading Sounds...
-</p>
+<p class="subhead" id="subheadText">Loading Sounds...</p>
 
 <div class="copyToggleWrap">
   <input type="checkbox" id="bangToggle" class="copyToggle">
   <label for="bangToggle">Add ! prefix to copy/paste</label>
 </div>
 
-<div class="searchWrap">
-  <input
-    type="text"
-    id="searchInput"
-    class="searchInput"
-    placeholder="Search sounds..."
-    autocomplete="off"
-    spellcheck="false"
-  >
+<!-- NEW INFO DISPLAY -->
+<div id="infoPanel" class="infoPanel">
+  <div class="name">Select a sound</div>
+  <div class="meta">Click a sound to see details</div>
 </div>
-  
+
+<div class="searchWrap">
+  <input type="text" id="searchInput" class="searchInput" placeholder="Search sounds...">
+</div>
+
 <div class="commandGrid" id="commandGrid"></div>
-  
+
 <footer>
 <div>© Roarstream</div>
 <div>
@@ -256,17 +239,6 @@ Loading Sounds...
 </footer>
 
 </main>
-</div>
-
-<!-- MODAL -->
-<div id="soundModal" class="modal hidden">
-  <div class="modalContent">
-    <h2 id="modalTitle"></h2>
-    <p><strong>Category:</strong> <span id="modalCategory"></span></p>
-    <p><strong>Description:</strong> <span id="modalDescription"></span></p>
-    <p><strong>Length:</strong> <span id="modalLength"></span></p>
-    <button id="closeModal">Close</button>
-  </div>
 </div>
 
 <script>
@@ -646,49 +618,36 @@ const grid = document.getElementById("commandGrid");
 const sub = document.getElementById("subheadText");
 const bangToggle = document.getElementById("bangToggle");
 const searchInput = document.getElementById("searchInput");
+const infoPanel = document.getElementById("infoPanel");
 
 let allSounds = [];
 let defaultSubhead = "";
 
 async function copyText(text) {
   try {
-    if (navigator.clipboard && window.isSecureContext) {
-      await navigator.clipboard.writeText(text);
-      return true;
-    }
-  } catch (err) {}
-
-  try {
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    ta.setAttribute("readonly", "");
-    ta.style.position = "fixed";
-    ta.style.top = "-9999px";
-    ta.style.left = "-9999px";
-    ta.style.opacity = "0";
-    document.body.appendChild(ta);
-    ta.focus();
-    ta.select();
-    ta.setSelectionRange(0, ta.value.length);
-    const ok = document.execCommand("copy");
-    document.body.removeChild(ta);
-    return ok;
-  } catch (err) {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
     return false;
   }
 }
-  
+
 function showCopyFeedback(el, originalSound, ok, copiedValue) {
-  el.innerHTML = ok 
-    ? `Copied:<br>${copiedValue}` 
-    : `Copy failed`;
-
+  el.innerHTML = ok ? `Copied:<br>${copiedValue}` : `Copy failed`;
   el.classList.add("copied");
-
   setTimeout(() => {
     el.textContent = originalSound;
     el.classList.remove("copied");
   }, 900);
+}
+
+function updateInfo(sound){
+  infoPanel.innerHTML = `
+    <div class="name">${sound.name}</div>
+    <div>Category: ${sound.category}</div>
+    <div>${sound.description}</div>
+    <div>Length: ${sound.length}</div>
+  `;
 }
 
 function renderSounds(filter = "") {
@@ -702,24 +661,15 @@ function renderSounds(filter = "") {
 
   filtered.forEach(sound => {
     const el = document.createElement("button");
-    el.type = "button";
     el.className = "cmd";
     el.textContent = sound.name;
 
-    el.addEventListener("click", async function () {
+    el.addEventListener("click", async () => {
 
-      // SHOW MODAL
-      document.getElementById("modalTitle").textContent = sound.name;
-      document.getElementById("modalCategory").textContent = sound.category;
-      document.getElementById("modalDescription").textContent = sound.description;
-      document.getElementById("modalLength").textContent = sound.length;
-      document.getElementById("soundModal").classList.remove("hidden");
+      updateInfo(sound);
 
-      // COPY
       const copiedValue =
-        bangToggle && bangToggle.checked
-          ? `!${sound.name}`
-          : sound.name;
+        bangToggle.checked ? `!${sound.name}` : sound.name;
 
       const ok = await copyText(copiedValue);
       showCopyFeedback(el, sound.name, ok, copiedValue);
@@ -728,11 +678,9 @@ function renderSounds(filter = "") {
     grid.appendChild(el);
   });
 
-  if (query) {
-    sub.textContent = `${filtered.length} match${filtered.length===1 ? "" : "es"}`;
-  } else {
-    sub.innerHTML = defaultSubhead;
-  }
+  sub.innerHTML = query
+    ? `${filtered.length} match${filtered.length===1?"":"es"}`
+    : defaultSubhead;
 }
 
 function parse() {
@@ -743,8 +691,7 @@ function parse() {
     .map(line => {
       const [file, category, description, length] = line.split("||");
       return {
-        name: file.replace(".ogg", ""),
-        file,
+        name: file.replace(".ogg",""),
         category,
         description,
         length
@@ -754,35 +701,22 @@ function parse() {
   const total = sourceSounds.length;
   const latest = sourceSounds[sourceSounds.length - 1]?.name;
 
-  allSounds = [...sourceSounds].sort((a, b) =>
-    a.name.localeCompare(b.name, undefined, { sensitivity: "base", numeric: true })
+  allSounds = sourceSounds.sort((a,b)=>
+    a.name.localeCompare(b.name, undefined, {numeric:true})
   );
 
-  defaultSubhead = `Click on a bubble to copy it to the clipboard.
-  
-<strong>Twitch Subs:</strong>
-Click the checkmark to add a ! for direct sound alerts in chat.
+  defaultSubhead = `Click on a bubble to copy it.
 
 Last Update: ${total} — <span class="latestSound">${latest}</span>`;
 
   renderSounds();
 
-  searchInput.addEventListener("input", e => {
-    renderSounds(e.target.value);
-  });
+  searchInput.addEventListener("input", e =>
+    renderSounds(e.target.value)
+  );
 }
 
-document.getElementById("closeModal").addEventListener("click", () => {
-  document.getElementById("soundModal").classList.add("hidden");
-});
-
-try {
-  parse();
-} catch (err) {
-  console.error("Parse failed:", err);
-  sub.textContent = "Could not load sounds.";
-}
+parse();
 </script>
-
 </body>
 </html>
