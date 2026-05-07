@@ -201,6 +201,26 @@ color:var(--muted);
 text-decoration:none;
 margin-right:12px;
 }
+
+.stickyTop{
+position:sticky;
+top:0;
+z-index:100;
+padding-top:10px;
+padding-bottom:14px;
+
+/* backdrop */
+background:linear-gradient(
+180deg,
+rgba(15,15,24,.96) 0%,
+rgba(15,15,24,.92) 80%,
+rgba(15,15,24,0) 100%
+);
+
+/* optional blur */
+backdrop-filter:blur(10px);
+}
+  
 </style>
 </head>
 
@@ -212,19 +232,20 @@ margin-right:12px;
 
 <p class="subhead" id="subheadText">Loading Sounds...</p>
 
-<div class="copyToggleWrap">
-  <input type="checkbox" id="bangToggle" class="copyToggle">
-  <label for="bangToggle">Add ! prefix to copy/paste</label>
-</div>
+<div class="stickyTop">
+  <div class="copyToggleWrap">
+    <input type="checkbox" id="bangToggle" class="copyToggle">
+    <label for="bangToggle">Add ! prefix to copy/paste</label>
+  </div>
 
-<!-- NEW INFO DISPLAY -->
-<div id="infoPanel" class="infoPanel">
-  <div class="name">Select a sound</div>
-  <div class="meta">Click a sound to see details</div>
-</div>
+  <div id="infoPanel" class="infoPanel">
+    <div class="name">Select a sound</div>
+    <div class="meta">Click a sound to see details</div>
+  </div>
 
-<div class="searchWrap">
-  <input type="text" id="searchInput" class="searchInput" placeholder="Search sounds...">
+  <div class="searchWrap">
+    <input type="text" id="searchInput" class="searchInput" placeholder="Search sounds...">
+  </div>
 </div>
 
 <div class="commandGrid" id="commandGrid"></div>
