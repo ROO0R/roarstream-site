@@ -685,9 +685,9 @@ function renderSounds(filter = "") {
   const filtered = !query
     ? allSounds
     : allSounds.filter(s =>
-        s.name.toLowerCase().includes(query) ||
-        s.description.toLowerCase().includes(query) ||
-        s.category.toLowerCase().includes(query)
+        (s.name || "").toLowerCase().includes(query) ||
+        (s.description || "").toLowerCase().includes(query) ||
+        (s.category || "").toLowerCase().includes(query)
       );
 
   grid.innerHTML = "";
@@ -724,10 +724,10 @@ function parse() {
     .map(line => {
       const [file, category, description, length] = line.split("||");
       return {
-        name: file.replace(".ogg",""),
-        category,
-        description,
-        length
+        name: (file || "").replace(".ogg",""),
+        category: category || "",
+        description: description || "",
+        length: length || ""
       };
     });
 
