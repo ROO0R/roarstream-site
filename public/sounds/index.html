@@ -743,11 +743,12 @@ function updateInfo(sound){
 
     <div class="infoRow">
       <div class="infoLabel">Description</div>
-      <div class="infoValue">
-        ${cleanDescription || "No description available."}
-      </div>
+      <div class="infoValue" id="descText"></div>
     </div>
   `;
+
+  document.getElementById("descText").textContent =
+    cleanDescription || "No description available.";
 }
 
 function renderSounds(filter = "") {
