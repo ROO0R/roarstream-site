@@ -112,18 +112,77 @@ margin-left:auto;
 margin-right:auto;
 }
 
-/* NEW INFO PANEL */
 .infoPanel{
-margin:10px auto 18px;
-padding:14px;
-border-radius:14px;
-background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.10);
-max-width:520px;
-text-align:center;
+margin:12px auto 18px;
+padding:18px;
+border-radius:18px;
+background:
+linear-gradient(
+180deg,
+rgba(40,40,60,.92),
+rgba(18,18,28,.95)
+);
+
+border:1px solid rgba(126,226,168,.18);
+
+max-width:620px;
 color:var(--text);
+
+box-shadow:
+0 12px 30px rgba(0,0,0,.35),
+0 0 0 1px rgba(255,255,255,.03) inset;
+
+transition:all .15s ease;
 }
 
+.infoPanel .name{
+font-size:24px;
+font-weight:800;
+letter-spacing:.5px;
+color:#7ee2a8;
+margin-bottom:14px;
+text-align:center;
+
+padding-bottom:10px;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.infoRow{
+margin-bottom:14px;
+padding:10px 12px;
+border-radius:12px;
+background:rgba(255,255,255,.035);
+border:1px solid rgba(255,255,255,.05);
+}
+
+.infoLabel{
+font-size:11px;
+font-weight:700;
+text-transform:uppercase;
+letter-spacing:1.2px;
+color:#8fbfa2;
+margin-bottom:6px;
+opacity:.9;
+}
+
+.infoValue{
+font-size:15px;
+line-height:1.5;
+color:#f3fff7;
+word-break:break-word;
+}
+
+.infoCategory{
+display:inline-block;
+padding:4px 10px;
+border-radius:999px;
+background:rgba(126,226,168,.14);
+border:1px solid rgba(126,226,168,.25);
+font-weight:700;
+color:#9ef0bf;
+font-size:13px;
+}
+  
 .infoPanel .name{
 font-weight:700;
 color:#7ee2a8;
@@ -672,10 +731,28 @@ function showCopyFeedback(el, originalSound, ok, copiedValue) {
 }
 
 function updateInfo(sound){
+
+  const cleanDescription =
+    (sound.description || "")
+      .replace(/^"+|"+$/g, "")
+      .trim();
+
   infoPanel.innerHTML = `
     <div class="name">${sound.name}</div>
-    <div>Category: ${sound.category}</div>
-    <div>${sound.description}</div>
+
+    <div class="infoRow">
+      <div class="infoLabel">Category</div>
+      <div class="infoValue">
+        <span class="infoCategory">${sound.category || "Unknown"}</span>
+      </div>
+    </div>
+
+    <div class="infoRow">
+      <div class="infoLabel">Description</div>
+      <div class="infoValue">
+        ${cleanDescription || "No description available."}
+      </div>
+    </div>
   `;
 }
 
