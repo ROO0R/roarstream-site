@@ -182,12 +182,6 @@ font-weight:700;
 color:#9ef0bf;
 font-size:13px;
 }
-  
-.infoPanel .name{
-font-weight:700;
-color:#7ee2a8;
-margin-bottom:6px;
-}
 
 .copyToggleWrap label{
 color:var(--text);
@@ -379,7 +373,7 @@ byebye||Robin Williams||"Well, yeah, fuck you too. Bye bye."
 caillou||Family Guy||"But Caillou wasn't a cancer survivor; the show's creators just made a weird choice."
 callmeback||ATHF||"Uh, call me back if you get a free moment, I just wanted, uh to, uh, to lord over you for a little bit longer."
 calm||Game Grumps||"Look at you, you're fucking TILTED AS SHIT, and I'm CALM AS A CUCUMBER!!!"
-came||Trump||Jeff Bezos came, Bill Gates came, Mark Zuckerberg came...many of em came numerous times; the bankers have all come, everybody's coming."
+came||Trump||"Jeff Bezos came, Bill Gates came, Mark Zuckerberg came...many of em came numerous times; the bankers have all come, everybody's coming."
 camel||Assorted||Baby Camel Crying
 carn||Disney||Animal Kingdom Dinosaur - "Carnotaurus."
 carrot||Adam Sandler||"Get me a carrot, Sweetheart - WHERE ARE YOU GOING?"
@@ -799,13 +793,17 @@ function parse() {
     .map(x => x.trim())
     .filter(Boolean)
     .map(line => {
-      const [file, category, description] = line.split("||");
+    
+      const parts = line.split("||");
+    
       return {
-        name: (file || "").replace(".ogg",""),
-        category: category || "",
-        description: description || "",
+        name: (parts[0] || "").replace(".ogg","").trim(),
+        category: (parts[1] || "Unknown").trim(),
+        description: (parts[2] || "No description available.").trim(),
       };
-    });
+    
+    })
+    .filter(sound => sound.name)
 
   const total = sourceSounds.length;
   const latest = sourceSounds[sourceSounds.length - 1]?.name;
