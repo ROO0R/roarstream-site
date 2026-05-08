@@ -722,7 +722,7 @@ function parse() {
     .map(x => x.trim())
     .filter(Boolean)
     .map(line => {
-      const [file, category, description, length] = line.split("||");
+      const [file, category, description] = line.split("||");
       return {
         name: (file || "").replace(".ogg",""),
         category: category || "",
