@@ -322,8 +322,8 @@ backdrop-filter:blur(10px);
 </main>
 </div>
 
+<script>  
 const SOUND_FILE = "sounds.txt";
-
 const grid = document.getElementById("commandGrid");
 const sub = document.getElementById("subheadText");
 const bangToggle = document.getElementById("bangToggle");
@@ -415,60 +415,18 @@ function renderSounds(filter = "") {
     : defaultSubhead;
 }
 
-async function parse() {
-
-  try {
-
-    const response = await fetch(SOUND_FILE);
-
-    if (!response.ok) {
-      throw new Error("Failed to load sounds.txt");
-    }
-
-    const text = await response.text();
-
-    const sourceSounds = text
-      .split("\n")
-      .map(x => x.trim())
-      .filter(Boolean)
-      .map(line => {
-
-        const parts = line.split("||");
-
-        return {
-          name: (parts[0] || "").replace(".ogg","").trim(),
-          category: (parts[1] || "Unknown").trim(),
-          description: (parts[2] || "No description available.").trim(),
-        };
-
-      })
-      .filter(sound => sound.name);
-
-    const total = sourceSounds.length;
-    const latest = sourceSounds[sourceSounds.length - 1]?.name;
-
-    allSounds = sourceSounds.sort((a,b)=>
-      a.name.localeCompare(b.name, undefined, {numeric:true})
-    );
-
-    defaultSubhead = `Click on a bubble to copy it.
-
-Last Update: ${total} — <span class="latestSound">${latest}</span>`;
-
-    renderSounds();
-
-  } catch (err) {
-
+fetch("sounds.txt")
+  .then(r => r.text())
+  .then(text => {
+    SOUND_SOURCE = text;
+    parse();
+  })
+  .catch(err => {
+    sub.textContent = "Failed to load sounds.txt";
     console.error(err);
+  });
 
-    sub.textContent = "Failed to load sound list.";
-
-  }
-
-  searchInput.addEventListener("input", e =>
-    renderSounds(e.target.value)
-  );
-}
+let SOUND_SOURCE = "";
 </script>
 </body>
 </html>
