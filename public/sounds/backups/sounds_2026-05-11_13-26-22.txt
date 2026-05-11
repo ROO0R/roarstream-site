@@ -195,7 +195,7 @@ mail||Assorted||AOL Guy - 'You've got mail!'
 makestuffhappen||ATHF||'Look here! I'm getting uh, I'm uh, gonna have a city uh ordinace, neighborhood watch, I'm gonna...make some stuff happen!'
 manners||Disney||Alice in Wonderland - 'That's manners!'
 mannod||Assorted||Ghostbusters - 'Yes, it's true. This man has no dick.'
-maybemore||Disney||'Okay thanks-' 'Maybe More' 'OKAY THANKS GRIMSBY' 'imagine...'
+MaybeMore||Disney||'Okay thanks-' 'Maybe More' 'OKAY THANKS GRIMSBY' 'imagine...'
 mediterranean||Mrs. Doubtfire||'I like that Mediterranean look on women.'
 meow||Assorted||Cat Show to Doorbell Meme
 miku||Assorted||Dominos Commercial - 'Once your pizza's delivered, have some fun with Miku!'
@@ -370,4 +370,3 @@ yourdad||Rick and Morty||'You're so MEAN today. I'm your DAD. You LIKE having me
 youropinion||Assorted||Borderlands 2 - Claptrap - 'I respect your opinion!'
 yoyos||ATHF||'You're both yo-yos! Shut up, you yo-yos!'
 zag||Assorted||Hades - Dusa - 'Don't mess with Zagreus!'
-perfect||Assorted||Street Fighter 2 - 'PERFECT!'
