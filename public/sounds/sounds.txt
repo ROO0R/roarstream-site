@@ -360,7 +360,7 @@ yay||Assorted||Snickers Commerical - 'YAYYYYY!'
 yeah||Assorted||Backyardigans - '...yeah?'
 yippee||Nintendo||Mario - 'YIPPEE!'
 youblind||Robin Williams||Death to Shmoochy - 'What are you, BLIND? It's a COCK!'
-youdidntknowher||DBJ||'She's dead - also, you didn't know her. I'm just gonna say, you wouldn't be saying that if you'd known her, you kjnow?'
+youdidntknowher||DBJ||'She's dead - also, you didn't know her. I'm just gonna say, you wouldn't be saying that if you'd knew her, you kjnow?'
 yougotanitem||Nintendo||Super Metroid 'You Got an Item' Sound
 youngster||Home Alone 2||'Knockin' off a youngster ain't gonna mean all that much to me, understand?' 'Mm-hmm.'
 yourboat||Bluey||'We know ALL ABOUT your boat!'
