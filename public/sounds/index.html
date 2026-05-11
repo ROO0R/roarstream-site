@@ -294,7 +294,7 @@ backdrop-filter:blur(10px);
 
   <div id="infoPanel" class="infoPanel">
     <div class="name">Select a sound</div>
-    <div class="meta">Click a sound to see details</div>
+    <div class="meta">Click on sound to see details</div>
   </div>
 
   <div class="searchWrap">
@@ -314,8 +314,8 @@ backdrop-filter:blur(10px);
 <div>© Roarstream</div>
 <div>
 <a class="smallLink" href="https://www.roarstream.com">Back</a>
-<a class="smallLink" href="https://www.twitch.tv/RoarWuzTaken">Twitch</a>
-<a class="smallLink" href="https://www.youtube.com/@RoarWuzTaken">YouTube</a>
+<a class="smallLink" href="https://twitch.roarstream.com">Twitch</a>
+<a class="smallLink" href="https://youtube.roarstream.com">Youtube</a>
 </div>
 </footer>
 
@@ -415,7 +415,7 @@ function parse(text) {
 
   allSounds = sourceSounds.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
 
-  defaultSubhead = `Click on a bubble to copy it.\n\nLast Update: ${total} — <span class="latestSound">${latest}</span>`;
+  defaultSubhead = `Click on a bubble to copy it for pasting into Twitch chat.\n\nLast Update: ${total} — <span class="latestSound">${latest}</span>`;
 
   renderSounds();
 
