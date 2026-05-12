@@ -371,4 +371,3 @@ youropinion||Assorted||Borderlands 2 - Claptrap - 'I respect your opinion!'
 yoyos||ATHF||'You're both yo-yos! Shut up, you yo-yos!'
 zag||Assorted||Hades - Dusa - 'Don't mess with Zagreus!'
 perfect||Assorted||Street Fighter 2 - 'PERFECT!'
-havesomepizza||Assorted||Dominos Miku CEO - "Once your pizza is delivered, have some F***ing pizza."
