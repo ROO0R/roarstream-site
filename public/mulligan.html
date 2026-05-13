@@ -403,6 +403,15 @@
       font-size: 13px;
       color: rgba(184,185,214,.85);
     }
+    .smallLink{
+      color: var(--accent3);
+      text-decoration: none;
+      transition: opacity .15s ease;
+    }
+    
+    .smallLink:hover{
+      opacity: .75;
+    }
     .versionTag{
       font-size: 12px;
       color: rgba(184,185,214,.65);
@@ -446,10 +455,11 @@
     <div class="side left" aria-hidden="true"></div>
 
     <main class="panel">
-      
+
+      <div class="topline">
         <h1 class="glowtext">Mulligan Mode</h1>
       </div>
-
+    
       <p class="subtitle">
         These rules are subject to change and abandonment at literally any time.<br>
       </p>
@@ -464,8 +474,7 @@
 
           <p>
             We play normally until <span class="highlight">first death</span>.<br>
-            Once that happens, <span class="highlight">Mulligan Mode</span> activates,
-            allowing <span class="highlight">one rewind</span> per life.
+            Once that happens, <span class="highlight">Mulligan Mode</span> activates.
           </p>
         </article>
 
@@ -476,10 +485,12 @@
           </div>
 
           <p>
+            Mulligan Mode <span class="highlight">allows for a rewind</span> to fix a mistake.
+            The only limit on how far back I can rewind is <span class="highlight">pride</span>.<br>
             Only <span class="highlight">one mulligan can be used per life</span>.
-            If I die again after using it, that's on me!!!
+            Dying again after using a Mulligan acts as a normal death.
             <br><br>
-            Terrible game physics or controller issues - <span class="highlight">like sliding into a pit or whatever</span> - is a free mulligan at any time.
+            Terrible game physics or controller issues - <span class="highlight">like accidentally sliding into a pit or glitching into the void</span> - is a free mulligan at any time.
           </p>
         </article>
 
