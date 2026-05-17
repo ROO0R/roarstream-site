@@ -372,4 +372,4 @@ yoyos||ATHF||'You're both yo-yos! Shut up, you yo-yos!'
 zag||Assorted||Hades - Dusa - 'Don't mess with Zagreus!'
 perfect||Assorted||Street Fighter 2 - 'PERFECT!'
 havesomepizza||Assorted||Domino's Miku CEO - 'Once your pizza is delivered, have some F***ing pizza.'
-memes||Beavis and Butthead||'A picture of a cat and some words. Genius.'
+memes||Beavis and Butthead||"A picture of a cat and some words. Genius."
