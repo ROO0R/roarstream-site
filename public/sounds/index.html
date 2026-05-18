@@ -111,6 +111,15 @@ background:rgba(255,255,255,.04);
 width:fit-content;
 margin-left:auto;
 margin-right:auto;
+flex-wrap:wrap;
+}
+
+.randomBtn{
+min-height:auto;
+padding:10px 14px;
+font-size:14px;
+width:auto;
+white-space:nowrap;
 }
 
 .infoPanel{
@@ -263,7 +272,6 @@ z-index:100;
 padding-top:10px;
 padding-bottom:14px;
 
-/* backdrop */
 background:linear-gradient(
 180deg,
 rgba(15,15,24,.96) 0%,
@@ -271,7 +279,6 @@ rgba(15,15,24,.92) 80%,
 rgba(15,15,24,0) 100%
 );
 
-/* optional blur */
 backdrop-filter:blur(10px);
 }
   
@@ -291,6 +298,10 @@ backdrop-filter:blur(10px);
   <div class="copyToggleWrap">
     <input type="checkbox" id="bangToggle" class="copyToggle">
     <label for="bangToggle">Add ! prefix to copy/paste</label>
+
+    <button id="randomBtn" class="cmd randomBtn">
+      🎲 Random Sound
+    </button>
   </div>
 
   <div id="infoPanel" class="infoPanel">
@@ -329,8 +340,10 @@ const sub = document.getElementById("subheadText");
 const bangToggle = document.getElementById("bangToggle");
 const searchInput = document.getElementById("searchInput");
 const infoPanel = document.getElementById("infoPanel");
+const randomBtn = document.getElementById("randomBtn");
 
 let allSounds = [];
+let currentFilteredSounds = [];
 let defaultSubhead = "";
 
 async function copyText(text) {
@@ -345,6 +358,7 @@ async function copyText(text) {
 function showCopyFeedback(el, originalSound, ok, copiedValue) {
   el.innerHTML = ok ? `Copied:<br>${copiedValue}` : `Copy failed`;
   el.classList.add("copied");
+
   setTimeout(() => {
     el.textContent = originalSound;
     el.classList.remove("copied");
@@ -352,25 +366,37 @@ function showCopyFeedback(el, originalSound, ok, copiedValue) {
 }
 
 function updateInfo(sound) {
-  const cleanDescription = (sound.description || "").replace(/^"+|"+$/g, "").trim();
+  const cleanDescription = (sound.description || "")
+    .replace(/^"+|"+$/g, "")
+    .trim();
+
   infoPanel.innerHTML = `
     <div class="name">${sound.name}</div>
+
     <div class="infoRow">
       <div class="infoLabel">Category</div>
-      <div class="infoValue"><span class="infoCategory">${sound.category || "Unknown"}</span></div>
+      <div class="infoValue">
+        <span class="infoCategory">
+          ${sound.category || "Unknown"}
+        </span>
+      </div>
     </div>
+
     <div class="infoRow">
       <div class="infoLabel">Description</div>
       <div class="infoValue" id="descText"></div>
     </div>
   `;
-  document.getElementById("descText").textContent = cleanDescription || "No description available.";
+
+  document.getElementById("descText").textContent =
+    cleanDescription || "No description available.";
 }
 
 function renderSounds(filter = "") {
   const query = filter.toLowerCase();
-  const filtered = !query
-    ? allSounds
+
+  currentFilteredSounds = !query
+    ? [...allSounds]
     : allSounds.filter(s =>
         (s.name || "").toLowerCase().includes(query) ||
         (s.description || "").toLowerCase().includes(query) ||
@@ -378,23 +404,62 @@ function renderSounds(filter = "") {
       );
 
   grid.innerHTML = "";
-  filtered.forEach(sound => {
+
+  currentFilteredSounds.forEach(sound => {
     const el = document.createElement("button");
+
     el.className = "cmd";
     el.textContent = sound.name;
+
     el.addEventListener("click", async () => {
       updateInfo(sound);
-      const copiedValue = bangToggle.checked ? `!${sound.name}` : sound.name;
+
+      const copiedValue = bangToggle.checked
+        ? `!${sound.name}`
+        : sound.name;
+
       const ok = await copyText(copiedValue);
+
       showCopyFeedback(el, sound.name, ok, copiedValue);
     });
+
     grid.appendChild(el);
   });
 
   sub.innerHTML = query
-    ? `${filtered.length} match${filtered.length === 1 ? "" : "es"}`
+    ? `${currentFilteredSounds.length} match${currentFilteredSounds.length === 1 ? "" : "es"}`
     : defaultSubhead;
 }
+
+randomBtn.addEventListener("click", async () => {
+  if (!currentFilteredSounds.length) return;
+
+  const sound =
+    currentFilteredSounds[
+      Math.floor(Math.random() * currentFilteredSounds.length)
+    ];
+
+  updateInfo(sound);
+
+  const copiedValue = bangToggle.checked
+    ? `!${sound.name}`
+    : sound.name;
+
+  const ok = await copyText(copiedValue);
+
+  const originalText = randomBtn.innerHTML;
+
+  randomBtn.innerHTML = ok
+    ? `Copied:<br>${copiedValue}`
+    : `Copy failed`;
+
+  randomBtn.classList.add("copied");
+
+  setTimeout(() => {
+    randomBtn.innerHTML = originalText;
+    randomBtn.classList.remove("copied");
+  }, 900);
+});
 
 function parse(text) {
   const sourceSounds = text
@@ -403,6 +468,7 @@ function parse(text) {
     .filter(Boolean)
     .map(line => {
       const parts = line.split("||");
+
       return {
         name: (parts[0] || "").replace(".ogg", "").trim(),
         category: (parts[1] || "Unknown").trim(),
@@ -414,20 +480,27 @@ function parse(text) {
   const total = sourceSounds.length;
   const latest = sourceSounds[sourceSounds.length - 1]?.name;
 
-  allSounds = sourceSounds.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+  allSounds = sourceSounds.sort((a, b) =>
+    a.name.localeCompare(b.name, undefined, { numeric: true })
+  );
 
-  defaultSubhead = `Click on a bubble to copy it for pasting into Twitch chat.\n\nLast Update: ${total} — <span class="latestSound">${latest}</span>`;
+  defaultSubhead =
+    `Click on a bubble to copy it for pasting into Twitch chat.\n\nLast Update: ${total} — <span class="latestSound">${latest}</span>`;
 
   renderSounds();
 
-  searchInput.addEventListener("input", e => renderSounds(e.target.value));
+  searchInput.addEventListener("input", e =>
+    renderSounds(e.target.value)
+  );
 }
 
 fetch("sounds.txt")
   .then(r => r.text())
   .then(text => parse(text))
   .catch(err => {
-    sub.textContent = "Failed to load sounds.txt — check the console.";
+    sub.textContent =
+      "Failed to load sounds.txt — check the console.";
+
     console.error(err);
   });
 </script>
