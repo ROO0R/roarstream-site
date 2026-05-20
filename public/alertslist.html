@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="/pacMM.png" type="image/png">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Roarstream Channel Point Alerts</title>
+
+<style>
+:root{
+--accent:#b45cff;
+--bg0:#06040c;
+--bg1:#12081c;
+--text:#f8f2ff;
+--muted:#d5bdf0;
+--border:rgba(255,255,255,.10);
+--shadow:0 18px 60px rgba(0,0,0,.55);
+--radius:20px;
+}
+
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+color:var(--text);
+
+background:
+radial-gradient(
+1200px 700px at 50% 20%,
+rgba(180,92,255,.22),
+transparent 55%
+),
+
+linear-gradient(
+180deg,
+var(--bg0),
+var(--bg1)
+);
+}
+
+.stage{
+min-height:100vh;
+display:grid;
+grid-template-columns:1fr minmax(320px,1100px) 1fr;
+padding:28px 18px;
+}
+
+.panel{
+background:linear-gradient(
+180deg,
+rgba(22,14,35,.95),
+rgba(14,9,22,.95)
+);
+
+border:1px solid var(--border);
+border-radius:var(--radius);
+
+box-shadow:var(--shadow);
+
+padding:30px;
+}
+
+.glowtext{
+text-align:center;
+font-size:52px;
+margin-bottom:8px;
+
+background:linear-gradient(
+90deg,
+#fff,
+#d6a5ff,
+#fff
+);
+
+-webkit-background-clip:text;
+color:transparent;
+}
+
+.subhead{
+text-align:center;
+color:var(--muted);
+margin-bottom:26px;
+font-size:16px;
+line-height:1.5;
+}
+
+.stickyTop{
+position:sticky;
+top:0;
+z-index:100;
+
+padding-top:10px;
+padding-bottom:16px;
+
+background:linear-gradient(
+180deg,
+rgba(14,9,22,.96) 0%,
+rgba(14,9,22,.92) 75%,
+rgba(14,9,22,0) 100%
+);
+
+backdrop-filter:blur(10px);
+}
+
+.searchWrap{
+display:flex;
+justify-content:center;
+margin-bottom:18px;
+}
+
+.searchInput{
+width:min(100%, 540px);
+
+padding:14px 16px;
+
+border-radius:16px;
+border:1px solid rgba(255,255,255,.10);
+
+background:rgba(255,255,255,.05);
+
+color:var(--text);
+font-size:15px;
+
+outline:none;
+
+box-shadow:0 6px 18px rgba(0,0,0,.20);
+}
+
+.searchInput::placeholder{
+color:var(--muted);
+}
+
+.searchInput:focus{
+border-color:rgba(214,165,255,.5);
+
+box-shadow:
+0 0 0 3px rgba(214,165,255,.10);
+}
+
+.topButtons{
+display:flex;
+justify-content:center;
+margin-bottom:18px;
+}
+
+.randomBtn{
+padding:12px 18px;
+
+border:none;
+border-radius:16px;
+
+cursor:pointer;
+
+font-size:15px;
+font-weight:700;
+
+color:white;
+
+background:linear-gradient(
+180deg,
+rgba(214,165,255,.28),
+rgba(180,92,255,.16)
+);
+
+border:1px solid rgba(214,165,255,.30);
+
+box-shadow:0 6px 18px rgba(0,0,0,.25);
+
+transition:all .15s ease;
+}
+
+.randomBtn:hover{
+transform:translateY(-2px);
+}
+
+.commandGrid{
+display:grid;
+grid-template-columns:repeat(3, 1fr);
+gap:14px;
+}
+
+@media (max-width:900px){
+.commandGrid{
+grid-template-columns:repeat(2,1fr);
+}
+}
+
+@media (max-width:600px){
+.commandGrid{
+grid-template-columns:1fr;
+}
+}
+
+.alertBtn{
+padding:18px 16px;
+
+border-radius:18px;
+
+background:linear-gradient(
+180deg,
+rgba(255,255,255,.07),
+rgba(255,255,255,.02)
+);
+
+border:1px solid rgba(255,255,255,.10);
+
+font-size:15px;
+font-weight:700;
+line-height:1.4;
+
+color:var(--text);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+text-align:center;
+
+min-height:78px;
+
+cursor:pointer;
+
+transition:all .15s ease;
+
+box-shadow:0 6px 18px rgba(0,0,0,.25);
+}
+
+.alertBtn:hover{
+transform:translateY(-2px);
+
+background:linear-gradient(
+180deg,
+rgba(214,165,255,.20),
+rgba(214,165,255,.05)
+);
+
+border-color:rgba(214,165,255,.35);
+}
+
+.alertBtn.copied{
+border-color:rgba(214,165,255,.85);
+
+background:linear-gradient(
+180deg,
+rgba(214,165,255,.30),
+rgba(214,165,255,.12)
+);
+}
+
+footer{
+margin-top:24px;
+
+border-top:1px solid rgba(255,255,255,.10);
+
+padding-top:12px;
+
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+.smallLink{
+color:var(--muted);
+text-decoration:none;
+margin-right:12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="stage">
+<main class="panel">
+
+<h1 class="glowtext">Channel Point Alerts</h1>
+
+<p class="subhead" id="subheadText">
+Click any alert to copy it instantly for Twitch chat.
+</p>
+
+<div class="stickyTop">
+
+<div class="topButtons">
+<button id="randomBtn" class="randomBtn">
+🎲 Random Alert
+</button>
+</div>
+
+<div class="searchWrap">
+<input
+type="text"
+id="searchInput"
+class="searchInput"
+placeholder="Search alerts..."
+>
+</div>
+
+</div>
+
+<div class="commandGrid" id="commandGrid"></div>
+
+<footer>
+<div>© Roarstream</div>
+
+<div>
+<a class="smallLink" href="https://www.roarstream.com">Back</a>
+<a class="smallLink" href="https://twitch.roarstream.com">Twitch</a>
+<a class="smallLink" href="https://youtube.roarstream.com">Youtube</a>
+</div>
+</footer>
+
+</main>
+</div>
+
+<script>
+const alerts = [
+"An Important Message...I love you (Freakazoid)",
+"Be Careful (GI Joe Parody)",
+"Be Very Disappointed",
+"Call a Scientist (Family Guy)",
+"Can You Like...shut up (Beavis and Butthead)",
+"Chip Shop Chewsday",
+"Deez Nuts. HAW GODDEM",
+"Degenerates (Fallout New Vegas)",
+"Do Jumps! WEEEE!!",
+"Do Your Part (Tim Robinson/Starship Trooper)",
+"Does Anyone Here Want to Look Like a Little Bitch? (Jontron)",
+"Dude, Check the News (Smiling Friends)",
+"Enough of that (Family Guy)```",
+"Escape From Capitalism (Tim Curry)",
+"FAILURE! (SSB)",
+"Fatniss, I'm Scared",
+"Foghead Leghorn 'Frying Chicken in there' Pee Bit",
+"Fucking Thing SUCKS!",
+"GAME OVER! (Street Fighter Movie)",
+"GEEEEEE (Bluey)",
+"Give Dog a Taco",
+"Give Dog a Treat",
+"Give Gandolf a Graham Cracker",
+"Good Luck Everybody Else (Family Guy Remix)",
+"Grab a Napkin (Family Guy)",
+"Grandpa Simpsons 'We Have Our Ways' Speech",
+"Hang Out With Me (Smiling Friends)",
+"Have a good old-fashioned 'cracker jack' off (Family Guy)",
+"I'm a Shark! (suck my dick)",
+"I've Got a Stock Here (cock?)",
+"If She Ain't 280, She Ain't a Lady",
+"Invest in a 401 Gay (Family Guy)",
+"Joe Pesci asks 'what is this piece of shit'",
+"Lois, I wanna go home (Family Guy)",
+"Looks Like They're Having a Lot of Fun (Birdemic 3)",
+"Love Someone's Hair (Ellen, Universe of Energy)",
+"Make It Rain (Vine)",
+"Make Some Beds (Futurama)",
+"MY DINGALING (The Simpsons)",
+"Nobody Cares (Dennise Nedry)",
+"Not Just a Watch (Superman)",
+"Please Clap (Jeb)",
+"POGGERS! (Chucky Cheese)",
+"Pour Fresh Milk into the Drain",
+"Purple the Evil Emperor (DBJ)",
+"Scissor Safety (South Park)",
+"Summon a REAL DRAGON",
+"Summon Pirates",
+"Turn it up to Hummingbird (Family Guy)",
+"TURN ON THE ORB!",
+"Use the Force (Star Wars 7)",
+"What is the charge? (Eating a meal? (A succullent chinese meal??)))",
+"WHAT? OH SHIT!",
+"Who's That Back There? (Obama)",
+"You don't want to be this (Marikplier)",
+"Yuna Won't Stop Dancing"
+];
+
+const grid = document.getElementById("commandGrid");
+const searchInput = document.getElementById("searchInput");
+const randomBtn = document.getElementById("randomBtn");
+const subhead = document.getElementById("subheadText");
+
+let currentAlerts = [...alerts];
+
+async function copyText(text){
+try{
+await navigator.clipboard.writeText(text);
+return true;
+}catch{
+return false;
+}
+}
+
+function renderAlerts(filter = ""){
+
+const query = filter.toLowerCase();
+
+currentAlerts = !query
+? [...alerts]
+: alerts.filter(alert =>
+alert.toLowerCase().includes(query)
+);
+
+grid.innerHTML = "";
+
+currentAlerts.forEach(alert => {
+
+const btn = document.createElement("button");
+
+btn.className = "alertBtn";
+btn.textContent = alert;
+
+btn.addEventListener("click", async () => {
+
+const ok = await copyText(alert);
+
+const original = alert;
+
+btn.innerHTML = ok
+? `Copied:<br>${alert}`
+: `Copy Failed`;
+
+btn.classList.add("copied");
+
+setTimeout(() => {
+btn.textContent = original;
+btn.classList.remove("copied");
+}, 900);
+
+});
+
+grid.appendChild(btn);
+
+});
+
+subhead.innerHTML = query
+? `${currentAlerts.length} match${currentAlerts.length === 1 ? "" : "es"}`
+: `Click any alert to copy it instantly for Twitch chat.<br><br>Total Alerts: ${alerts.length}`;
+}
+
+searchInput.addEventListener("input", e => {
+renderAlerts(e.target.value);
+});
+
+randomBtn.addEventListener("click", async () => {
+
+if(!currentAlerts.length) return;
+
+const randomAlert =
+currentAlerts[
+Math.floor(Math.random() * currentAlerts.length)
+];
+
+const ok = await copyText(randomAlert);
+
+const original = randomBtn.innerHTML;
+
+randomBtn.innerHTML = ok
+? `Copied:<br>${randomAlert}`
+: `Copy Failed`;
+
+randomBtn.classList.add("copied");
+
+setTimeout(() => {
+randomBtn.innerHTML = original;
+randomBtn.classList.remove("copied");
+}, 1000);
+
+});
+
+renderAlerts();
+</script>
+
+</body>
+</html>
