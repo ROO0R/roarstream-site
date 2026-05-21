@@ -345,6 +345,7 @@ const randomBtn = document.getElementById("randomBtn");
 let allSounds = [];
 let currentFilteredSounds = [];
 let defaultSubhead = "";
+let currentSelectedSound = null;
 
 async function copyText(text) {
   try {
@@ -365,7 +366,32 @@ function showCopyFeedback(el, originalSound, ok, copiedValue) {
   }, 900);
 }
 
+function buildSearchQuery(sound) {
+  const cleanDescription = (sound.description || "")
+    .replace(/^"+|"+$/g, "")
+    .replace(/^'+|'+$/g, "")
+    .replace(/[']/g, "")
+    .trim();
+
+  return `${sound.category} ${cleanDescription}`.trim();
+}
+
+function openSearches(sound) {
+  const query = encodeURIComponent(buildSearchQuery(sound));
+
+  const googleUrl =
+    `https://www.google.com/search?q=${query}`;
+
+  const youtubeUrl =
+    `https://www.youtube.com/results?search_query=${query}`;
+
+  window.open(googleUrl, "_blank");
+  window.open(youtubeUrl, "_blank");
+}
+
 function updateInfo(sound) {
+  currentSelectedSound = sound;
+
   const cleanDescription = (sound.description || "")
     .replace(/^"+|"+$/g, "")
     .trim();
@@ -386,10 +412,22 @@ function updateInfo(sound) {
       <div class="infoLabel">Description</div>
       <div class="infoValue" id="descText"></div>
     </div>
+
+    <div style="text-align:center; margin-top:16px;">
+      <button id="searchSourceBtn" class="cmd randomBtn">
+        🔎 Search Source
+      </button>
+    </div>
   `;
 
   document.getElementById("descText").textContent =
     cleanDescription || "No description available.";
+
+  const searchBtn = document.getElementById("searchSourceBtn");
+
+  searchBtn.addEventListener("click", () => {
+    openSearches(sound);
+  });
 }
 
 function renderSounds(filter = "") {
