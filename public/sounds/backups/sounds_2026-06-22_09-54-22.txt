@@ -390,4 +390,3 @@ yourdad||Rick and Morty||'You're so MEAN today. I'm your DAD. You LIKE having me
 youropinion||Assorted||Borderlands 2 - Claptrap - 'I respect your opinion!'
 yoyos||ATHF||'You're both yo-yos! Shut up, you yo-yos!'
 zag||Assorted||Hades - Dusa - 'Don't mess with Zagreus!'
-hatethem||Futurama||'Tell them I hate them.'
