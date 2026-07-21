@@ -400,4 +400,3 @@ goofymask||The Muppets||'Look at the guy in the Goofy mask!' 'That's not a mask.
 feelingsforyou||Assorted||'She has nothing but feelings for you!' 'She LOVES you, dear boy, go GET her!' 'She's waitin' on you, son!'
 grandpa||Rick and Morty||'Ugggh...everyone wants Grandpa's help, but nobody wants grandpa.'
 goofyscream||Assorted||Goofy Scream - 'Yahooooohooey!'
-weird||Deltarune||Deltarune Weird Route Stinger
