@@ -248,6 +248,40 @@
       display:inline-block;
     }
 
+    /* ===== Streaming tonight banner ===== */
+    .streamBanner{
+      margin: 22px 0 6px;
+      padding: 18px 16px;
+      border-radius: 18px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow: 0 14px 46px rgba(0,0,0,.40);
+    }
+    .streamBanner h2{
+      margin: 0 0 8px;
+      font-size: clamp(22px, 4vw, 40px);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      text-shadow: 0 8px 26px rgba(0,0,0,.55);
+    }
+    .streamAnswer{
+      font-size: clamp(36px, 7vw, 72px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .streamAnswer.yes{
+      color: #7ee2a8;
+      text-shadow: 0 0 30px rgba(126,226,168,.65), 0 0 60px rgba(47,138,77,.35);
+    }
+    .streamAnswer.no{
+      color: #ff8080;
+      text-shadow: 0 0 30px rgba(255,77,77,.5), 0 0 60px rgba(184,0,0,.3);
+    }
+
     /* Schedule image framing */
     .frame{
       margin-top: 6px;
@@ -491,6 +525,12 @@
               Sound Alerts
             </a>
           </div>
+        </div>
+
+        <section class="streamBanner" aria-label="Is Roar streaming tonight banner">
+          <h2 class="glowtext">IS ROAR STREAMING TONIGHT????</h2>
+          <div id="streamAnswer" class="streamAnswer">…</div>
+        </section>
   
         <section class="frame" aria-label="Stream schedule image">
           <a href="https://twitch.roarstream.com" target="_blank" rel="noopener noreferrer">
@@ -510,7 +550,7 @@
             <a class="smallLink" href="https://stt.gg/MXWfzX1w" target="_blank" rel="noopener noreferrer">Stoat</a>
             <a class="smallLink" href="https://bluesky.roarstream.com" target="_blank" rel="noopener noreferrer">Blusky</a>
             <a class="smallLink" href="https://www.roarstream.com/credits.html">Credits</a>
-            <span class="versionTag">v21</span>
+            <span class="versionTag">v22</span>
           </div>
         </footer>
       </main>
@@ -546,6 +586,24 @@
   
     check();                 // run immediately
     setInterval(check, 60000); // re-check every 60 seconds
+  })();
+  </script>
+
+  <script>
+  (function(){
+    // Days Roar streams: Monday, Wednesday, Friday, Saturday
+    const streamingDays = [1, 3, 5, 6]; // 0=Sun,1=Mon,2=Tue,3=Wed,4=Thu,5=Fri,6=Sat
+    const el = document.getElementById("streamAnswer");
+    if (!el) return;
+
+    const today = new Date().getDay();
+    if (streamingDays.includes(today)) {
+      el.textContent = "YEA :)";
+      el.classList.add("yes");
+    } else {
+      el.textContent = "NO :(";
+      el.classList.add("no");
+    }
   })();
   </script>
 </html>
