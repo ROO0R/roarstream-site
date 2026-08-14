@@ -1,0 +1,2178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python Script Library</title>
+
+  <style>
+    /* =========================================================
+       PYTHON SCRIPT LIBRARY
+       Self-contained HTML template
+       ========================================================= */
+
+    :root {
+      --accent: #1f6f3a;
+      --accent2: #2f8a4d;
+      --accent3: #7ee2a8;
+
+      --bg0: #05070a;
+      --bg1: #070d0a;
+
+      --panel: #0f1411;
+      --panel2: #141d16;
+
+      --text: #f3fff7;
+      --muted: #b8d6c3;
+
+      --border: rgba(255, 255, 255, 0.12);
+      --border-hover: rgba(126, 226, 168, 0.30);
+
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+
+      font-family:
+        "Segoe UI",
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        sans-serif;
+
+      color: var(--text);
+
+      background:
+        radial-gradient(
+          1200px 700px at 50% 10%,
+          rgba(31, 111, 58, 0.25),
+          transparent 55%
+        ),
+        radial-gradient(
+          900px 600px at 10% 85%,
+          rgba(126, 226, 168, 0.10),
+          transparent 60%
+        ),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+
+      overflow-x: hidden;
+    }
+
+    /* =========================================================
+       BACKGROUND DECORATION
+       ========================================================= */
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+
+      pointer-events: none;
+
+      background:
+        linear-gradient(
+          rgba(255,255,255,0.015) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,0.015) 1px,
+          transparent 1px
+        );
+
+      background-size: 48px 48px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black,
+          transparent 85%
+        );
+
+      z-index: -1;
+    }
+
+    /* =========================================================
+       MAIN STAGE
+       ========================================================= */
+
+    .stage {
+      width: min(1180px, 100%);
+      min-height: 100vh;
+
+      margin: 0 auto;
+
+      padding:
+        32px
+        18px
+        50px;
+    }
+
+    /* =========================================================
+       MAIN PANEL
+       ========================================================= */
+
+    .panel {
+      width: 100%;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(20, 20, 39, 0.94),
+          rgba(15, 15, 24, 0.94)
+        );
+
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        var(--radius);
+
+      box-shadow:
+        var(--shadow);
+
+      padding:
+        clamp(22px, 4vw, 44px);
+
+      position: relative;
+
+      overflow: hidden;
+
+      backdrop-filter: blur(10px);
+    }
+
+    .panel::before {
+      content: "";
+
+      position: absolute;
+
+      width: 520px;
+      height: 520px;
+
+      left: -180px;
+      top: -240px;
+
+      background:
+        radial-gradient(
+          circle at 30% 30%,
+          rgba(47, 138, 77, 0.28),
+          transparent 60%
+        );
+
+      pointer-events: none;
+    }
+
+    .panel::after {
+      content: "";
+
+      position: absolute;
+
+      width: 520px;
+      height: 520px;
+
+      right: -220px;
+      bottom: -260px;
+
+      background:
+        radial-gradient(
+          circle at 60% 60%,
+          rgba(126, 226, 168, 0.14),
+          transparent 62%
+        );
+
+      pointer-events: none;
+    }
+
+    /* =========================================================
+       HEADER
+       ========================================================= */
+
+    .topline {
+      position: relative;
+      z-index: 1;
+
+      text-align: center;
+
+      margin-bottom: 28px;
+    }
+
+    .badge {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 8px;
+
+      padding: 8px 14px;
+
+      border-radius: 999px;
+
+      border:
+        1px solid
+        rgba(126, 226, 168, 0.25);
+
+      background:
+        rgba(126, 226, 168, 0.08);
+
+      color: var(--muted);
+
+      font-size: 13px;
+
+      letter-spacing: 0.08em;
+
+      text-transform: uppercase;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+
+      border-radius: 50%;
+
+      background:
+        var(--accent3);
+
+      box-shadow:
+        0 0 18px
+        rgba(126, 226, 168, 0.9);
+    }
+
+    h1 {
+      margin:
+        18px
+        0
+        10px;
+
+      font-size:
+        clamp(42px, 7vw, 84px);
+
+      line-height: 1.05;
+
+      letter-spacing: -0.045em;
+
+      text-shadow:
+        0 10px 34px
+        rgba(0, 0, 0, 0.55);
+    }
+
+    .glowtext {
+      background:
+        linear-gradient(
+          90deg,
+          #ffffff 0%,
+          #c9ffe0 35%,
+          #2f8a4d 60%,
+          #ffffff 100%
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+
+      color: transparent;
+
+      filter:
+        drop-shadow(
+          0 0 18px
+          rgba(31, 111, 58, 0.22)
+        );
+    }
+
+    .subtitle {
+      max-width: 760px;
+
+      margin:
+        0 auto;
+
+      color: var(--muted);
+
+      font-size: 18px;
+
+      line-height: 1.65;
+    }
+
+    /* =========================================================
+       STAT BAR
+       ========================================================= */
+
+    .stats {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 12px;
+
+      margin:
+        28px
+        0;
+    }
+
+    .stat {
+      padding: 16px;
+
+      text-align: center;
+
+      border-radius: 16px;
+
+      background:
+        rgba(255, 255, 255, 0.035);
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+    }
+
+    .statValue {
+      display: block;
+
+      font-size: 28px;
+
+      font-weight: 800;
+
+      color: white;
+    }
+
+    .statLabel {
+      display: block;
+
+      margin-top: 4px;
+
+      font-size: 12px;
+
+      letter-spacing: 0.08em;
+
+      text-transform: uppercase;
+
+      color: var(--muted);
+    }
+
+    /* =========================================================
+       TOOLBAR
+       ========================================================= */
+
+    .toolbar {
+      display: flex;
+
+      gap: 12px;
+
+      align-items: center;
+
+      flex-wrap: wrap;
+
+      margin:
+        28px
+        0;
+    }
+
+    .search {
+      flex: 1 1 280px;
+
+      position: relative;
+    }
+
+    .search input {
+      width: 100%;
+
+      padding:
+        14px
+        18px;
+
+      border-radius: 14px;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.10);
+
+      background:
+        rgba(0, 0, 0, 0.28);
+
+      color: white;
+
+      outline: none;
+
+      font-size: 15px;
+
+      transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+    }
+
+    .search input:focus {
+      border-color:
+        var(--border-hover);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(126, 226, 168, 0.07);
+    }
+
+    .filter {
+      padding:
+        14px
+        16px;
+
+      border-radius: 14px;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.10);
+
+      background:
+        rgba(0, 0, 0, 0.28);
+
+      color: white;
+
+      outline: none;
+
+      cursor: pointer;
+    }
+
+    .filter option {
+      background: #101712;
+    }
+
+    /* =========================================================
+       SECTION HEADER
+       ========================================================= */
+
+    .sectionHeader {
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      gap: 12px;
+
+      margin:
+        34px
+        0
+        16px;
+    }
+
+    .sectionHeader h2 {
+      margin: 0;
+
+      font-size: 28px;
+
+      letter-spacing: -0.03em;
+    }
+
+    .sectionHeader span {
+      color: var(--muted);
+
+      font-size: 13px;
+    }
+
+    /* =========================================================
+       SCRIPT GRID
+       ========================================================= */
+
+    .scriptGrid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 18px;
+
+      position: relative;
+
+      z-index: 1;
+    }
+
+    /* =========================================================
+       SCRIPT CARD
+       ========================================================= */
+
+    .scriptCard {
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.055),
+          rgba(255, 255, 255, 0.018)
+        );
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.10);
+
+      border-radius: 18px;
+
+      padding: 22px;
+
+      box-shadow:
+        0 12px 30px
+        rgba(0, 0, 0, 0.30);
+
+      transition:
+        transform 0.15s ease,
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+
+      overflow: hidden;
+    }
+
+    .scriptCard:hover {
+      transform:
+        translateY(-3px);
+
+      border-color:
+        var(--border-hover);
+
+      box-shadow:
+        0 16px 38px
+        rgba(0, 0, 0, 0.42);
+    }
+
+    .scriptCard.hidden {
+      display: none;
+    }
+
+    /* =========================================================
+       CARD HEADER
+       ========================================================= */
+
+    .scriptTop {
+      display: flex;
+
+      align-items: flex-start;
+
+      justify-content: space-between;
+
+      gap: 14px;
+    }
+
+    .scriptTitleArea {
+      min-width: 0;
+    }
+
+    .scriptName {
+      margin: 0;
+
+      font-size: 25px;
+
+      line-height: 1.15;
+
+      letter-spacing: -0.025em;
+    }
+
+    .filename {
+      margin-top: 7px;
+
+      color:
+        var(--accent3);
+
+      font-family:
+        Consolas,
+        "Courier New",
+        monospace;
+
+      font-size: 13px;
+
+      word-break: break-all;
+    }
+
+    .status {
+      flex-shrink: 0;
+
+      padding:
+        6px
+        10px;
+
+      border-radius: 999px;
+
+      font-size: 11px;
+
+      font-weight: 700;
+
+      letter-spacing: 0.06em;
+
+      text-transform: uppercase;
+
+      border:
+        1px solid
+        rgba(126, 226, 168, 0.20);
+
+      background:
+        rgba(126, 226, 168, 0.08);
+
+      color:
+        var(--accent3);
+    }
+
+    .status.experimental {
+      color: #ffd98a;
+
+      border-color:
+        rgba(255, 217, 138, 0.25);
+
+      background:
+        rgba(255, 217, 138, 0.08);
+    }
+
+    .status.archived {
+      color: #b6bec0;
+
+      border-color:
+        rgba(182, 190, 192, 0.20);
+
+      background:
+        rgba(182, 190, 192, 0.06);
+    }
+
+    /* =========================================================
+       DESCRIPTION
+       ========================================================= */
+
+    .description {
+      color: var(--muted);
+
+      font-size: 15px;
+
+      line-height: 1.65;
+
+      margin:
+        16px
+        0;
+    }
+
+    /* =========================================================
+       TAGS
+       ========================================================= */
+
+    .tags {
+      display: flex;
+
+      gap: 7px;
+
+      flex-wrap: wrap;
+
+      margin:
+        14px
+        0;
+    }
+
+    .tag {
+      padding:
+        5px
+        9px;
+
+      border-radius: 8px;
+
+      background:
+        rgba(126, 226, 168, 0.07);
+
+      border:
+        1px solid
+        rgba(126, 226, 168, 0.13);
+
+      color:
+        var(--muted);
+
+      font-size: 11px;
+    }
+
+    /* =========================================================
+       DETAILS
+       ========================================================= */
+
+    details {
+      margin-top: 16px;
+
+      border-top:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+
+      padding-top: 14px;
+    }
+
+    summary {
+      cursor: pointer;
+
+      color:
+        var(--accent3);
+
+      font-size: 14px;
+
+      font-weight: 700;
+
+      user-select: none;
+    }
+
+    .detailsContent {
+      padding-top: 15px;
+    }
+
+    .detailBlock {
+      margin-bottom: 17px;
+    }
+
+    .detailBlock:last-child {
+      margin-bottom: 0;
+    }
+
+    .detailLabel {
+      display: block;
+
+      margin-bottom: 6px;
+
+      color: white;
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      letter-spacing: 0.08em;
+
+      text-transform: uppercase;
+    }
+
+    .detailText {
+      color: var(--muted);
+
+      font-size: 14px;
+
+      line-height: 1.6;
+    }
+
+    /* =========================================================
+       CODE BLOCK
+       ========================================================= */
+
+    pre {
+      margin:
+        10px
+        0
+        0;
+
+      padding: 15px;
+
+      overflow-x: auto;
+
+      border-radius: 12px;
+
+      background:
+        rgba(0, 0, 0, 0.45);
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.07);
+
+      color:
+        #d9ffe7;
+
+      font-family:
+        Consolas,
+        "Courier New",
+        monospace;
+
+      font-size: 12px;
+
+      line-height: 1.55;
+    }
+
+    /* =========================================================
+       QUICK ACTIONS
+       ========================================================= */
+
+    .actions {
+      display: flex;
+
+      gap: 8px;
+
+      flex-wrap: wrap;
+
+      margin-top: 18px;
+    }
+
+    .button {
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding:
+        9px
+        13px;
+
+      border-radius: 10px;
+
+      border:
+        1px solid
+        rgba(126, 226, 168, 0.18);
+
+      background:
+        rgba(126, 226, 168, 0.07);
+
+      color:
+        var(--accent3);
+
+      text-decoration: none;
+
+      font-size: 12px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition:
+        background 0.15s ease,
+        transform 0.15s ease;
+    }
+
+    .button:hover {
+      background:
+        rgba(126, 226, 168, 0.13);
+
+      transform:
+        translateY(-1px);
+    }
+
+    /* =========================================================
+       EMPTY STATE
+       ========================================================= */
+
+    .empty {
+      display: none;
+
+      padding: 40px 20px;
+
+      text-align: center;
+
+      border-radius: 18px;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+
+      color: var(--muted);
+    }
+
+    .empty.visible {
+      display: block;
+    }
+
+    /* =========================================================
+       ADDING NEW SCRIPTS
+       ========================================================= */
+
+    .templateHelp {
+      margin-top: 28px;
+
+      padding: 22px;
+
+      border-radius: 18px;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(126, 226, 168, 0.10),
+          rgba(47, 138, 77, 0.05)
+        );
+
+      border:
+        1px solid
+        rgba(126, 226, 168, 0.18);
+    }
+
+    .templateHelp h2 {
+      margin:
+        0
+        0
+        10px;
+
+      font-size: 25px;
+    }
+
+    .templateHelp p {
+      margin: 0;
+
+      color: var(--muted);
+
+      line-height: 1.7;
+
+      font-size: 15px;
+    }
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+
+    footer {
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      flex-wrap: wrap;
+
+      gap: 12px;
+
+      margin-top: 24px;
+
+      padding-top: 16px;
+
+      border-top:
+        1px solid
+        rgba(255, 255, 255, 0.10);
+
+      color:
+        rgba(184, 185, 214, 0.95);
+
+      font-size: 13px;
+    }
+
+    .footerLinks {
+      display: flex;
+
+      gap: 12px;
+
+      flex-wrap: wrap;
+    }
+
+    .footerLinks a {
+      color:
+        var(--accent3);
+
+      text-decoration: none;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    @media (max-width: 800px) {
+      .scriptGrid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .stage {
+        padding:
+          15px
+          10px
+          30px;
+      }
+
+      .panel {
+        padding:
+          20px
+          15px;
+      }
+
+      .scriptTop {
+        flex-direction: column;
+      }
+
+      .status {
+        align-self: flex-start;
+      }
+
+      h1 {
+        font-size: 44px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="stage">
+
+    <main class="panel">
+
+      <!-- =====================================================
+           HEADER
+           ===================================================== -->
+
+      <header class="topline">
+
+        <div class="badge">
+          <span class="dot"></span>
+          Python Script Repository
+        </div>
+
+        <h1 class="glowtext">
+          Script Library
+        </h1>
+
+        <p class="subtitle">
+          A living collection of Python utilities, applications,
+          experiments, automation tools, and questionable ideas
+          that somehow became useful.
+        </p>
+
+      </header>
+
+
+      <!-- =====================================================
+           LIBRARY STATISTICS
+           ===================================================== -->
+
+      <section class="stats">
+
+        <div class="stat">
+          <span
+            class="statValue"
+            id="scriptCount"
+          >
+            0
+          </span>
+
+          <span class="statLabel">
+            Scripts
+          </span>
+        </div>
+
+        <div class="stat">
+          <span
+            class="statValue"
+            id="categoryCount"
+          >
+            0
+          </span>
+
+          <span class="statLabel">
+            Categories
+          </span>
+        </div>
+
+        <div class="stat">
+          <span
+            class="statValue"
+            id="visibleCount"
+          >
+            0
+          </span>
+
+          <span class="statLabel">
+            Showing
+          </span>
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           SEARCH / FILTER
+           ===================================================== -->
+
+      <section class="toolbar">
+
+        <div class="search">
+
+          <input
+            type="search"
+            id="searchInput"
+            placeholder="Search scripts, descriptions, features, tags..."
+            autocomplete="off"
+          />
+
+        </div>
+
+        <select
+          id="categoryFilter"
+          class="filter"
+        >
+
+          <option value="all">
+            All Categories
+          </option>
+
+        </select>
+
+        <select
+          id="statusFilter"
+          class="filter"
+        >
+
+          <option value="all">
+            All Statuses
+          </option>
+
+          <option value="stable">
+            Stable
+          </option>
+
+          <option value="experimental">
+            Experimental
+          </option>
+
+          <option value="archived">
+            Archived
+          </option>
+
+        </select>
+
+      </section>
+
+
+      <!-- =====================================================
+           SCRIPT COLLECTION
+           ===================================================== -->
+
+      <div class="sectionHeader">
+
+        <h2>
+          Python Scripts
+        </h2>
+
+        <span id="resultText">
+          Loading...
+        </span>
+
+      </div>
+
+
+      <section
+        class="scriptGrid"
+        id="scriptGrid"
+      >
+
+
+        <!-- ===================================================
+             SAMPLE SCRIPT #1
+             COPY THIS ENTIRE ARTICLE TO ADD ANOTHER SCRIPT
+             =================================================== -->
+
+        <article
+          class="scriptCard"
+          data-category="automation"
+          data-status="stable"
+          data-search="
+            file organizer
+            fileorganizer.py
+            automation
+            files
+            folders
+            organize
+            automatically sort files
+            desktop
+          "
+        >
+
+          <div class="scriptTop">
+
+            <div class="scriptTitleArea">
+
+              <h3 class="scriptName">
+                Smart File Organizer
+              </h3>
+
+              <div class="filename">
+                file_organizer.py
+              </div>
+
+            </div>
+
+            <div class="status">
+              Stable
+            </div>
+
+          </div>
+
+
+          <p class="description">
+            Automatically sorts files into categorized folders
+            based on their extensions. Useful for cleaning up
+            Downloads, Desktop, screenshots, project folders,
+            and other cluttered directories.
+          </p>
+
+
+          <div class="tags">
+
+            <span class="tag">
+              Automation
+            </span>
+
+            <span class="tag">
+              Files
+            </span>
+
+            <span class="tag">
+              Utility
+            </span>
+
+          </div>
+
+
+          <details>
+
+            <summary>
+              View script information
+            </summary>
+
+            <div class="detailsContent">
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Purpose
+                </span>
+
+                <div class="detailText">
+                  Reduce repetitive file-management work by
+                  automatically determining where files belong.
+                </div>
+
+              </div>
+
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Features
+                </span>
+
+                <div class="detailText">
+                  Creates missing folders, detects common file
+                  types, avoids overwriting existing files, and
+                  reports what it moved.
+                </div>
+
+              </div>
+
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Requirements
+                </span>
+
+                <div class="detailText">
+                  Python 3.10+.
+                  No external pip packages required.
+                </div>
+
+              </div>
+
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Usage
+                </span>
+
+                <pre>python file_organizer.py</pre>
+
+              </div>
+
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Example
+                </span>
+
+                <pre>python file_organizer.py --folder "C:\Users\JB\Downloads"</pre>
+
+              </div>
+
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Notes
+                </span>
+
+                <div class="detailText">
+                  Example entry only. Replace this information
+                  with the actual behavior of your script.
+                </div>
+
+              </div>
+
+
+              <div class="actions">
+
+                <button
+                  class="button copyButton"
+                  data-copy="python file_organizer.py"
+                >
+                  Copy Run Command
+                </button>
+
+              </div>
+
+            </div>
+
+          </details>
+
+        </article>
+
+
+        <!-- ===================================================
+             SAMPLE SCRIPT #2
+             =================================================== -->
+
+        <article
+          class="scriptCard"
+          data-category="gui"
+          data-status="stable"
+          data-search="
+            image resizer
+            image_resizer.py
+            gui
+            tkinter
+            images
+            resize
+            batch
+            photo
+          "
+        >
+
+          <div class="scriptTop">
+
+            <div class="scriptTitleArea">
+
+              <h3 class="scriptName">
+                Batch Image Resizer
+              </h3>
+
+              <div class="filename">
+                image_resizer.py
+              </div>
+
+            </div>
+
+            <div class="status">
+              Stable
+            </div>
+
+          </div>
+
+
+          <p class="description">
+            A simple desktop GUI for resizing multiple images
+            at once while preserving their aspect ratios.
+          </p>
+
+
+          <div class="tags">
+
+            <span class="tag">
+              GUI
+            </span>
+
+            <span class="tag">
+              Images
+            </span>
+
+            <span class="tag">
+              Tkinter
+            </span>
+
+          </div>
+
+
+          <details>
+
+            <summary>
+              View script information
+            </summary>
+
+            <div class="detailsContent">
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Purpose
+                </span>
+
+                <div class="detailText">
+                  Quickly process large batches of images without
+                  manually opening each file in an image editor.
+                </div>
+
+              </div>
+
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Features
+                </span>
+
+                <div class="detailText">
+                  Folder selection, batch processing, width and
+                  height controls, aspect-ratio preservation,
+                  and output-folder selection.
+                </div>
+
+              </div>
+
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Requirements
+                </span>
+
+                <div class="detailText">
+                  Python 3.10+ and Pillow.
+                </div>
+
+              </div>
+
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Installation
+                </span>
+
+                <pre>pip install pillow</pre>
+
+              </div>
+
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Usage
+                </span>
+
+                <pre>python image_resizer.py</pre>
+
+              </div>
+
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Notes
+                </span>
+
+                <div class="detailText">
+                  This is a placeholder description demonstrating
+                  how GUI-based Python applications can be documented.
+                </div>
+
+              </div>
+
+
+              <div class="actions">
+
+                <button
+                  class="button copyButton"
+                  data-copy="pip install pillow"
+                >
+                  Copy Install Command
+                </button>
+
+                <button
+                  class="button copyButton"
+                  data-copy="python image_resizer.py"
+                >
+                  Copy Run Command
+                </button>
+
+              </div>
+
+            </div>
+
+          </details>
+
+        </article>
+
+
+        <!-- ===================================================
+             SAMPLE SCRIPT #3
+             =================================================== -->
+
+        <article
+          class="scriptCard"
+          data-category="music"
+          data-status="experimental"
+          data-search="
+            music generator
+            music_generator.py
+            strudel
+            browser
+            randomizer
+            techno
+            music
+            experimental
+          "
+        >
+
+          <div class="scriptTop">
+
+            <div class="scriptTitleArea">
+
+              <h3 class="scriptName">
+                Full Song Randomizer
+              </h3>
+
+              <div class="filename">
+                music_generator.py
+              </div>
+
+            </div>
+
+            <div class="status experimental">
+              Experimental
+            </div>
+
+          </div>
+
+
+          <p class="description">
+            Generates a randomized full-length musical arrangement,
+            including intro, lead-ins, verses, choruses, breaks,
+            transitions, and an outro, then sends the resulting
+            material to a browser-based music environment.
+          </p>
+
+
+          <div class="tags">
+
+            <span class="tag">
+              Music
+            </span>
+
+            <span class="tag">
+              Randomization
+            </span>
+
+            <span class="tag">
+              Browser
+            </span>
+
+            <span class="tag">
+              Strudel
+            </span>
+
+          </div>
+
+
+          <details>
+
+            <summary>
+              View script information
+            </summary>
+
+            <div class="detailsContent">
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Purpose
+                </span>
+
+                <div class="detailText">
+                  Produce complete randomized musical arrangements
+                  rather than generating isolated loops.
+                </div>
+
+              </div>
+
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Features
+                </span>
+
+                <div class="detailText">
+                  Full-song structure, randomized sections,
+                  transitions, browser launching, and browser
+                  recovery behavior.
+                </div>
+
+              </div>
+
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Requirements
+                </span>
+
+                <div class="detailText">
+                  Python 3.10+. Additional packages depend on the
+                  implementation and browser automation method.
+                </div>
+
+              </div>
+
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Usage
+                </span>
+
+                <pre>python music_generator.py</pre>
+
+              </div>
+
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Output
+                </span>
+
+                <div class="detailText">
+                  Generates a randomized arrangement and opens
+                  the appropriate browser environment.
+                </div>
+
+              </div>
+
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Notes
+                </span>
+
+                <div class="detailText">
+                  Experimental example entry. Update this section
+                  with the actual implementation details, supported
+                  browsers, package requirements, and known issues.
+                </div>
+
+              </div>
+
+            </div>
+
+          </details>
+
+        </article>
+
+
+        <!-- ===================================================
+             SAMPLE SCRIPT #4
+             =================================================== -->
+
+        <article
+          class="scriptCard"
+          data-category="utilities"
+          data-status="archived"
+          data-search="
+            system report
+            system_report.py
+            utility
+            hardware
+            diagnostics
+            cpu
+            ram
+            disk
+            archived
+          "
+        >
+
+          <div class="scriptTop">
+
+            <div class="scriptTitleArea">
+
+              <h3 class="scriptName">
+                System Report Generator
+              </h3>
+
+              <div class="filename">
+                system_report.py
+              </div>
+
+            </div>
+
+            <div class="status archived">
+              Archived
+            </div>
+
+          </div>
+
+
+          <p class="description">
+            Generates a human-readable report containing basic
+            system and hardware information for troubleshooting
+            and documentation.
+          </p>
+
+
+          <div class="tags">
+
+            <span class="tag">
+              Utility
+            </span>
+
+            <span class="tag">
+              Diagnostics
+            </span>
+
+            <span class="tag">
+              Hardware
+            </span>
+
+          </div>
+
+
+          <details>
+
+            <summary>
+              View script information
+            </summary>
+
+            <div class="detailsContent">
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Purpose
+                </span>
+
+                <div class="detailText">
+                  Provide a quick snapshot of the machine on which
+                  the script is executed.
+                </div>
+
+              </div>
+
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Requirements
+                </span>
+
+                <div class="detailText">
+                  Python 3.10+. Example implementation may use
+                  platform-specific functionality.
+                </div>
+
+              </div>
+
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Usage
+                </span>
+
+                <pre>python system_report.py</pre>
+
+              </div>
+
+
+              <div class="detailBlock">
+
+                <span class="detailLabel">
+                  Status
+                </span>
+
+                <div class="detailText">
+                  Archived example. Retained in the library for
+                  reference but no longer actively maintained.
+                </div>
+
+              </div>
+
+            </div>
+
+          </details>
+
+        </article>
+
+
+      </section>
+
+
+      <!-- EMPTY SEARCH RESULT -->
+
+      <div
+        class="empty"
+        id="emptyState"
+      >
+        No scripts matched your search.
+      </div>
+
+
+      <!-- =====================================================
+           TEMPLATE INSTRUCTIONS
+           ===================================================== -->
+
+      <section class="templateHelp">
+
+        <h2 class="glowtext">
+          Adding A New Script
+        </h2>
+
+        <p>
+          Duplicate any
+          <strong>scriptCard</strong>
+          above and replace the example information with your
+          script's details. Set
+          <strong>data-category</strong>,
+          <strong>data-status</strong>,
+          and
+          <strong>data-search</strong>
+          so the built-in search and filters automatically include
+          the new entry.
+        </p>
+
+      </section>
+
+
+      <!-- =====================================================
+           FOOTER
+           ===================================================== -->
+
+      <footer>
+
+        <div>
+          Python Script Library
+          <span style="opacity:.6;">
+            • Living Documentation
+          </span>
+        </div>
+
+        <div class="footerLinks">
+
+          <a href="#">
+            Top
+          </a>
+
+          <a href="#">
+            Scripts
+          </a>
+
+          <a href="#">
+            Documentation
+          </a>
+
+        </div>
+
+      </footer>
+
+    </main>
+
+  </div>
+
+
+  <!-- =========================================================
+       JAVASCRIPT
+       ========================================================= -->
+
+  <script>
+
+    /*
+     * ==========================================================
+     * PYTHON SCRIPT LIBRARY ENGINE
+     * ==========================================================
+     *
+     * The HTML contains the actual script records.
+     *
+     * JavaScript handles:
+     *
+     *   - Search
+     *   - Category filtering
+     *   - Status filtering
+     *   - Statistics
+     *   - Copy buttons
+     *
+     * No external libraries are required.
+     * ==========================================================
+     */
+
+
+    const scriptCards = [
+      ...document.querySelectorAll(".scriptCard")
+    ];
+
+    const searchInput =
+      document.getElementById("searchInput");
+
+    const categoryFilter =
+      document.getElementById("categoryFilter");
+
+    const statusFilter =
+      document.getElementById("statusFilter");
+
+    const scriptCount =
+      document.getElementById("scriptCount");
+
+    const categoryCount =
+      document.getElementById("categoryCount");
+
+    const visibleCount =
+      document.getElementById("visibleCount");
+
+    const resultText =
+      document.getElementById("resultText");
+
+    const emptyState =
+      document.getElementById("emptyState");
+
+
+    /* ==========================================================
+       INITIALIZE STATISTICS
+       ========================================================== */
+
+    function initializeLibrary() {
+
+      /*
+       * Count scripts.
+       */
+
+      scriptCount.textContent =
+        scriptCards.length;
+
+
+      /*
+       * Determine unique categories.
+       */
+
+      const categories =
+        new Set();
+
+      scriptCards.forEach(card => {
+
+        const category =
+          card.dataset.category;
+
+        if (category) {
+          categories.add(category);
+        }
+
+      });
+
+
+      categoryCount.textContent =
+        categories.size;
+
+
+      /*
+       * Populate category dropdown.
+       */
+
+      [...categories]
+        .sort()
+        .forEach(category => {
+
+          const option =
+            document.createElement("option");
+
+          option.value =
+            category;
+
+          option.textContent =
+            formatCategory(category);
+
+          categoryFilter.appendChild(option);
+
+        });
+
+
+      updateLibrary();
+
+    }
+
+
+    /* ==========================================================
+       CATEGORY DISPLAY NAME
+       ========================================================== */
+
+    function formatCategory(category) {
+
+      return category
+        .replace(/[-_]/g, " ")
+        .replace(/\b\w/g, letter =>
+          letter.toUpperCase()
+        );
+
+    }
+
+
+    /* ==========================================================
+       UPDATE LIBRARY
+       ========================================================== */
+
+    function updateLibrary() {
+
+      const search =
+        searchInput.value
+          .trim()
+          .toLowerCase();
+
+      const category =
+        categoryFilter.value;
+
+      const status =
+        statusFilter.value;
+
+
+      let visible =
+        0;
+
+
+      scriptCards.forEach(card => {
+
+        const searchableText =
+          (
+            card.dataset.search +
+            " " +
+            card.textContent
+          ).toLowerCase();
+
+
+        const matchesSearch =
+          !search ||
+          searchableText.includes(search);
+
+
+        const matchesCategory =
+          category === "all" ||
+          card.dataset.category === category;
+
+
+        const matchesStatus =
+          status === "all" ||
+          card.dataset.status === status;
+
+
+        const shouldShow =
+          matchesSearch &&
+          matchesCategory &&
+          matchesStatus;
+
+
+        card.classList.toggle(
+          "hidden",
+          !shouldShow
+        );
+
+
+        if (shouldShow) {
+          visible++;
+        }
+
+      });
+
+
+      visibleCount.textContent =
+        visible;
+
+
+      resultText.textContent =
+        `${visible} script${visible === 1 ? "" : "s"} shown`;
+
+
+      emptyState.classList.toggle(
+        "visible",
+        visible === 0
+      );
+
+    }
+
+
+    /* ==========================================================
+       SEARCH EVENTS
+       ========================================================== */
+
+    searchInput.addEventListener(
+      "input",
+      updateLibrary
+    );
+
+
+    categoryFilter.addEventListener(
+      "change",
+      updateLibrary
+    );
+
+
+    statusFilter.addEventListener(
+      "change",
+      updateLibrary
+    );
+
+
+    /* ==========================================================
+       COPY BUTTONS
+       ========================================================== */
+
+    document
+      .querySelectorAll(".copyButton")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          async () => {
+
+            const text =
+              button.dataset.copy;
+
+            try {
+
+              await navigator.clipboard.writeText(text);
+
+              const original =
+                button.textContent;
+
+              button.textContent =
+                "Copied!";
+
+              setTimeout(() => {
+
+                button.textContent =
+                  original;
+
+              }, 1200);
+
+            }
+
+            catch (error) {
+
+              /*
+               * Clipboard APIs can be blocked when a local
+               * HTML file is opened under certain browser
+               * security configurations.
+               */
+
+              alert(
+                "Copy failed. Command:\n\n" +
+                text
+              );
+
+            }
+
+          }
+        );
+
+      });
+
+
+    /* ==========================================================
+       START
+       ========================================================== */
+
+    initializeLibrary();
+
+  </script>
+
+</body>
+</html>
