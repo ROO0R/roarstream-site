@@ -63,7 +63,7 @@
       border-radius: 26px;
       position:relative;
       overflow:hidden;
-      filter: drop-shadow(0 12px 40px rgba(0,0,0,.55));
+      box-shadow: 0 12px 40px rgba(0,0,0,.55);
       opacity:.95;
     }
     .side::before{
@@ -95,14 +95,18 @@
     /* Center content panel */
     .panel{
       width:100%;
-      background: linear-gradient(180deg, rgba(20,20,39,.92), rgba(15,15,24,.92));
+      background: linear-gradient(
+    180deg,
+    rgba(20,20,39,.98),
+    rgba(15,15,24,.98)
+    );
       border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: clamp(18px, 3vw, 34px);
       position:relative;
       overflow:hidden;
-      backdrop-filter: blur(8px);
+      /* backdrop-filter: blur(8px); */
     }
 
     /* Decorative glow inside panel */
@@ -548,7 +552,7 @@
             <a class="smallLink" href="https://stt.gg/MXWfzX1w" target="_blank" rel="noopener noreferrer">Stoat</a>
             <a class="smallLink" href="https://bluesky.roarstream.com" target="_blank" rel="noopener noreferrer">Blusky</a>
             <a class="smallLink" href="https://www.roarstream.com/credits.html">Credits</a>
-            <span class="versionTag">v23</span>
+            <span class="versionTag">v25</span>
           </div>
         </footer>
       </main>
