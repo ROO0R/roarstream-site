@@ -498,7 +498,7 @@
         </p>
         
         <section class="streamBanner" aria-label="Is Roar streaming tonight banner">
-          <h2 class="glowtext">IS ROAR STREAMING TONIGHT????</h2>
+          <h2 class="glowtext">IS ROAR SUPPOSED TO STREAM TONIGHT????</h2>
           <div id="streamAnswer" class="streamAnswer">…</div>
         </section>
   
@@ -599,10 +599,10 @@
 
     const today = new Date().getDay();
     if (streamingDays.includes(today)) {
-      el.textContent = "YEA :)";
+      el.textContent = "YEA :) SEE THE SCHEDULE FOR WHAT HE'S DOIN'";
       el.classList.add("yes");
     } else {
-      el.textContent = "NO :(";
+      el.textContent = "NO :( SEE SCHEDULE BELOW FOR NEXT STREAM";
       el.classList.add("no");
     }
   })();
