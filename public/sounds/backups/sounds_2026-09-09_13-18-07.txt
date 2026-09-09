@@ -410,4 +410,3 @@ goodatnothing||Family Guy||Meg, yelling - 'I DON'T KNOW. I FEEL LIKE I'M GOOD AT
 luckygod||The Simpsons||'Ooooo! You're just lucky GOD isn't here!'
 showovernow||Family Guy||Peter Griffin - And now the show is over now!
 remember||Futurama||'Professor! Don't you remember what I told you!?' 'NO!' (gunshots)
-captaincrunch||Family Guy||'Peter, are you hearing this?' 'I'm not - I'm chewing Captain Crunch. I can't hear anything.' (loud crunching)
