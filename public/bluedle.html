@@ -187,8 +187,13 @@
     <div class="side left" aria-hidden="true"></div>
 
     <main class="panel" role="main">
-      <h1 class="glowtext">Latest Bluedle</h1>
-      <p class="intro">The newest upload, straight from YouTube.</p>
+      <h1 class="glowtext">Latest Video</h1>
+      <p class="intro">Think you know your Bluey episodes? Let's find out!<br>
+
+Welcome to Bluedle: the Bluey guessing game where you're given a random screenshot from a Bluey episode and have to figure out which episode it came from!<br>
+Can you recognize the episode from just ONE frame? Test your Bluey knowledge and see how many you can get right!<br>
+How many episodes did you recognize?
+</p>
 
       <section class="frame" aria-label="Latest YouTube video">
         <div class="video" id="videoBox">
@@ -198,10 +203,10 @@
 
       <div class="ctaRow">
         <a class="cta" id="channelLink" href="#" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
-        <a class="cta secondary" href="index.html">← Back Home</a>
+        <a class="cta secondary" href="index.html">← Back to Roarstream.com</a>
       </div>
 
-    <div class="side right" aria-hidden="true"></div>
+      <div class="side right" aria-hidden="true"></div>
   </div>
 
   <script>
@@ -222,9 +227,12 @@
       return;
     }
 
-    // Every channel has an "uploads" playlist: same ID with UC swapped for UU.
-    // Embedding it plays the newest upload first, no API key needed.
-    const uploadsId = "UU" + CHANNEL_ID.slice(2);
+    // YouTube auto-generates playlists from the channel ID (swap "UC" for a prefix):
+    //   "UULF" = regular videos only (no Shorts)  <- used here
+    //   "UU"   = all uploads (includes Shorts)
+    //   "UUSH" = Shorts only
+    // Embedding one plays the newest item first, no API key needed.
+    const uploadsId = "UULF" + CHANNEL_ID.slice(2);
 
     const iframe = document.createElement("iframe");
     iframe.src = "https://www.youtube-nocookie.com/embed/videoseries?list=" + uploadsId;
