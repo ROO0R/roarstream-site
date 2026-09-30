@@ -137,6 +137,16 @@
       padding: 20px; text-align:center; color: var(--muted);
     }
 
+    /* Last-updated line */
+    .updated{
+      margin: 14px 0 0;
+      text-align:center;
+      color: var(--muted);
+      font-size: 15px;
+      position:relative; z-index:1;
+    }
+    .updated b{ color: var(--accent3); }
+
     .ctaRow{
       display:flex; justify-content:center; gap:12px; flex-wrap:wrap;
       margin: 18px 0 4px;
@@ -159,22 +169,6 @@
     a.cta:hover{ transform: translateY(-2px); filter: saturate(1.1); }
     a.cta:focus-visible{ outline: 3px solid var(--accent3); outline-offset: 3px; }
 
-    footer{
-      margin-top: 18px;
-      padding-top: 12px;
-      border-top: 1px solid rgba(255,255,255,.10);
-      color: rgba(184,214,195,.95);
-      position:relative; z-index:1;
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; flex-wrap:wrap; font-size:14px;
-    }
-    a.smallLink{
-      color: var(--muted);
-      text-decoration:none;
-      border-bottom: 1px dashed rgba(184,214,195,.35);
-    }
-    a.smallLink:hover{ color:#fff; }
-
     @media (max-width: 980px){
       .stage{ grid-template-columns: 1fr; gap:16px; padding:18px 14px; }
       .side{ display:none; }
@@ -190,8 +184,8 @@
       <h1 class="glowtext">Latest Video</h1>
       <p class="intro"><b>Think you know your Bluey episodes? Let's find out!</b><br><br>
 
-Welcome to <i>Bluedle</i>: the Bluey guessing game where you're given a random screenshot from a Bluey episode and have to figure out which episode it came from!<br>
-Can you recognize the episode from just ONE frame? Test your Bluey knowledge and see how many you can get right!<br>
+Welcome to <i>Bluedle</i>: the Bluey guessing game where you're given a random screenshot from a Bluey episode and have to figure out which episode it came from!<br><br>
+Can you recognize the episode from just ONE frame?<br>Test your Bluey knowledge and see how many you can get right!<br>
 </p>
 
       <section class="frame" aria-label="Latest YouTube video">
@@ -200,39 +194,37 @@ Can you recognize the episode from just ONE frame? Test your Bluey knowledge and
         </div>
       </section>
 
+      <p class="updated" id="updated" hidden></p>
+
       <div class="ctaRow">
         <a class="cta" id="channelLink" href="#" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
         <a class="cta secondary" href="index.html">← Back to Roarstream.com</a>
       </div>
+    </main>
 
-      <div class="side right" aria-hidden="true"></div>
+    <div class="side right" aria-hidden="true"></div>
   </div>
 
   <script>
   (function(){
     // ====== EDIT THIS ======
-    // Your channel ID: starts with "UC" and is 24 characters long.
-    // Find it at youtube.com > profile > Settings > Advanced settings,
-    // or on the channel page: About > Share channel > Copy channel ID.
     const CHANNEL_ID = "UCFsTDZp1LkHOI9d1y0xw0cQ";
     // =======================
 
     const box = document.getElementById("videoBox");
     const msg = document.getElementById("videoMsg");
     const link = document.getElementById("channelLink");
+    const updatedEl = document.getElementById("updated");
 
     if (!/^UC[\w-]{22}$/.test(CHANNEL_ID)) {
       msg.textContent = "Set CHANNEL_ID in the script at the bottom of this page.";
       return;
     }
 
-    // YouTube auto-generates playlists from the channel ID (swap "UC" for a prefix):
-    //   "UULF" = regular videos only (no Shorts)  <- used here
-    //   "UU"   = all uploads (includes Shorts)
-    //   "UUSH" = Shorts only
-    // Embedding one plays the newest item first, no API key needed.
+    // "UULF" = regular videos only (no Shorts). "UU" = all uploads.
     const uploadsId = "UULF" + CHANNEL_ID.slice(2);
 
+    // ---- Player ----
     const iframe = document.createElement("iframe");
     iframe.src = "https://www.youtube-nocookie.com/embed/videoseries?list=" + uploadsId;
     iframe.title = "Latest YouTube video";
@@ -240,11 +232,45 @@ Can you recognize the episode from just ONE frame? Test your Bluey knowledge and
     iframe.allow = "accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen";
     iframe.allowFullscreen = true;
     iframe.referrerPolicy = "strict-origin-when-cross-origin";
-
     box.innerHTML = "";
     box.appendChild(iframe);
 
     link.href = "https://www.youtube.com/channel/" + CHANNEL_ID;
+
+    // ---- Last updated date ----
+    // Reads the playlist's public RSS feed through rss2json (a free converter that
+    // allows browser requests). If it fails, the line just stays hidden.
+    function timeAgo(d){
+      const days = Math.floor((Date.now() - d.getTime()) / 86400000);
+      if (days <= 0) return "today";
+      if (days === 1) return "yesterday";
+      if (days < 30) return days + " days ago";
+      const months = Math.floor(days / 30);
+      if (months < 12) return months + (months === 1 ? " month ago" : " months ago");
+      const years = Math.floor(days / 365);
+      return years + (years === 1 ? " year ago" : " years ago");
+    }
+
+    async function loadDate(){
+      try {
+        const feed = "https://www.youtube.com/feeds/videos.xml?playlist_id=" + uploadsId;
+        const res = await fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feed));
+        const data = await res.json();
+        if (data.status !== "ok" || !data.items || !data.items.length) return;
+
+        // pubDate looks like "2026-09-25 14:30:00" (UTC)
+        const newest = data.items
+          .map(i => new Date(i.pubDate.replace(" ", "T") + "Z"))
+          .reduce((a, b) => (b > a ? b : a));
+
+        const pretty = newest.toLocaleDateString(undefined, { year:"numeric", month:"long", day:"numeric" });
+        updatedEl.innerHTML = "Last updated: <b>" + pretty + "</b> (" + timeAgo(newest) + ")";
+        updatedEl.hidden = false;
+      } catch (e) {
+        // fail silently
+      }
+    }
+    loadDate();
   })();
   </script>
 </body>
