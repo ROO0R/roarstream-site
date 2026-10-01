@@ -237,20 +237,6 @@ Can you recognize the episode from just ONE frame?<br>
 
     link.href = "https://www.youtube.com/channel/" + CHANNEL_ID;
 
-    // ---- Last updated date ----
-    // Reads the playlist's public RSS feed through rss2json (a free converter that
-    // allows browser requests). If it fails, the line just stays hidden.
-    function timeAgo(d){
-      const days = Math.floor((Date.now() - d.getTime()) / 86400000);
-      if (days <= 0) return "today";
-      if (days === 1) return "yesterday";
-      if (days < 30) return days + " days ago";
-      const months = Math.floor(days / 30);
-      if (months < 12) return months + (months === 1 ? " month ago" : " months ago");
-      const years = Math.floor(days / 365);
-      return years + (years === 1 ? " year ago" : " years ago");
-    }
-
     async function loadDate(){
       try {
         const feed = "https://www.youtube.com/feeds/videos.xml?playlist_id=" + uploadsId;
