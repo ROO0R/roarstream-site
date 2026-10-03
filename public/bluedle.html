@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#070d0a" />
+  <meta name="theme-color" content="#070b14" />
   <title>The Daily Bluedle | Roarstream.com</title>
   <link rel="icon" href="/pacMM.png" type="image/png">
   <link rel="preload" href="Chronotype.woff2" as="font" type="font/woff2" crossorigin>
@@ -13,12 +13,12 @@
       src: url('Chronotype.woff2') format('woff2');
       font-weight: normal;
       font-style: normal;
-      font-display: swap; /* show text immediately with fallback font */
+      font-display: swap; 
     }
     :root{
-      --accent:#1f6f3a; --accent2:#2f8a4d; --accent3:#7ee2a8;
-      --right:#2fb865; --wrong:#d64545;
-      --text:#f3fff7; --muted:#b8d6c3;
+      --accent:#1f4f9a; --accent2:#2f6fd0; --accent3:#7ec4ff;
+      --right:#2f7fe0; --wrong:#d64545;
+      --text:#f3f8ff; --muted:#b8c9e0;
       --border:rgba(255,255,255,.12);
     }
     *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
@@ -28,7 +28,7 @@
       min-height:100vh;
       color:var(--text);
       font-family:'Chronotype', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-      background:#070d0a; /* flat color: no big gradients to repaint */
+      background:#070b14; 
       padding: max(14px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
     }
     .panel{
@@ -44,7 +44,7 @@
       font-size:clamp(26px, 6vw, 48px);
       line-height:1.1;
       text-align:center;
-      color:#c9ffe0;
+      color:#cfe4ff;
     }
     .intro{
       text-align:center;
@@ -54,7 +54,6 @@
       font-size:clamp(14px, 3.6vw, 17px);
     }
 
-    /* Video (16:9). Facade: the heavy YouTube player only loads on tap. */
     .video{
       position:relative;
       width:100%;
@@ -69,7 +68,7 @@
     }
     .play{
       display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
-      background:linear-gradient(180deg,#0f2a1a,#08130d);
+      background:linear-gradient(180deg,#0f1f3a,#08101d);
       color:var(--text);
       font:inherit;
       cursor:pointer;
@@ -115,7 +114,7 @@
     }
     .pip:active{ opacity:.7; }
     .pip:focus-visible{ outline:3px solid var(--accent3); outline-offset:2px; }
-    .pip[data-state="right"]{ background:var(--right); border-color:#8af0b4; }
+    .pip[data-state="right"]{ background:var(--right); border-color:#8ac4f0; }
     .pip[data-state="wrong"]{ background:var(--wrong); border-color:#ff9a9a; }
 
     .score{ margin:12px 0 0; color:var(--muted); font-size:16px; }
@@ -193,7 +192,7 @@
     var pipsEl = $("pips"), scoreEl = $("score"), toastEl = $("toast");
 
     var STATES = ["none","right","wrong"];
-    var EMOJI  = { none:"⬜", right:"🟩", wrong:"🟥" };
+    var EMOJI  = { none:"⬜", right:"🟦", wrong:"🟥" };
     var LABEL  = { none:"no answer", right:"right", wrong:"wrong" };
     var results = [];
     for (var k = 0; k < 10; k++) results.push("none");
@@ -300,10 +299,9 @@
       return;
     }
 
-    var uploadsId = "UULF" + CHANNEL_ID.slice(2); // regular videos only (no Shorts)
+    var uploadsId = "UULF" + CHANNEL_ID.slice(2);
     $("channelLink").href = "https://www.youtube.com/channel/" + CHANNEL_ID;
 
-    // ---- Video facade: load the heavy YouTube player only when tapped ----
     var warmed = false;
     function warm(){
       if (warmed) return; warmed = true;
