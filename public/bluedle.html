@@ -369,7 +369,7 @@
       const text =
         "The Daily Bluedle – " + today + "\n" +
         results.map(r => EMOJI[r]).join("") + "\n" +
-        right + "/" + (answered || 10) +
+        right + "/" + (answered || 10) + "\n" +
         "https://bluedle.roarstream.com";
       try {
         await copyText(text);
