@@ -373,7 +373,7 @@ Can you recognize the episode from just ONE frame?<br>
         "The Daily Bluedle – " + today + "\n" +
         results.map(r => EMOJI[r]).join("") + "\n" +
         right + "/" + (answered || 10) + " right\n" +
-        location.origin + location.pathname;
+        "https://bluedle.roarstream.com";
       try {
         await copyText(text);
         showToast("Results copied to clipboard!");
