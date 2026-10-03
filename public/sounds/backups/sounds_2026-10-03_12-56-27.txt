@@ -414,5 +414,3 @@ captaincrunch||Family Guy||'Peter, are you hearing this?' 'I'm not - I'm chewing
 magicbeans||Roarstream||Sprahl - '-you don't need this many magic beans. Please stop.'
 heardyou||South Park||'I heard you the first time, you british piece of shit- (zzzt) OWWW!'
 upsetnews||Family Guy||Peter Griffin - 'But my stomachs upset on account of the news!'
-grossest||'I'm going to stick the grossest part of my body into the grossest part of you body!' 'Just once??' 'No! A bunch of times!'||
-grosser||'I can actually think of a GROSSER part of my body!' 'We'll do that too!'||
