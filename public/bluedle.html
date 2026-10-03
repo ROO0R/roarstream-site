@@ -16,6 +16,8 @@
       --accent: #1f6f3a;
       --accent2:#2f8a4d;
       --accent3:#7ee2a8;
+      --right:#2fb865;
+      --wrong:#d64545;
       --bg0:#05070a;
       --bg1:#070d0a;
       --text:#f3fff7;
@@ -147,32 +149,99 @@
     }
     .updated b{ color: var(--accent3); }
 
-    .ctaRow{
-      display:flex; justify-content:center; gap:12px; flex-wrap:wrap;
-      margin: 18px 0 4px;
+    /* ===== Score tracker ===== */
+    .tracker{
+      margin-top: 22px;
+      text-align:center;
       position:relative; z-index:1;
     }
-    a.cta{
+    .tracker h2{
+      margin: 0 0 4px;
+      font-size: 20px;
+    }
+    .tracker .hint{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .pips{
+      display:grid;
+      grid-template-columns: repeat(10, minmax(0, 1fr));
+      gap: clamp(4px, 1.2vw, 10px);
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    .pip{
+      aspect-ratio: 1;
+      width:100%;
+      padding:0;
+      border-radius: 12px;
+      border: 2px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.06);
+      color:#fff;
+      font: inherit;
+      font-weight:700;
+      font-size: clamp(12px, 2.4vw, 18px);
+      cursor:pointer;
+      transition: background .15s ease, border-color .15s ease, transform .1s ease;
+    }
+    .pip:hover{ transform: translateY(-2px); }
+    .pip:active{ transform: scale(.94); }
+    .pip:focus-visible{ outline: 3px solid var(--accent3); outline-offset: 3px; }
+    .pip[data-state="right"]{ background: var(--right); border-color: #8af0b4; }
+    .pip[data-state="wrong"]{ background: var(--wrong); border-color: #ff9a9a; }
+    .score{
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+    .score b{ color: var(--accent3); }
+    .trackerRow{
+      display:flex; justify-content:center; gap:10px; flex-wrap:wrap;
+      margin-top: 14px;
+    }
+    button.cta, a.cta{
       display:inline-flex; align-items:center; justify-content:center;
       padding: 12px 18px;
       border-radius: 12px;
       text-decoration:none;
+      font: inherit;
       font-weight: 700;
       font-size: 16px;
       color:#fff;
       border: 1px solid rgba(255,255,255,.14);
       background: linear-gradient(180deg, var(--accent2), var(--accent));
       box-shadow: 0 14px 40px rgba(31,111,58,.25);
+      cursor:pointer;
       transition: transform .12s ease, filter .12s ease;
     }
-    a.cta.secondary{ background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04)); box-shadow:none; }
-    a.cta:hover{ transform: translateY(-2px); filter: saturate(1.1); }
-    a.cta:focus-visible{ outline: 3px solid var(--accent3); outline-offset: 3px; }
+    .cta.secondary{ background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04)); box-shadow:none; }
+    .cta:hover{ transform: translateY(-2px); filter: saturate(1.1); }
+    .cta:focus-visible{ outline: 3px solid var(--accent3); outline-offset: 3px; }
+    .toast{
+      min-height: 22px;
+      margin: 10px 0 0;
+      color: var(--accent3);
+      font-size: 15px;
+      opacity:0;
+      transition: opacity .2s ease;
+    }
+    .toast.show{ opacity:1; }
+    .toast.err{ color: #ff9a9a; }
+
+    .ctaRow{
+      display:flex; justify-content:center; gap:12px; flex-wrap:wrap;
+      margin: 22px 0 4px;
+      position:relative; z-index:1;
+    }
 
     @media (max-width: 980px){
       .stage{ grid-template-columns: 1fr; gap:16px; padding:18px 14px; }
       .side{ display:none; }
       .panel{ max-width:920px; margin:0 auto; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .pip, .cta, .toast{ transition:none; }
     }
   </style>
 </head>
@@ -196,6 +265,18 @@ Can you recognize the episode from just ONE frame?<br>
 
       <p class="updated" id="updated" hidden></p>
 
+      <section class="tracker" aria-labelledby="trackerTitle">
+        <h2 id="trackerTitle">Your score</h2>
+        <p class="hint">Tap a box to mark it right (green) or wrong (red). Tap again to cycle.</p>
+        <div class="pips" id="pips"></div>
+        <p class="score" id="score" aria-live="polite"></p>
+        <div class="trackerRow">
+          <button type="button" class="cta" id="shareBtn">Share results</button>
+          <button type="button" class="cta secondary" id="resetBtn">Reset</button>
+        </div>
+        <p class="toast" id="toast" role="status" aria-live="polite"></p>
+      </section>
+
       <div class="ctaRow">
         <a class="cta" id="channelLink" href="#" target="_blank" rel="noopener noreferrer">Bluedle YouTube Archive</a>
         <a class="cta secondary" href="index.html">← Back to Roarstream.com</a>
@@ -215,6 +296,102 @@ Can you recognize the episode from just ONE frame?<br>
     const msg = document.getElementById("videoMsg");
     const link = document.getElementById("channelLink");
     const updatedEl = document.getElementById("updated");
+
+    // ---- Score tracker ----
+    const STATES = ["none", "right", "wrong"];
+    const EMOJI  = { none: "⬜", right: "🟩", wrong: "🟥" };
+    const LABEL  = { none: "no answer", right: "right", wrong: "wrong" };
+    const pipsEl  = document.getElementById("pips");
+    const scoreEl = document.getElementById("score");
+    const toastEl = document.getElementById("toast");
+    const results = new Array(10).fill("none"); // lives in memory; resets on reload
+
+    function renderScore(){
+      const right = results.filter(r => r === "right").length;
+      const wrong = results.filter(r => r === "wrong").length;
+      scoreEl.innerHTML = "<b>" + right + "</b> right · <b>" + wrong + "</b> wrong";
+    }
+
+    results.forEach((_, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "pip";
+      b.textContent = i + 1;
+      const sync = () => {
+        b.dataset.state = results[i];
+        b.setAttribute("aria-label", "Question " + (i + 1) + ": " + LABEL[results[i]]);
+      };
+      b.addEventListener("click", () => {
+        results[i] = STATES[(STATES.indexOf(results[i]) + 1) % STATES.length];
+        sync();
+        renderScore();
+      });
+      b._sync = sync;
+      sync();
+      pipsEl.appendChild(b);
+    });
+    renderScore();
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      results.fill("none");
+      pipsEl.querySelectorAll(".pip").forEach(p => p._sync());
+      renderScore();
+      showToast("Score reset.");
+    });
+
+    let toastTimer;
+    function showToast(text, isErr){
+      toastEl.textContent = text;
+      toastEl.classList.toggle("err", !!isErr);
+      toastEl.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2800);
+    }
+
+    async function copyText(text){
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+      // Fallback for non-secure contexts / older browsers
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+      if (!ok) throw new Error("copy failed");
+    }
+
+    document.getElementById("shareBtn").addEventListener("click", async () => {
+      const right = results.filter(r => r === "right").length;
+      const answered = results.filter(r => r !== "none").length;
+      const today = new Date().toLocaleDateString(undefined, { month:"short", day:"numeric", year:"numeric" });
+      const text =
+        "The Daily Bluedle – " + today + "\n" +
+        results.map(r => EMOJI[r]).join("") + "\n" +
+        right + "/" + (answered || 10) + " right\n" +
+        location.origin + location.pathname;
+      try {
+        await copyText(text);
+        showToast("Results copied to clipboard!");
+      } catch (e) {
+        showToast("Couldn't copy. Please try again.", true);
+      }
+    });
+
+    // ---- Time helper (was missing from the original script) ----
+    function timeAgo(date){
+      const s = Math.max(0, Math.floor((Date.now() - date.getTime()) / 1000));
+      const units = [["year",31536000],["month",2592000],["day",86400],["hour",3600],["minute",60]];
+      for (const [name, secs] of units){
+        const n = Math.floor(s / secs);
+        if (n >= 1) return n + " " + name + (n > 1 ? "s" : "") + " ago";
+      }
+      return "just now";
+    }
 
     if (!/^UC[\w-]{22}$/.test(CHANNEL_ID)) {
       msg.textContent = "Set CHANNEL_ID in the script at the bottom of this page.";
