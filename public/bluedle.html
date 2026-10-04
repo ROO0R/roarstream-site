@@ -1,262 +1,354 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" href="/pacMM.png" type="image/png">
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#070b14" />
   <title>The Daily Bluedle | Roarstream.com</title>
+  <link rel="icon" href="/pacMM.png" type="image/png">
+  <link rel="preload" href="Chronotype.woff2" as="font" type="font/woff2" crossorigin>
   <style>
     @font-face {
       font-family: 'Chronotype';
       src: url('Chronotype.woff2') format('woff2');
       font-weight: normal;
       font-style: normal;
+      font-display: swap; 
     }
     :root{
-      --accent: #1f6f3a;
-      --accent2:#2f8a4d;
-      --accent3:#7ee2a8;
-      --bg0:#05070a;
-      --bg1:#070d0a;
-      --text:#f3fff7;
-      --muted:#b8d6c3;
-      --border: rgba(255,255,255,.12);
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-      --radius: 18px;
+      --accent:#1f4f9a; --accent2:#2f6fd0; --accent3:#7ec4ff;
+      --right:#2f7fe0; --wrong:#d64545;
+      --text:#f3f8ff; --muted:#b8c9e0;
+      --border:rgba(255,255,255,.12);
     }
-    *{ box-sizing:border-box; }
-    html, body { height:100%; }
+    *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+    html{ -webkit-text-size-adjust:100%; }
     body{
       margin:0;
-      color:var(--text);
-      font-family: 'Chronotype', sans-serif;
-      background:
-        radial-gradient(1200px 700px at 50% 20%, rgba(31,111,58,.25), transparent 55%),
-        radial-gradient(900px 600px at 15% 80%, rgba(126,226,168,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      overflow-x:hidden;
-    }
-
-    .stage{
       min-height:100vh;
-      display:grid;
-      grid-template-columns: minmax(140px, 1fr) minmax(320px, 920px) minmax(140px, 1fr);
-      align-items:center;
-      gap: 24px;
-      padding: 28px 18px;
+      color:var(--text);
+      font-family:'Chronotype', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background:#070b14; 
+      padding: max(14px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
     }
-
-    .side{
-      height: clamp(520px, 90vh, 980px);
-      border-radius: 26px;
-      position:relative;
-      overflow:hidden;
-      box-shadow: 0 12px 40px rgba(0,0,0,.55);
-      opacity:.95;
-    }
-    .side::before{
-      content:"";
-      position:absolute; inset:0;
-      background-size: auto;
-      background-repeat: repeat;
-      background-position: top left;
-    }
-    .side::after{
-      content:"";
-      position:absolute; inset:0;
-      background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55));
-      mix-blend-mode: multiply;
-    }
-    .side.left::before { background-image:url("left-bg.png"); }
-    .side.right::before{ background-image:url("right-bg.png"); }
-
     .panel{
-      width:100%;
-      background: linear-gradient(180deg, rgba(20,20,39,.98), rgba(15,15,24,.98));
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: clamp(18px, 3vw, 34px);
-      position:relative;
-      overflow:hidden;
+      max-width:920px;
+      margin:0 auto;
+      background:#111320;
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:clamp(14px, 3vw, 32px);
     }
-    .panel::after{
-      content:"";
-      position:absolute;
-      width: 520px; height: 520px;
-      right: -220px; bottom: -260px;
-      background: radial-gradient(circle at 60% 60%, rgba(47,138,77,.22), transparent 62%);
-      pointer-events:none;
-    }
-
     h1{
-      margin: 0 0 6px;
-      font-size: clamp(28px, 4vw, 52px);
-      line-height: 1.05;
-      text-align: center;
-      position:relative; z-index:1;
-    }
-    .glowtext{
-      background: linear-gradient(90deg, #ffffff 0%, #c9ffe0 35%, #2f8a4d 60%, #ffffff 100%);
-      -webkit-background-clip: text;
-      background-clip:text;
-      color: transparent;
+      margin:0 0 6px;
+      font-size:clamp(26px, 6vw, 48px);
+      line-height:1.1;
+      text-align:center;
+      color:#cfe4ff;
     }
     .intro{
       text-align:center;
-      color: var(--muted);
-      margin: 0 0 18px;
-      position:relative; z-index:1;
+      color:var(--muted);
+      margin:0 0 16px;
+      line-height:1.4;
+      font-size:clamp(14px, 3.6vw, 17px);
     }
 
-    /* Video frame (16:9, responsive) */
-    .frame{
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      padding: 12px;
-      box-shadow: 0 14px 46px rgba(0,0,0,.40);
-      position:relative; z-index:1;
-    }
     .video{
       position:relative;
       width:100%;
-      aspect-ratio: 16 / 9;
-      border-radius: 12px;
+      aspect-ratio:16/9;
+      border-radius:12px;
       overflow:hidden;
-      background: rgba(0,0,0,.4);
+      background:#000;
+      border:1px solid var(--border);
     }
-    .video iframe{
-      position:absolute; inset:0;
-      width:100%; height:100%;
-      border:0;
+    .video iframe, .play{
+      position:absolute; inset:0; width:100%; height:100%; border:0;
     }
-    .msg{
-      position:absolute; inset:0;
+    .play{
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+      background:linear-gradient(180deg,#0f1f3a,#08101d);
+      color:var(--text);
+      font:inherit;
+      cursor:pointer;
+      padding:0;
+    }
+    .play .icon{
+      width:68px; height:68px; border-radius:50%;
+      background:var(--accent2);
       display:flex; align-items:center; justify-content:center;
-      padding: 20px; text-align:center; color: var(--muted);
     }
+    .play .icon::before{
+      content:""; margin-left:6px;
+      border-style:solid; border-width:13px 0 13px 22px;
+      border-color:transparent transparent transparent #fff;
+    }
+    .play span{ color:var(--muted); font-size:15px; }
+    .play:focus-visible{ outline:3px solid var(--accent3); outline-offset:-3px; }
 
-    /* Last-updated line */
-    .updated{
-      margin: 14px 0 0;
-      text-align:center;
-      color: var(--muted);
-      font-size: 15px;
-      position:relative; z-index:1;
-    }
-    .updated b{ color: var(--accent3); }
+    .updated{ margin:12px 0 0; text-align:center; color:var(--muted); font-size:14px; }
+    .updated b{ color:var(--accent3); }
 
-    .ctaRow{
-      display:flex; justify-content:center; gap:12px; flex-wrap:wrap;
-      margin: 18px 0 4px;
-      position:relative; z-index:1;
+    .tracker{ margin-top:20px; text-align:center; }
+    .pips{
+      display:grid;
+      grid-template-columns:repeat(10, 1fr);
+      gap:8px;
+      max-width:620px;
+      margin:0 auto;
     }
-    a.cta{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding: 12px 18px;
-      border-radius: 12px;
-      text-decoration:none;
-      font-weight: 700;
-      font-size: 16px;
+    .pip{
+      aspect-ratio:1;
+      width:100%;
+      padding:0;
+      border-radius:10px;
+      border:2px solid rgba(255,255,255,.22);
+      background:rgba(255,255,255,.06);
       color:#fff;
-      border: 1px solid rgba(255,255,255,.14);
-      background: linear-gradient(180deg, var(--accent2), var(--accent));
-      box-shadow: 0 14px 40px rgba(31,111,58,.25);
-      transition: transform .12s ease, filter .12s ease;
+      font:inherit;
+      font-weight:700;
+      font-size:16px;
+      cursor:pointer;
+      touch-action:manipulation;
     }
-    a.cta.secondary{ background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04)); box-shadow:none; }
-    a.cta:hover{ transform: translateY(-2px); filter: saturate(1.1); }
-    a.cta:focus-visible{ outline: 3px solid var(--accent3); outline-offset: 3px; }
+    .pip:active{ opacity:.7; }
+    .pip:focus-visible{ outline:3px solid var(--accent3); outline-offset:2px; }
+    .pip[data-state="right"]{ background:var(--right); border-color:#8ac4f0; }
+    .pip[data-state="wrong"]{ background:var(--wrong); border-color:#ff9a9a; }
 
-    @media (max-width: 980px){
-      .stage{ grid-template-columns: 1fr; gap:16px; padding:18px 14px; }
-      .side{ display:none; }
-      .panel{ max-width:920px; margin:0 auto; }
+    .score{ margin:12px 0 0; color:var(--muted); font-size:16px; }
+    .score b{ color:var(--accent3); }
+    .row{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:14px; }
+
+    .cta{
+      display:inline-flex; align-items:center; justify-content:center;
+      min-height:46px;
+      padding:12px 18px;
+      border-radius:12px;
+      text-decoration:none;
+      font:inherit; font-weight:700; font-size:16px;
+      color:#fff;
+      border:1px solid rgba(255,255,255,.14);
+      background:var(--accent2);
+      cursor:pointer;
+      touch-action:manipulation;
+    }
+    .cta.secondary{ background:rgba(255,255,255,.1); }
+    .cta:active{ opacity:.8; }
+    .cta:focus-visible{ outline:3px solid var(--accent3); outline-offset:3px; }
+
+    .toast{ min-height:22px; margin:10px 0 0; color:var(--accent3); font-size:15px; visibility:hidden; }
+    .toast.show{ visibility:visible; }
+    .toast.err{ color:#ff9a9a; }
+
+    .links{ display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin:20px 0 4px; }
+
+    /* Phones: bigger tap targets (5 x 2 grid), full-width buttons */
+    @media (max-width:520px){
+      .pips{ grid-template-columns:repeat(5, 1fr); gap:10px; max-width:340px; }
+      .pip{ font-size:20px; }
+      .row .cta, .links .cta{ flex:1 1 100%; }
+      .panel{ border-radius:14px; }
     }
   </style>
 </head>
 <body>
-  <div class="stage">
-    <div class="side left" aria-hidden="true"></div>
+  <main class="panel">
+    <h1>The Daily Bluedle</h1>
+    <p class="intro">Welcome to <i>Bluedle</i>: the Bluey guessing game where you're given a random screenshot from a Bluey episode and have to figure out which episode it came from!</p>
 
-    <main class="panel" role="main">
-      <h1 class="glowtext">The Daily Bluedle</h1>
-      <p class="intro"><b>Think you know your Bluey episodes? Let's find out!</b><br><br>
+    <div class="video" id="videoBox">
+      <button type="button" class="play" id="playBtn" aria-label="Load and play the Bluedle video">
+        <div class="icon"></div>
+        <span>Tap to play</span>
+      </button>
+    </div>
 
-Welcome to <i>Bluedle</i>: the Bluey guessing game where you're given a random screenshot from a Bluey episode and have to figure out which episode it came from!<br><br>
-Can you recognize the episode from just ONE frame?<br>
-</p>
+    <p class="updated" id="updated" hidden></p>
 
-      <section class="frame" aria-label="Latest YouTube video">
-        <div class="video" id="videoBox">
-          <div class="msg" id="videoMsg">Loading…</div>
-        </div>
-      </section>
-
-      <p class="updated" id="updated" hidden></p>
-
-      <div class="ctaRow">
-        <a class="cta" id="channelLink" href="#" target="_blank" rel="noopener noreferrer">Bluedle YouTube Archive</a>
-        <a class="cta secondary" href="index.html">← Back to Roarstream.com</a>
+    <section class="tracker" aria-label="Score tracker">
+      <div class="pips" id="pips"></div>
+      <p class="score" id="score" aria-live="polite"></p>
+      <div class="row">
+        <button type="button" class="cta" id="shareBtn">Share results</button>
+        <button type="button" class="cta secondary" id="resetBtn">Reset</button>
       </div>
-    </main>
+      <p class="toast" id="toast" role="status" aria-live="polite"></p>
+    </section>
 
-    <div class="side right" aria-hidden="true"></div>
-  </div>
+    <div class="links">
+      <a class="cta" id="channelLink" href="#" target="_blank" rel="noopener noreferrer">Bluedle YouTube Archive</a>
+      <a class="cta secondary" href="index.html">← Back to Roarstream.com</a>
+    </div>
+  </main>
 
   <script>
   (function(){
-    // ====== EDIT THIS ======
-    const CHANNEL_ID = "UCFsTDZp1LkHOI9d1y0xw0cQ";
-    // =======================
+    var CHANNEL_ID = "UCFsTDZp1LkHOI9d1y0xw0cQ";
 
-    const box = document.getElementById("videoBox");
-    const msg = document.getElementById("videoMsg");
-    const link = document.getElementById("channelLink");
-    const updatedEl = document.getElementById("updated");
+    var $ = function(id){ return document.getElementById(id); };
+    var box = $("videoBox"), playBtn = $("playBtn"), updatedEl = $("updated");
+    var pipsEl = $("pips"), scoreEl = $("score"), toastEl = $("toast");
+
+    var STATES = ["none","right","wrong"];
+    var EMOJI  = { none:"⬜", right:"🟦", wrong:"🟥" };
+    var LABEL  = { none:"no answer", right:"right", wrong:"wrong" };
+    var results = [];
+    for (var k = 0; k < 10; k++) results.push("none");
+
+    function count(s){ return results.filter(function(r){ return r === s; }).length; }
+    function renderScore(){
+      scoreEl.innerHTML = "<b>" + count("right") + "</b> right · <b>" + count("wrong") + "</b> wrong";
+    }
+
+    // Build pips in one go (single DOM insert)
+    var frag = document.createDocumentFragment();
+    var pipEls = results.map(function(_, i){
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "pip";
+      b.textContent = i + 1;
+      b.dataset.i = i;
+      frag.appendChild(b);
+      return b;
+    });
+    pipsEl.appendChild(frag);
+
+    function sync(i){
+      pipEls[i].dataset.state = results[i];
+      pipEls[i].setAttribute("aria-label", "Question " + (i + 1) + ": " + LABEL[results[i]]);
+    }
+    results.forEach(function(_, i){ sync(i); });
+    renderScore();
+
+    // One delegated listener instead of ten
+    pipsEl.addEventListener("click", function(e){
+      var b = e.target.closest(".pip");
+      if (!b) return;
+      var i = +b.dataset.i;
+      results[i] = STATES[(STATES.indexOf(results[i]) + 1) % 3];
+      sync(i);
+      renderScore();
+    });
+
+    $("resetBtn").addEventListener("click", function(){
+      results.fill("none");
+      results.forEach(function(_, i){ sync(i); });
+      renderScore();
+      showToast("Score reset.");
+    });
+
+    var toastTimer;
+    function showToast(text, isErr){
+      toastEl.textContent = text;
+      toastEl.classList.toggle("err", !!isErr);
+      toastEl.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function(){ toastEl.classList.remove("show"); }, 2800);
+    }
+
+    async function copyText(text){
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.cssText = "position:fixed;opacity:0;top:0;left:0";
+      document.body.appendChild(ta);
+      ta.focus(); ta.select();
+      var ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+      if (!ok) throw new Error("copy failed");
+    }
+
+    $("shareBtn").addEventListener("click", async function(){
+      var answered = results.filter(function(r){ return r !== "none"; }).length;
+      var today = new Date().toLocaleDateString(undefined, { month:"short", day:"numeric", year:"numeric" });
+      var text = "The Daily Bluedle – " + today + "\n" +
+        results.map(function(r){ return EMOJI[r]; }).join("") + "\n" +
+        count("right") + "/" + (answered || 10) + "\n" +
+        "https://bluedle.roarstream.com";
+      try {
+        if (navigator.share && /Mobi|Android/i.test(navigator.userAgent)) {
+          await navigator.share({ text: text });
+        } else {
+          await copyText(text);
+          showToast("Results copied to clipboard!");
+        }
+      } catch (e) {
+        if (e && e.name === "AbortError") return; // user closed share sheet
+        try { await copyText(text); showToast("Results copied to clipboard!"); }
+        catch (e2) { showToast("Couldn't copy. Please try again.", true); }
+      }
+    });
+
+    function timeAgo(date){
+      var s = Math.max(0, Math.floor((Date.now() - date.getTime()) / 1000));
+      var units = [["year",31536000],["month",2592000],["day",86400],["hour",3600],["minute",60]];
+      for (var i = 0; i < units.length; i++){
+        var n = Math.floor(s / units[i][1]);
+        if (n >= 1) return n + " " + units[i][0] + (n > 1 ? "s" : "") + " ago";
+      }
+      return "just now";
+    }
 
     if (!/^UC[\w-]{22}$/.test(CHANNEL_ID)) {
-      msg.textContent = "Set CHANNEL_ID in the script at the bottom of this page.";
+      playBtn.querySelector("span").textContent = "Set CHANNEL_ID in the script.";
       return;
     }
 
-    // "UULF" = regular videos only (no Shorts). "UU" = all uploads.
-    const uploadsId = "UULF" + CHANNEL_ID.slice(2);
+    var uploadsId = "UULF" + CHANNEL_ID.slice(2);
+    $("channelLink").href = "https://www.youtube.com/channel/" + CHANNEL_ID;
 
-    // ---- Player ----
-    const iframe = document.createElement("iframe");
-    iframe.src = "https://www.youtube-nocookie.com/embed/videoseries?list=" + uploadsId;
-    iframe.title = "Latest YouTube video";
-    iframe.loading = "lazy";
-    iframe.allow = "accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen";
-    iframe.allowFullscreen = true;
-    iframe.referrerPolicy = "strict-origin-when-cross-origin";
-    box.innerHTML = "";
-    box.appendChild(iframe);
+    var warmed = false;
+    function warm(){
+      if (warmed) return; warmed = true;
+      var l = document.createElement("link");
+      l.rel = "preconnect"; l.href = "https://www.youtube-nocookie.com";
+      document.head.appendChild(l);
+    }
+    playBtn.addEventListener("pointerenter", warm, { once:true });
+    playBtn.addEventListener("touchstart", warm, { once:true, passive:true });
 
-    link.href = "https://www.youtube.com/channel/" + CHANNEL_ID;
+    playBtn.addEventListener("click", function(){
+      var iframe = document.createElement("iframe");
+      iframe.src = "https://www.youtube-nocookie.com/embed/videoseries?list=" + uploadsId + "&autoplay=1&playsinline=1";
+      iframe.title = "Latest YouTube video";
+      iframe.allow = "autoplay; accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+      iframe.allowFullscreen = true;
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+      box.replaceChildren(iframe);
+    });
 
+    // ---- "Last updated" (deferred, cached 1h so repeat visits make no request) ----
+    function show(ts){
+      var d = new Date(ts);
+      updatedEl.innerHTML = "Last updated: <b>" +
+        d.toLocaleDateString(undefined, { year:"numeric", month:"long", day:"numeric" }) +
+        "</b> (" + timeAgo(d) + ")";
+      updatedEl.hidden = false;
+    }
     async function loadDate(){
       try {
-        const feed = "https://www.youtube.com/feeds/videos.xml?playlist_id=" + uploadsId;
-        const res = await fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feed));
-        const data = await res.json();
+        var cached = JSON.parse(localStorage.getItem("bluedleUpdated") || "null");
+        if (cached && Date.now() - cached.at < 3600000) { show(cached.ts); return; }
+      } catch (e) {}
+      try {
+        var feed = "https://www.youtube.com/feeds/videos.xml?playlist_id=" + uploadsId;
+        var res = await fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feed));
+        var data = await res.json();
         if (data.status !== "ok" || !data.items || !data.items.length) return;
-
-        // pubDate looks like "2026-09-25 14:30:00" (UTC)
-        const newest = data.items
-          .map(i => new Date(i.pubDate.replace(" ", "T") + "Z"))
-          .reduce((a, b) => (b > a ? b : a));
-
-        const pretty = newest.toLocaleDateString(undefined, { year:"numeric", month:"long", day:"numeric" });
-        updatedEl.innerHTML = "Last updated: <b>" + pretty + "</b> (" + timeAgo(newest) + ")";
-        updatedEl.hidden = false;
-      } catch (e) {
-        // fail silently
-      }
+        var ts = Math.max.apply(null, data.items.map(function(i){
+          return new Date(i.pubDate.replace(" ", "T") + "Z").getTime();
+        }));
+        show(ts);
+        try { localStorage.setItem("bluedleUpdated", JSON.stringify({ ts:ts, at:Date.now() })); } catch (e) {}
+      } catch (e) { /* fail silently */ }
     }
-    loadDate();
+    var idle = window.requestIdleCallback || function(f){ return setTimeout(f, 1200); };
+    idle(loadDate);
   })();
   </script>
 </body>
