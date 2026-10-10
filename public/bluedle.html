@@ -312,14 +312,38 @@
     playBtn.addEventListener("pointerenter", warm, { once:true });
     playBtn.addEventListener("touchstart", warm, { once:true, passive:true });
 
-    playBtn.addEventListener("click", function(){
-      var iframe = document.createElement("iframe");
-      iframe.src = "https://www.youtube-nocookie.com/embed/videoseries?list=" + uploadsId + "&autoplay=1&playsinline=1";
-      iframe.title = "Latest YouTube video";
-      iframe.allow = "autoplay; accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen";
-      iframe.allowFullscreen = true;
-      iframe.referrerPolicy = "strict-origin-when-cross-origin";
-      box.replaceChildren(iframe);
+    playBtn.addEventListener("click", async function(){
+      playBtn.querySelector("span").textContent = "Loading...";
+    
+      try {
+        var feed = "https://www.youtube.com/feeds/videos.xml?playlist_id=" + uploadsId;
+        var res = await fetch(
+          "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feed)
+        );
+        var data = await res.json();
+    
+        if (data.status !== "ok" || !data.items || !data.items.length) {
+          throw new Error("Couldn't find the latest video.");
+        }
+    
+        // rss2json returns the newest video first.
+        var latestVideo = data.items[0];
+        var videoId = latestVideo.guid.replace("yt:video:", "");
+    
+        var iframe = document.createElement("iframe");
+        iframe.src = "https://www.youtube-nocookie.com/embed/" +
+                     encodeURIComponent(videoId) +
+                     "?autoplay=1&playsinline=1";
+        iframe.title = "Latest YouTube video";
+        iframe.allow = "autoplay; accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+        iframe.allowFullscreen = true;
+        iframe.referrerPolicy = "strict-origin-when-cross-origin";
+    
+        box.replaceChildren(iframe);
+    
+      } catch (e) {
+        playBtn.querySelector("span").textContent = "Couldn't load video. Tap to try again.";
+      }
     });
 
     // ---- "Last updated" (deferred, cached 1h so repeat visits make no request) ----
