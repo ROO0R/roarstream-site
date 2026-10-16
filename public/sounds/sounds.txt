@@ -417,3 +417,7 @@ upsetnews||Family Guy||Peter Griffin - 'But my stomachs upset on account of the 
 grossest||Family Guy||'I'm going to stick the grossest part of my body into the grossest part of you body!' 'Just once??' 'No! A bunch of times!'
 grosser||Family Guy||'I can actually think of a GROSSER part of my body!' 'We'll do that too!'
 supersandlesbian||Assorted||'It's true...he IS super sand lesbian! gguuuuhh.'
+goodworker||Alice - Madness Returns||'A good worker is a live worker! Free to live - and work!'
+badworker||Alice - Madness Returns||'A bad worker is a dead worker, and vice versa. Don't be a bad worker.'
+goodpayday||Alice - Madness Returns||'Payday for good workers has been postponed - indefinitely!'
+badpayday||Alice - Madness Returns||'Payday for bad workers has been cancelled!'
