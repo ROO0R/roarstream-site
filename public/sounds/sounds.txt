@@ -421,3 +421,8 @@ goodworker||Alice - Madness Returns||'A good worker is a live worker! Free to li
 badworker||Alice - Madness Returns||'A bad worker is a dead worker, and vice versa. Don't be a bad worker.'
 goodpayday||Alice - Madness Returns||'Payday for good workers has been postponed - indefinitely!'
 badpayday||Alice - Madness Returns||'Payday for bad workers has been cancelled!'
+sorude||Roarstream||Rora - 'You're Being So Rude!'
+sorude2||Roarstream||Rora - 'That is SO rude.'
+sorude3||Roarstream||Rora - 'You're SO RUDE!'
+mommyfarts||Roarstream||'M-maybe Mommy needs farts.' 'Maybe'
+mommyfarts2||Roarstream||'I need a doggy. Mommy needs farts.'
