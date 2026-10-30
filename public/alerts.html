@@ -33,9 +33,8 @@
   <div class="controls">
     <input id="search" type="search" placeholder="Search the list…" aria-label="Search soundboard list">
     <select id="sort" aria-label="Sort list">
-      <option value="default">Default order</option>
-      <option value="number">Sort by number</option>
-      <option value="alpha">Sort alphabetically</option>
+      <option value="number">Add order (by number)</option>
+      <option value="alpha">Alphabetical</option>
     </select>
   </div>
   <p id="count" aria-live="polite"></p>
@@ -162,22 +161,20 @@
     search.addEventListener("input", filterRows);
     const tbody = document.getElementById("items");
     const sortSelect = document.getElementById("sort");
-    rows.forEach((row, i) => row.dataset.order = i);
     
     function sortRows() {
       const mode = sortSelect.value;
       const num = r => parseInt(r.querySelector(".number").textContent, 10);
       const key = r => r.querySelector(".key").textContent.toLowerCase();
       const sorted = [...rows].sort((a, b) => {
-        if (a.dataset.order === "0") return -1; // keep "random" pinned on top
-        if (b.dataset.order === "0") return 1;
-        if (mode === "number") return num(a) - num(b);
-        if (mode === "alpha") return key(a).localeCompare(key(b));
-        return a.dataset.order - b.dataset.order;
+        if (key(a) === "random") return -1; // keep "random" pinned on top
+        if (key(b) === "random") return 1;
+        return mode === "alpha" ? key(a).localeCompare(key(b)) : num(a) - num(b);
       });
       sorted.forEach(r => tbody.appendChild(r));
     }
     sortSelect.addEventListener("change", sortRows);
+    sortRows(); // apply the default sort on load
     filterRows();
   </script>
 </body>
