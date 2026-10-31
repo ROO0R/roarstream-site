@@ -11,6 +11,10 @@
     .back-link { display: inline-block; color: #245a9b; text-decoration: none; font-weight: bold; margin: 8px 0 16px; }
     .back-link:hover { text-decoration: underline; }
     footer { margin: 24px 0; text-align: center; }
+    .controls { display: flex; gap: 12px; margin: 18px 0; }
+    .controls #search { flex: 1; width: auto; margin: 0; }
+    #sort { padding: 12px; font-size: 16px; border: 1px solid #bbb; border-radius: 8px; background: white; }
+    @media (max-width: 600px) { .controls { flex-direction: column; } }
     #search { box-sizing: border-box; width: 100%; padding: 12px; margin: 18px 0; font-size: 16px; border: 1px solid #bbb; border-radius: 8px; }
     table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
     th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e5e5e5; }
@@ -26,7 +30,13 @@
   <a class="back-link" href="https://roarstream.com">&larr; Back to Roarstream.com</a>
   <h1>Soundboard List</h1>
   <p class="subtitle">Search by keyword, number, or description.</p>
-  <input id="search" type="search" placeholder="Search the list…" aria-label="Search soundboard list">
+  <div class="controls">
+    <input id="search" type="search" placeholder="Search the list…" aria-label="Search soundboard list">
+    <select id="sort" aria-label="Sort list">
+      <option value="number">Sort by Number</option>
+      <option value="alpha">Sort by Name</option>
+    </select>
+  </div>
   <p id="count" aria-live="polite"></p>
   <table>
     <thead><tr><th>Keyword</th><th>Number</th><th>Description</th></tr></thead>
@@ -129,6 +139,12 @@
       <tr><td class="key">mariokart</td><td class="number">95</td><td>Mario Kart Countdown</td></tr>
       <tr><td class="key">chelonia</td><td class="number">96</td><td>Red Dead Redemption 2 Chelonia Jump Off Cliff</td></tr>
       <tr><td class="key">sexied</td><td class="number">97</td><td>Patrick Stewart Sexied It Up For You Sexy Cake SNL</td></tr>
+      <tr><td class="key">badpizza</td><td class="number">98</td><td>Microwave Rice Pizza Bad Man Yelling</td></tr>
+      <tr><td class="key">dogtrain</td><td class="number">99</td><td>Dog Panting Train Sound</td></tr>
+      <tr><td class="key">crunch</td><td class="number">100</td><td>Crunch Cat</td></tr>
+      <tr><td class="key">itsme</td><td class="number">101</td><td>ATHF Aqua Teen Hunger Force It's Me Ghost Cell Phone</td></tr>
+      <tr><td class="key">crunch</td><td class="number">102</td><td>Ace Ventura I'm Alive Alligator</td></tr>
+      <tr><td class="key">30or40</td><td class="number">103</td><td>ATHF Aqua Teen Hunger Force 30 or 40 years old</td></tr>
     </tbody>
   </table>
   <footer><a class="back-link" href="https://roarstream.com">&larr; Back to Roarstream.com</a></footer>
@@ -147,6 +163,22 @@
       count.textContent = `${visible} of ${rows.length} entries`;
     }
     search.addEventListener("input", filterRows);
+    const tbody = document.getElementById("items");
+    const sortSelect = document.getElementById("sort");
+    
+    function sortRows() {
+      const mode = sortSelect.value;
+      const num = r => parseInt(r.querySelector(".number").textContent, 10);
+      const key = r => r.querySelector(".key").textContent.toLowerCase();
+      const sorted = [...rows].sort((a, b) => {
+        if (key(a) === "random") return -1; // keep "random" pinned on top
+        if (key(b) === "random") return 1;
+        return mode === "alpha" ? key(a).localeCompare(key(b)) : num(a) - num(b);
+      });
+      sorted.forEach(r => tbody.appendChild(r));
+    }
+    sortSelect.addEventListener("change", sortRows);
+    sortRows(); // apply the default sort on load
     filterRows();
   </script>
 </body>
