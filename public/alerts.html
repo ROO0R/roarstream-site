@@ -16,25 +16,12 @@
     #sort { padding: 12px; font-size: 16px; border: 1px solid #bbb; border-radius: 8px; background: white; }
     @media (max-width: 600px) { .controls { flex-direction: column; } }
     #search { box-sizing: border-box; width: 100%; padding: 12px; margin: 18px 0; font-size: 16px; border: 1px solid #bbb; border-radius: 8px; }
-    .table-wrap { overflow-x: auto; border-radius: 8px; }
-    table { width: 100%; min-width: 0; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
     th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e5e5e5; }
     th { background: #e9edf2; }
     tbody tr:nth-child(even) { background: #f9fafb; }
     td.key { font-weight: bold; white-space: nowrap; }
     td.number { font-variant-numeric: tabular-nums; width: 70px; }
-    .shiny-badge {
-      display: inline-block;
-      padding: 4px 8px;
-      border: 1px solid #e2bd55;
-      border-radius: 999px;
-      background: #fff8df;
-      color: #8a6410;
-      font-size: 12px;
-      font-weight: bold;
-      letter-spacing: .02em;
-    }
-    .shiny-star { color: #c18a12; font-size: 15px; margin-right: 3px; }
     #count { color: #666; margin: 10px 0; font-size: 14px; }
     @media (max-width: 600px) { body { margin-top: 18px; } th, td { padding: 8px; } }
   </style>
@@ -51,7 +38,6 @@
     </select>
   </div>
   <p id="count" aria-live="polite"></p>
-  <div class="table-wrap">
   <table>
     <thead><tr><th>Keyword</th><th>Number</th><th>Description</th></tr></thead>
     <tbody id="items">
@@ -71,7 +57,7 @@
       <tr><td class="key">egghead</td><td class="number">79</td><td>Egghead Likes His Booky Book Nerd Patrol Weiner Patrol</td></tr>
       <tr><td class="key">ellen</td><td class="number">80</td><td>Ellen I love Your Hair Universe of Energy</td></tr>
       <tr><td class="key">enjoying</td><td class="number">2</td><td>Johnny Somali - Enjoying the Stream? Punch Head</td></tr>
-      <tr><td class="key">enoughofthat</td><td class="number">6</td><td>Family Guy Ugh Enough of That Beat With Bat</td></tr> <span class="shiny-badge" title="A rare alternate version of this alert exists"><span class="shiny-star">✦</span> SHINY</span></td></tr>
+      <tr><td class="key">enoughofthat</td><td class="number">6</td><td>Family Guy Ugh Enough of That Beat With Bat</td></tr>
       <tr><td class="key">fallin</td><td class="number">57</td><td>Base Jump Fall Into Stream</td></tr>
       <tr><td class="key">fatniss</td><td class="number">8</td><td>Fatniss I&#x27;m Scared Little Bitch Stabbed Me</td></tr>
       <tr><td class="key">figure</td><td class="number">51</td><td>Waynes World Figure Something Out Okay Thumbs Up</td></tr>
@@ -100,7 +86,7 @@
       <tr><td class="key">nuts</td><td class="number">76</td><td>DEEZ NUTS! HA GOT EM</td></tr>
       <tr><td class="key">obama</td><td class="number">44</td><td>Obama What The Heck Are You Talking About</td></tr>
       <tr><td class="key">patrick</td><td class="number">63</td><td>Big Iron Patrick Krusty Krab</td></tr>
-      <tr data-shiny="true"><td class="key">pies</td><td class="number">9</td><td>Wonderful Day for Pies Deltarune <span class="shiny-badge" title="A rare alternate version of this alert exists"><span class="shiny-star">✦</span> SHINY</span></td></tr>
+      <tr><td class="key">pies</td><td class="number">9</td><td>Wonderful Day for Pies Deltarune</td></tr>
       <tr><td class="key">pirate</td><td class="number">30</td><td>Pirate March</td></tr>
       <tr><td class="key">piss</td><td class="number">31</td><td>Foghorn Leghorn Piss Too Darn Loud Stealth Mission</td></tr>
       <tr><td class="key">poggers</td><td class="number">32</td><td>Chucky Cheese POGGERS</td></tr>
@@ -108,7 +94,7 @@
       <tr><td class="key">purple</td><td class="number">34</td><td>DBJ Purple the Evil Emperor Cause He's Red</td></tr>
       <tr><td class="key">rain</td><td class="number">23</td><td>Raining on Me Money Smack</td></tr>
       <tr><td class="key">realdog</td><td class="number">28</td><td>It&#x27;s Not a Real Dog Say it With Me</td></tr>
-      <tr><td class="key">salute</td><td class="number">22</td><td>Salute the Emperor Go Fuck Yourself</td></tr> <span class="shiny-badge" title="A rare alternate version of this alert exists"><span class="shiny-star">✦</span> SHINY</span></td></tr>
+      <tr><td class="key">salute</td><td class="number">22</td><td>Salute the Emperor Go Fuck Yourself</td></tr>
       <tr><td class="key">sand</td><td class="number">82</td><td>Broadcast Brought To You By Sand</td></tr>
       <tr><td class="key">scientist</td><td class="number">1</td><td>Family Guy Call a Scientist</td></tr>
       <tr><td class="key">scissors</td><td class="number">59</td><td>You have to be careful with scissors Garrison Scissored all night long</td></tr>
@@ -130,7 +116,7 @@
       <tr><td class="key">thebaby</td><td class="number">81</td><td>I&#x27;m The Baby Gotta Love Me</td></tr>
       <tr><td class="key">thegym</td><td class="number">4</td><td>Family Guy Lois I&#x27;m At the Gym One Guy Follows Me Around Calls me Fat</td></tr>
       <tr><td class="key">thing</td><td class="number">64</td><td>Bird Do The Thing! So Sick</td></tr>
-      <tr><td class="key">unionp</td><td class="number">48</td><td>Simpsons Union Pacific Doesn't Come by much anymore</td></tr> <span class="shiny-badge" title="A rare alternate version of this alert exists"><span class="shiny-star">✦</span> SHINY</span></td></tr>
+      <tr><td class="key">unionp</td><td class="number">48</td><td>Simpsons Union Pacific Doesn't Come by much anymore</td></tr>
       <tr><td class="key">urinal</td><td class="number">49</td><td>Use a DIFFERENT URINAL</td></tr>
       <tr><td class="key">wakeup</td><td class="number">65</td><td>Cockatoo Dog Wake Up Initiate Combat</td></tr>
       <tr><td class="key">watch</td><td class="number">29</td><td>Superman Not Just a Watch Anywhere in the city I'll hear it and I'll come</td></tr>
@@ -143,7 +129,7 @@
       <tr><td class="key">phone</td><td class="number">86</td><td>The Simpsons Here's a Phone Call Someone Who Cares 911</td></tr>
       <tr><td class="key">whatisthis</td><td class="number">87</td><td> Philomena Cunk saying "What the F*ck is this?" meme - Cunk on Life</td></tr>
       <tr><td class="key">boat</td><td class="number">88</td><td>Phil Swift Sawed This Boat in Half Flex Tape</td></tr>
-      <tr><td class="key">highfive</td><td class="number">5</td><td>High Five!</td></tr> <span class="shiny-badge" title="A rare alternate version of this alert exists"><span class="shiny-star">✦</span> SHINY</span></td></tr>
+      <tr><td class="key">highfive</td><td class="number">5</td><td>High Five!</td></tr>
       <tr><td class="key">hookers</td><td class="number">89</td><td>Futurama Dog Mascara Bunch of Hookers</td></tr>
       <tr><td class="key">giraffe</td><td class="number">90</td><td>I'm a Giraffe Mighty Morphin Power Rangers</td></tr>
       <tr><td class="key">grandfather</td><td class="number">91</td><td>Simpsons Can Your Grandfather Do This Old Jewish Man Dance</td></tr>
@@ -161,7 +147,7 @@
       <tr><td class="key">30or40</td><td class="number">103</td><td>ATHF Aqua Teen Hunger Force 30 or 40 years old</td></tr>
       <tr><td class="key">pbaby</td><td class="number">104</td><td>Peanut Butter Baby</td></tr>
       <tr><td class="key">levelup</td><td class="number">105</td><td>Level Up Castlevania Kick Meme</td></tr>
-      <tr><td class="key">mustard</td><td class="number">106</td><td>Alice in Wonderland Mustard Mad Hatter Tea Party Silly</td></tr> <span class="shiny-badge" title="A rare alternate version of this alert exists"><span class="shiny-star">✦</span> SHINY</span></td></tr>
+      <tr><td class="key">mustard</td><td class="number">106</td><td>Alice in Wonderland Mustard Mad Hatter Tea Party Silly</td></tr>
       <tr><td class="key">thetruth</td><td class="number">107</td><td>Family Guy NFL League Cheerleader Silence the Truth</td></tr>
       <tr><td class="key">mabel</td><td class="number">108</td><td>Mabel Tube Run Away Run Into Wall Parrot</td></tr>
       <tr><td class="key">goop</td><td class="number">109</td><td>Goop That Guy Nickelodeon Rat Cartoon</td></tr>
@@ -173,13 +159,12 @@
       <tr><td class="key">hail</td><td class="number">115</td><td>Hail to Gorbechov Pizza Hut</td></tr>
       <tr><td class="key">respect</td><td class="number">116</td><td> Soldier shouts at Pete Hegseth's group to 'maintain an atmosphere of silence and respect'</td></tr>
       <tr><td class="key">everyonebuthim</td><td class="number">117</td><td>Family Guy Hi Everyone But Him Wave</td></tr>
-      <tr><td class="key">dontsaveher</td><td class="number">118</td><td>Don't Save Her Mario Song</td></tr> <span class="shiny-badge" title="A rare alternate version of this alert exists"><span class="shiny-star">✦</span> SHINY</span></td></tr>
-      <tr><td class="key">bikes</td><td class="number">119</td><td>Family Guy Scruff Mcgruff Crime Dog Bikes Fell</td></tr> <span class="shiny-badge" title="A rare alternate version of this alert exists"><span class="shiny-star">✦</span> SHINY</span></td></tr>
+      <tr><td class="key">dontsaveher</td><td class="number">118</td><td>Don't Save Her Mario Song</td></tr>
+      <tr><td class="key">bikes</td><td class="number">119</td><td>Family Guy Scruff Mcgruff Crime Dog Bikes Fell</td></tr>
       <tr><td class="key">bingbong</td><td class="number">120</td><td>Fuck your life! Bing Bing! Bird</td></tr>
       <tr><td class="key">bi</td><td class="number">121</td><td>I had forgotten about Bisexuality Tidus Fayth FFX FF10</td></tr>
     </tbody>
   </table>
-  </div>
   <footer><a class="back-link" href="https://roarstream.com">&larr; Back to Roarstream.com</a></footer>
   <script>
     const search = document.getElementById("search");
