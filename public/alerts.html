@@ -1,3 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Soundboard List</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 950px; margin: 32px auto; padding: 0 16px; color: #222; background: #f5f6f8; }
+    h1 { margin-bottom: 8px; }
+    .subtitle { color: #666; margin-top: 0; }
+    .back-link { display: inline-block; color: #245a9b; text-decoration: none; font-weight: bold; margin: 8px 0 16px; }
+    .back-link:hover { text-decoration: underline; }
+    footer { margin: 24px 0; text-align: center; }
+    .controls { display: flex; gap: 12px; margin: 18px 0; }
+    .controls #search { flex: 1; width: auto; margin: 0; }
+    #sort { padding: 12px; font-size: 16px; border: 1px solid #bbb; border-radius: 8px; background: white; }
+    @media (max-width: 600px) { .controls { flex-direction: column; } }
+    #search { box-sizing: border-box; width: 100%; padding: 12px; margin: 18px 0; font-size: 16px; border: 1px solid #bbb; border-radius: 8px; }
+    .table-wrap { overflow-x: auto; border-radius: 8px; }
+    table { width: 100%; min-width: 0; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e5e5e5; }
+    th { background: #e9edf2; }
+    tbody tr:nth-child(even) { background: #f9fafb; }
+    td.key { font-weight: bold; white-space: nowrap; }
+    td.number { font-variant-numeric: tabular-nums; width: 70px; }
+    .shiny-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border: 1px solid #e2bd55;
+      border-radius: 999px;
+      background: #fff8df;
+      color: #8a6410;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: .02em;
+    }
+    .shiny-star { color: #c18a12; font-size: 15px; margin-right: 3px; }
+    #count { color: #666; margin: 10px 0; font-size: 14px; }
+    @media (max-width: 600px) { body { margin-top: 18px; } th, td { padding: 8px; } }
+  </style>
+</head>
+<body>
+  <a class="back-link" href="https://roarstream.com">&larr; Back to Roarstream.com</a>
+  <h1>Soundboard List</h1>
+  <p class="subtitle">Search by keyword, number, or description.</p>
+  <div class="controls">
+    <input id="search" type="search" placeholder="Search the list…" aria-label="Search soundboard list">
+    <select id="sort" aria-label="Sort list">
+      <option value="number">Sort by Number</option>
+      <option value="alpha">Sort by Name</option>
+    </select>
+  </div>
+  <p id="count" aria-live="polite"></p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Keyword</th><th>Number</th><th>Description</th></tr></thead>
+    <tbody id="items">
       <tr><td class="key">random</td><td class="number">0</td><td>Picks a random alert from the list below.</td></tr>
       <tr><td class="key">ai</td><td class="number">61</td><td>Beavis and Butthead Beat Up AI. Well, now you did it. Hit A/C Unit.</td></tr>
       <tr><td class="key">ass</td><td class="number">21</td><td>I Kicked His Ass guy punch screen</td></tr>
@@ -119,10 +176,11 @@
       <tr><td class="key">dontsaveher</td><td class="number">118</td><td>Don't Save Her Mario Song</td></tr>
       <tr><td class="key">bikes</td><td class="number">119</td><td>Family Guy Scruff Mcgruff Crime Dog Bikes Fell</td></tr>
       <tr><td class="key">bingbong</td><td class="number">120</td><td>Fuck your life! Bing Bing! Bird</td></tr>
-      <tr><td class="key">bi</td><td class="number">121</td><td>I had forgotten about Bisexuality Tidus Fayth FFX FF10</td></tr>   
+      <tr><td class="key">bi</td><td class="number">121</td><td>I had forgotten about Bisexuality Tidus Fayth FFX FF10</td></tr>
       <tr><td class="key">athiest</td><td class="number">122</td><td>Athiest.Mp4</td></tr>
     </tbody>
   </table>
+  </div>
   <footer><a class="back-link" href="https://roarstream.com">&larr; Back to Roarstream.com</a></footer>
   <script>
     const search = document.getElementById("search");
@@ -136,7 +194,7 @@
         row.hidden = !matches;
         if (matches) visible++;
       }
-      count.textContent = `${visible} of ${rows.length} entries (including #0)`;
+      count.textContent = `${visible} of ${rows.length} entries`;
     }
     search.addEventListener("input", filterRows);
     const tbody = document.getElementById("items");
