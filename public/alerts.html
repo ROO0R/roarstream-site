@@ -179,7 +179,7 @@
         row.hidden = !matches;
         if (matches) visible++;
       }
-      count.textContent = `${visible} of ${rows.length} entries`;
+      count.textContent = `${visible} of ${rows.length} entries (including #0)`;
     }
     search.addEventListener("input", filterRows);
     const tbody = document.getElementById("items");
